@@ -1,0 +1,30 @@
+<configuration>
+<!--  標準出力設定  -->
+<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+<encoder>
+<charset>UTF-8</charset>
+<pattern>%d{yyyy/MM/dd HH:mm:ss} %-5level [%thread] - %msg%n</pattern>
+</encoder>
+</appender>
+
+<!-- ファイル出力設定 -->
+<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+<!-- 出力先ファイルパス -->
+<file>application.log</file>
+<!-- 出力形式 -->
+<encoder>
+<charset>UTF-8</charset>
+<pattern>%d{yyyy/MM/dd HH:mm:ss} %-5level [%thread] - %msg%n</pattern>
+</encoder>
+<!-- ログのローテーション設定 -->
+<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+<fileNamePattern>applicatidon-%d{yyyyMMdd}.gz</fileNamePattern>
+<maxHistory>14</maxHistory>
+</rollingPolicy>
+</appender>
+
+<root level="INFO">
+<appender-ref ref="STDOUT" />
+<appender-ref ref="FILE" />
+</root>
+</configuration>

@@ -1,0 +1,18 @@
+spring:
+  message:
+    basename: ValidationMessages
+    cacheduration: -1
+    encoding: utf-8
+  datasource:
+    initialize: false
+    url: jdbc:mysql://localhost:33306/employee
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+doma:
+  direct: mysql
+  data-source-name: jdbc:mysql://localhost:33306/employee?user=root&password=root
+  exception-sql-log-type: formatted
+  jdbc-logger: slf4j
+

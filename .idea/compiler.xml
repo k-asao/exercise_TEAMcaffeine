@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.20/18bcea7d5df4d49227b4a0743a536208ce4825bb/lombok-1.18.20.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.seasar.doma/doma-processor/2.46.0/554f6d76f45ef798b2dcac27dcd808fb6ba5d318/doma-processor-2.46.0.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.seasar.doma/doma-core/2.46.0/d50ef5786755e3dd00939720ad2b38be59948693/doma-core-2.46.0.jar" />
+        </processorPath>
+        <module name="jp.co.froide.exercise.TeamCoffein.main" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
