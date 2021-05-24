@@ -15,6 +15,7 @@ public class EmployeeForm implements Serializable {
     String name;
 
     @NotBlank
+    @Pattern(regexp = "^[ァ-タダ-ヶー]*$")
     String kana;
 
     @NotBlank
