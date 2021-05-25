@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>aaa</title>
+</head>
+<body>
+    <form th:object="${form}" th:action="@{/emp/create}" id=empForm  enctype="multipart/form-data" method=post>
+        <div>
+            <input type="text" th:type="text"  name = "name" th:field="*{name}"/>
+            <div th:if = "${#fields.hasErrors('name')}" th:errors="*{name}">error code</div>
+        </div>
+
+       <div>
+            <input type="text" th:type="text"  name = "kana" th:field="*{kana}"/>
+            <div th:if = "${#fields.hasErrors('kana')}" th:errors="*{kana}">error code</div>
+       </div>
+       <div>
+            <input type="date" th:type="date"  name = "hire_date" th:field="*{hire_date}"/>
+            <div th:if = "${#fields.hasErrors('hire_date')}" th:errors="*{hire_date}">error code</div>
+       </div>
+       <div>
+            <select id="selectPost" name="selectPost" th:field="*{post_id}">
+                <option th:each="post: ${postList}" th:text="${post.post_name}" th:value="${post.post_id}" >text</option>
+            </select>
+            <div th:if = "${#fields.hasErrors('post_id')}" th:errors="*{post_id}">error code</div>
+       </div>
+       <div>
+            <select id="selectDept" name="selectDept" th:field="*{dept_id}">
+                 <option th:each="dept: ${deptList}" th:text="${dept.dept_name}" th:value="${dept.dept_id}" >text</option>
+            </select>
+            <div th:if = "${#fields.hasErrors('dept_id')}" th:errors="*{dept_id}">error code</div>
+       </div>
+       <div>
+            <input type=text th:type=text  name = tel th:field="*{tel}"/>
+            <div th:if = "${#fields.hasErrors('tel')}" th:errors="*{tel}">error code</div>
+       </div>
+       <div>
+            <input type=text th:type=text  name = email th:field="*{email}"/>
+            <div th:if = "${#fields.hasErrors('email')}" th:errors="*{email}">error code</div>
+       </div>
+       <input type = "submit" value="Send"/>
+
+    </form>
+
+</body>
+</html>

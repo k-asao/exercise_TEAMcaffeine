@@ -1,4 +1,4 @@
-package java.jp.co.froide.exercise.TeamCoffein.form;
+package jp.co.froide.exercise.TeamCoffein.form;
 
 import lombok.Data;
 
@@ -14,8 +14,7 @@ public class EmployeeForm implements Serializable {
     @NotBlank
     String name;
 
-    @NotBlank
-    @Pattern(regexp = "^[ァ-タダ-ヶー]*$")
+    @Pattern(regexp = "[ァ-タダ-ヶー]+", message = "全角カナで入力してください")
     String kana;
 
     @NotBlank
@@ -27,11 +26,11 @@ public class EmployeeForm implements Serializable {
     @NotNull
     Integer dept_id;
 
-    @NotBlank
-    @Pattern(regexp = "^0\\d{9,10}$")
+    @Pattern(regexp = "^0\\d{10,11}$", message = "半角数字で電話番号を入力してください。")
     String tel;
 
     @Email
+    @NotBlank
     String email;
 
 }

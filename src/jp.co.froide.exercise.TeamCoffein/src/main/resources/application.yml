@@ -1,8 +1,8 @@
 spring:
   message:
-    basename: ValidationMessages
+    basename: ValidationMessages, messages
     cacheduration: -1
-    encoding: utf-8
+    encoding: UTF-8
   datasource:
     initialize: false
     url: jdbc:mysql://localhost:33306/employee

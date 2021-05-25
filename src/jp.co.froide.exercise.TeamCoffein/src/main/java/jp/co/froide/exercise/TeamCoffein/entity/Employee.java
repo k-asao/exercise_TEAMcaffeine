@@ -1,4 +1,4 @@
-package java.jp.co.froide.exercise.TeamCoffein.entity;
+package jp.co.froide.exercise.TeamCoffein.entity;
 
 import lombok.Getter;
 import lombok.Setter;
