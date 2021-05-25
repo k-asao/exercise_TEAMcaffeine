@@ -1,4 +1,4 @@
-package java.jp.co.froide.exercise.TeamCoffein;
+package jp.co.froide.exercise.TeamCoffein;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
