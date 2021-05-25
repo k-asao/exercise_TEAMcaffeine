@@ -5,6 +5,7 @@ import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
 import jp.co.froide.exercise.TeamCoffein.dao.UpdateDao;
 import jp.co.froide.exercise.TeamCoffein.entity.Department;
 import jp.co.froide.exercise.TeamCoffein.entity.Employee;
+import jp.co.froide.exercise.TeamCoffein.entity.NewEmp;
 import jp.co.froide.exercise.TeamCoffein.entity.Post;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,10 @@ public class UpdateEmpController {
 
     @GetMapping("/emp")
     public String showList(Model model){
+        List<NewEmp> ne = updateDao.selectALLEmp();
+        for(NewEmp nea: ne){
+            System.out.print(nea.getDept_name());
+        }
         return "list";
     }
 

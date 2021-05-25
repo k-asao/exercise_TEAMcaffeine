@@ -17,4 +17,6 @@ public interface PostDao {
     @Select
     List<Post> selectAll();
 
+
+
 }
