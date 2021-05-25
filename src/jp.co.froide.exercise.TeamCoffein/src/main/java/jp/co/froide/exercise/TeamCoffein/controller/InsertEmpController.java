@@ -41,6 +41,7 @@ public class InsertEmpController {
         List<Department> deptList = deptDao.selectAll();
         model.addAttribute("postList", postList);
         model.addAttribute("deptList", deptList);
+        model.addAttribute("noSelect",null);
         return "createForm";
     }
 
