@@ -29,6 +29,8 @@ public class InsertEmpController {
     @Autowired
     DeptDao deptDao;
 
+
+
     @GetMapping("/emp/create")
     public String showForm(Model model){
         if(!model.containsAttribute("error")) {
@@ -42,8 +44,12 @@ public class InsertEmpController {
         return "createForm";
     }
 
+    @PostMapping(value = "/emp/create", params = "action=cancel")
+    public String cancelInsert(){
+        return "redirect:/emp";
+    }
 
-    @PostMapping("/emp/create")
+    @PostMapping(value = "/emp/create", params = "action=insert")
     public String createEmp(@Validated @ModelAttribute EmployeeForm form, BindingResult result,
                             Model model, RedirectAttributes ra){
         if(result.hasErrors()){
@@ -64,7 +70,7 @@ public class InsertEmpController {
         emp.setEmail(form.getEmail());
         System.out.print(form);
         insertDao.insert(emp);
-        return "/emp";
+        return "redirect:/emp";
     }
 
 }

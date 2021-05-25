@@ -39,7 +39,8 @@
             <input type=text th:type=text  name = email th:field="*{email}"/>
             <div th:if = "${#fields.hasErrors('email')}" th:errors="*{email}">error code</div>
        </div>
-       <input type = "submit" value="Send"/>
+       <button type = "submit" name = "action" value = "cancel">キャンセル</button>
+       <button type = "submit" name = "action" value = "insert">登録</button>
 
     </form>
 
