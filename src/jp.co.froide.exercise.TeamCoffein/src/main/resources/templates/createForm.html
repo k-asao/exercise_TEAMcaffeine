@@ -1,47 +1,166 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>aaa</title>
+    <meta charset="UTF-8">
+    <title>社員登録画面</title>
+    <style>
+        body{
+            background-color:#f0f1f4;
+            margin: 80px 80px;
+        }
+        .content{
+            background-color:white;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+        }
+        .page-title{
+            color:#384359;
+            font-weight:700;
+            font-size:30px;
+            margin:0px;
+        }
+        .content__input-wrapper{
+            display:flex;
+            align-items:center;
+            width:60%;
+            justify-content:space-between;
+            padding:32px 0px;
+            border-bottom:1px solid #f0f1f4;
+        }
+        .content__input--label{
+            font-size:18px;
+            color:#384359;
+            font-weight:700;
+        }
+        .content__input-wrapper--input{
+            width:640px;
+        }
+        .content__input-wrapper--input input,select{
+            background-color:#fcfcfd;
+            border:1px solid #c2c8d2;
+            box-sizing:border-box;
+            width:100%;
+            height:40px;
+            padding:0px 12px;
+            border-radius:4px;
+        }
+        .submit-button{
+            display:flex;
+            justify-content:center;
+            margin-top:16px;
+            padding:32px;
+        }
+        .submit-button__cancel{
+            margin:0 12px;
+            border-radius:8px;
+            font-size:16px;
+            background-color:#c2c8d2;
+            color:white;
+            cursor:pointer;
+            font-weight:700;
+            border:none;
+            width:320px;
+            padding:8px;
+        }
+        .submit-button__insert{
+            margin:0 12px;
+            border-radius:8px;
+            font-size:16px;
+            background-color:#11beae;
+            color:white;
+            cursor:pointer;
+            font-weight:700;
+            border:none;
+            width:320px;
+            padding:8px;
+        }
+
+    </style>
 </head>
 <body>
-    <form th:object="${form}" th:action="@{/emp/create}" id=empForm  enctype="multipart/form-data" method=post>
+<!--page-title-->
+<h1 class="page-title">登録画面</h1>
+
+<!--content-->
+<form class="content" th:object="${form}" th:action="@{/emp/create}" id=empForm enctype="multipart/form-data"
+      method=post>
+
+    <!--    content__name-->
+    <div class="content__input-wrapper">
         <div>
-            <input type="text" th:type="text"  name = "name" th:field="*{name}"/>
-            <div th:if = "${#fields.hasErrors('name')}" th:errors="*{name}">error code</div>
+            <label class="content__input--label">名前</label>
         </div>
+        <div class="content__input-wrapper--input">
+            <input type="text" th:type="text" name="name" th:field="*{name}"/>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error code</div>
+        </div>
+    </div>
 
-       <div>
-            <input type="text" th:type="text"  name = "kana" th:field="*{kana}"/>
-            <div th:if = "${#fields.hasErrors('kana')}" th:errors="*{kana}">error code</div>
-       </div>
-       <div>
-            <input type="date" th:type="date"  name = "hire_date" th:field="*{hire_date}"/>
-            <div th:if = "${#fields.hasErrors('hire_date')}" th:errors="*{hire_date}">error code</div>
-       </div>
-       <div>
+    <!--    content__kana-->
+    <div class="content__input-wrapper">
+        <label class="content__input--label">フリガナ</label>
+        <div class="content__input-wrapper--input">
+            <input type="text" th:type="text" name="kana" th:field="*{kana}"/>
+            <div th:if="${#fields.hasErrors('kana')}" th:errors="*{kana}">error code</div>
+        </div>
+    </div>
+
+    <!--    content__hire_date-->
+    <div class="content__input-wrapper">
+        <label class="content__input--label">入社年月日</label>
+        <div class="content__input-wrapper--input">
+            <input type="date" th:type="date" name="hire_date" th:field="*{hire_date}"/>
+            <div th:if="${#fields.hasErrors('hire_date')}" th:errors="*{hire_date}">error code</div>
+        </div>
+    </div>
+
+    <!--    content__post-->
+    <div class="content__input-wrapper">
+        <label class="content__input--label">役職</label>
+        <div class="content__input-wrapper--input">
             <select id="selectPost" name="selectPost" th:field="*{post_id}">
-                <option th:each="post: ${postList}" th:text="${post.post_name}" th:value="${post.post_id}" >text</option>
+                <option th:each="post: ${postList}" th:text="${post.post_name}" th:value="${post.post_id}">text</option>
             </select>
-            <div th:if = "${#fields.hasErrors('post_id')}" th:errors="*{post_id}">error code</div>
-       </div>
-       <div>
-            <select id="selectDept" name="selectDept" th:field="*{dept_id}">
-                 <option th:each="dept: ${deptList}" th:text="${dept.dept_name}" th:value="${dept.dept_id}" >text</option>
-            </select>
-            <div th:if = "${#fields.hasErrors('dept_id')}" th:errors="*{dept_id}">error code</div>
-       </div>
-       <div>
-            <input type=text th:type=text  name = tel th:field="*{tel}"/>
-            <div th:if = "${#fields.hasErrors('tel')}" th:errors="*{tel}">error code</div>
-       </div>
-       <div>
-            <input type=text th:type=text  name = email th:field="*{email}"/>
-            <div th:if = "${#fields.hasErrors('email')}" th:errors="*{email}">error code</div>
-       </div>
-       <input type = "submit" value="Send"/>
+            <div th:if="${#fields.hasErrors('post_id')}" th:errors="*{post_id}">error code</div>
+        </div>
+    </div>
 
-    </form>
+    <!--    content__dept-->
+    <div class="content__input-wrapper">
+        <label class="content__input--label">所属部署</label>
+        <div class="content__input-wrapper--input">
+            <select id="selectDept" name="selectDept" th:field="*{dept_id}">
+                <option th:each="dept: ${deptList}" th:text="${dept.dept_name}" th:value="${dept.dept_id}">text</option>
+            </select>
+            <div th:if="${#fields.hasErrors('dept_id')}" th:errors="*{dept_id}">error code</div>
+        </div>
+    </div>
+
+    <!--    content__tel-->
+    <div class="content__input-wrapper">
+        <label class="content__input--label">携帯番号</label>
+        <div class="content__input-wrapper--input">
+            <input type=text th:type=text name=tel th:field="*{tel}"/>
+            <div th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}">error code</div>
+        </div>
+    </div>
+
+    <!--    content__email-->
+    <div class="content__input-wrapper">
+        <label class="content__input--label">メールアドレス</label>
+        <div class="content__input-wrapper--input">
+            <input type=text th:type=text name=email th:field="*{email}"/>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">error code</div>
+        </div>
+    </div>
+</form>
+
+<!--    submit-button-->
+<div class="submit-button">
+    <button class="submit-button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
+    <button class="submit-button__insert" type="submit" name="action" value="insert">登録</button>
+</div>
 
 </body>
 </html>
