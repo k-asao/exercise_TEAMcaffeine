@@ -36,23 +36,24 @@ public class UpdateEmpController {
 
     @GetMapping("/emp/edit/{id}")
     public String showEditForm(Model model, @PathVariable("id") Integer id){
-        Employee emp = updateDao.selectEmpByID(id);
-        EmployeeForm form = new EmployeeForm();
-        form.setName(emp.getName());
-        form.setKana(emp.getKana());
-        form.setHire_date(emp.getHire_date());
-        form.setPost_id(emp.getPost_id());
-        form.setDept_id(emp.getDept_id());
-        form.setTel(emp.getTel());
-        form.setEmail(emp.getEmail());
+        if(!model.containsAttribute("error")) {
+            Employee emp = updateDao.selectEmpByID(id);
+            EmployeeForm form = new EmployeeForm();
+            form.setName(emp.getName());
+            form.setKana(emp.getKana());
+            form.setHire_date(emp.getHire_date());
+            form.setPost_id(emp.getPost_id());
+            form.setDept_id(emp.getDept_id());
+            form.setTel(emp.getTel());
+            form.setEmail(emp.getEmail());
+            model.addAttribute("form",form);
+        }
 
         List<Post> postList = postDao.selectAll();
         List<Department> deptList = deptDao.selectAll();
         model.addAttribute("postList", postList);
         model.addAttribute("deptList", deptList);
-        model.addAttribute("form",form);
         model.addAttribute("id", id);
-        System.out.print(form);
 
         return "detailEmp";
 

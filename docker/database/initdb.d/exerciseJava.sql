@@ -110,7 +110,7 @@ INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email) VALUES
 INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email) VALUES 
             ('麻倉葉', 'アサクラヨウ', '1977-08-01', 2, 8, '08054833414', 'emp002@example.co.jp');
 INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email) VALUES 
-            ('ランデル・オーランド', 'ランデル・オーランド', '1976-04-01', 3, 8, '080-7833-0868', 'emp003@example.co.jp');
+            ('ランデル・オーランド', 'ランデル・オーランド', '1976-04-01', 3, 8, '08078330868', 'emp003@example.co.jp');
 INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email) VALUES 
             ('虎杖悠二', 'イタドリユウジ', '1979-04-01', 3, 8, '08019258645', 'emp004@example.co.jp');
 INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email) VALUES 
