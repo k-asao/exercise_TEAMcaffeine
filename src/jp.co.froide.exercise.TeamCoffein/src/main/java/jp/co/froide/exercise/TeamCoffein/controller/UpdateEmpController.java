@@ -74,7 +74,7 @@ public class UpdateEmpController {
            ra.addFlashAttribute("form", form);
            return "redirect:/emp/edit/{id}";
        }
-       System.out.print("sssssss");
+
        Employee emp = new Employee();
        emp.setEmp_id(id);
        emp.setName(form.getName());
