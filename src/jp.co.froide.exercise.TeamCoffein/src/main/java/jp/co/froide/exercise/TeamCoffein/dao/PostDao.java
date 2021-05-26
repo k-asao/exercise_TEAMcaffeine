@@ -9,6 +9,7 @@ import org.seasar.doma.boot.ConfigAutowireable;
 
 import java.util.List;
 
+//役職テーブル用のDao
 @ConfigAutowireable
 @Dao
 public interface PostDao {

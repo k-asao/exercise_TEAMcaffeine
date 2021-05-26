@@ -5,6 +5,7 @@ import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.boot.ConfigAutowireable;
 
+//新規登録用Dao
 @ConfigAutowireable
 @Dao
 public interface InsertDao {
