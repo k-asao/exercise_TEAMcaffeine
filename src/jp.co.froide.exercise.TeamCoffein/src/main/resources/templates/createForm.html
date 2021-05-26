@@ -79,9 +79,6 @@
             padding:8px;
         }
 
-        .error_message{
-
-        }
 
         @media screen and (max-width: 479px) { /*ウィンドウ幅が479px以下の場合に適用*/
             body{
@@ -117,7 +114,7 @@
         <div class="content__input-wrapper--input">
             <label class="content__input--label">名前</label>
             <input type="text" th:type="text" name="name" th:field="*{name}"/>
-            <div class="error_message"th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error code</div>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error code</div>
         </div>
     </div>
 
