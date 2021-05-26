@@ -212,8 +212,8 @@
             <label class="content__input--label">携帯番号</label>
             <div class="content__input-wrapper--input">
                 <input type=text th:type=text name=tel th:field="*{tel}"/>
-                <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('dept_id')}"
-                     th:errors="*{dept_id}">error
+                <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('tel')}"
+                     th:errors="*{tel}">error
                     code
                 </div>
             </div>
