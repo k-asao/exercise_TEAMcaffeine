@@ -17,7 +17,7 @@ public class EmployeeForm implements Serializable {
     String name;
 
     @Length(min=0, max=255)
-    @Pattern(regexp = "[ァ-タダ-ヶー]+", message = "全角カナで入力してください")
+    @Pattern(regexp = "[ァ-タダ-ヶー・•]+", message = "全角カナで入力してください")
     String kana;
 
     @NotBlank
