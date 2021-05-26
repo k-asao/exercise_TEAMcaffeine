@@ -2,56 +2,249 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>詳細画面</title>
+    <style>
+        body{
+            background-color:#f0f1f4;
+            margin: 80px 80px;
+        }
+        .page-title{
+            color:#384359;
+            font-weight:700;
+            font-size:30px;
+            margin:0px;
+        }
+        .content{
+            background-color:white;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+        }
+        .content__input-wrapper{
+            width:60%;
+            justify-content:center;
+            padding:32px 0px;
+            border-bottom:1px solid #f0f1f4;
+        }
+        .content__input-wrapper--field{
+            display:flex;
+            align-items:center;
+        }
+        .content__input--label{
+            font-size:18px;
+            color:#384359;
+            font-weight:700;
+            width:160px;
+        }
+        .content__input-wrapper--input{
+            width:100%;
+        }
+        .content__input-wrapper--input input,select{
+            background-color:#fcfcfd;
+            border:1px solid #c2c8d2;
+            box-sizing:border-box;
+            height:40px;
+            padding:0px 12px;
+            border-radius:4px;
+            width:100%;
+        }
+        .content__input-wrapper--error{
+            font-size:13px;
+            color:#f29091;
+        }
+        .submit-button{
+            display:flex;
+            justify-content:center;
+            margin-top:16px;
+            padding:32px;
+        }
+        .submit-button__cancel{
+            margin:0 12px;
+            border-radius:8px;
+            font-size:16px;
+            background-color:#c2c8d2;
+            color:white;
+            cursor:pointer;
+            font-weight:700;
+            border:none;
+            width:320px;
+            padding:8px;
+        }
+        .submit-button__update{
+            margin:0 12px;
+            border-radius:8px;
+            font-size:16px;
+            background-color:#11beae;
+            color:white;
+            cursor:pointer;
+            font-weight:700;
+            border:none;
+            width:320px;
+            padding:8px;
+        }
+        .delete-button{
+            display:flex;
+            justify-content:center;
+            margin:20px;
+            color:#f29091;
+        }
+
+        @media screen and (max-width: 479px) { /*ウィンドウ幅が479px以下の場合に適用*/
+            body{
+                margin:0 auto;
+            }
+            .content__input-wrapper--field{
+                display:flex;
+                flex-direction:column;
+                align-items:flex-start;
+            }
+            .submit-button{
+                padding:0px;
+                align-items:center;
+                flex-direction:column-reverse;
+            }
+            .submit-button button{
+                margin-top:10px;
+            }
+            .content{
+                padding-bottom:20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <p>社員番号　[[${id}]]</p>
-    <form th:object="${form}" action = "#" th:action="@{/emp/edit/{id}(id = ${id})}" enctype="multipart/form-data" method=post>
-        <div>
-            名前
-            <input type="text" th:type="text"  name = "name" th:field="*{name}"/>
-            <div th:if = "${#fields.hasErrors('name')}" th:errors="*{name}">error code</div>
+<!--page-title-->
+<h1 class="page-title">編集画面</h1>
+
+<!--content-->
+<form class="content" th:object="${form}" action="#" th:action="@{/emp/edit/{id}(id = ${id})}"
+      enctype="multipart/form-data" method=post>
+
+    <!--    content__number-->
+    <div class="content__input-wrapper">
+        <div class="content__input-wrapper--field">
+            <label class="content__input--label">社員番号</label>
+            <label class="content__input--label">[[${id}]]</label>
+        </div>
+    </div>
+
+    <!--    content__name-->
+    <div class="content__input-wrapper">
+        <div class="content__input-wrapper--field">
+            <label class="content__input--label">名前</label>
+            <div class="content__input-wrapper--input">
+                <input type="text" th:type="text" name="name" th:field="*{name}"/>
+                <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                    error code
+                </div>
+            </div>
         </div>
 
-        <div>
-            フリガナ
-            <input type="text" th:type="text"  name = "kana" th:field="*{kana}"/>
-            <div th:if = "${#fields.hasErrors('kana')}" th:errors="*{kana}">error code</div>
-        </div>
-        <div>
-            入社日
-            <input type="date" th:type="date"  name = "hire_date" th:field="*{hire_date}"/>
-            <div th:if = "${#fields.hasErrors('hire_date')}" th:errors="*{hire_date}">error code</div>
-        </div>
-        <div>
-            役職
-            <select id="selectPost" name="selectPost" th:field="*{post_id}">
-                <option th:each="post: ${postList}" th:text="${post.post_name}" th:value="${post.post_id}" >text</option>
-            </select>
-            <div th:if = "${#fields.hasErrors('post_id')}" th:errors="*{post_id}">error code</div>
-        </div>
-        <div>
-            部署
-            <select id="selectDept" name="selectDept" th:field="*{dept_id}">
-                <option th:each="dept: ${deptList}" th:text="${dept.dept_name}" th:value="${dept.dept_id}" >text</option>
-            </select>
-            <div th:if = "${#fields.hasErrors('dept_id')}" th:errors="*{dept_id}">error code</div>
-        </div>
-        <div>
-            電話番号
-            <input type=text th:type=text  name = tel th:field="*{tel}"/>
-            <div th:if = "${#fields.hasErrors('tel')}" th:errors="*{tel}">error code</div>
-        </div>
-        <div>
-            メールアドレス
-            <input type=text th:type=text  name = email th:field="*{email}"/>
-            <div th:if = "${#fields.hasErrors('email')}" th:errors="*{email}">error code</div>
-        </div>
-        <button type = "submit" name = "action" value = "cancel">キャンセル</button>
-        <button type = "submit" name = "action" value = "update">更新</button>
-    </form>
+    </div>
 
-    <p><a th:href="@{/emp/edit/{id}/delete(id=${id})}">この社員情報を削除する</a></p>
+
+    <!--    content__kana-->
+    <div class="content__input-wrapper">
+        <div class="content__input-wrapper--field">
+            <label class="content__input--label">フリガナ</label>
+            <div class="content__input-wrapper--input">
+                <input type="text" th:type="text" name="kana" th:field="*{kana}"/>
+                <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('kana')}" th:errors="*{kana}">
+                    error code
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    content__hire_date-->
+    <div class="content__input-wrapper">
+        <div class="content__input-wrapper--field">
+            <label class="content__input--label">入社年月日</label>
+            <div class="content__input-wrapper--input">
+                <input type="date" th:type="date" name="hire_date" th:field="*{hire_date}"/>
+                <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('hire_date')}"
+                     th:errors="*{hire_date}">
+                    error code
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    content__post-->
+    <div class="content__input-wrapper">
+        <div class="content__input-wrapper--field">
+            <label class="content__input--label">役職</label>
+            <div class="content__input-wrapper--input">
+                <select id="selectPost" name="selectPost" th:field="*{post_id}">
+                    <option th:value="${noSelect}" selected>役職を選択してください</option>
+                    <option th:each="post: ${postList}" th:text="${post.post_name}" th:value="${post.post_id}">text
+                    </option>
+                </select>
+                <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('post_id')}"
+                     th:errors="*{post_id}">error
+                    code
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    content__dept-->
+    <div class="content__input-wrapper">
+        <div class="content__input-wrapper--field">
+            <label class="content__input--label">所属部署</label>
+            <div class="content__input-wrapper--input">
+                <select id="selectDept" name="selectDept" th:field="*{dept_id}">
+                    <option th:value="${noSelect}" selected>部署を選択してください</option>
+                    <option th:each="dept: ${deptList}" th:text="${dept.dept_name}" th:value="${dept.dept_id}">text
+                    </option>
+                </select>
+                <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('dept_id')}"
+                     th:errors="*{dept_id}">error
+                    code
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--    content__tel-->
+    <div class="content__input-wrapper">
+        <div class="content__input-wrapper--field">
+            <label class="content__input--label">携帯番号</label>
+            <div class="content__input-wrapper--input">
+                <input type=text th:type=text name=tel th:field="*{tel}"/>
+                <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('dept_id')}"
+                     th:errors="*{dept_id}">error
+                    code
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    content__email-->
+    <div class="content__input-wrapper">
+        <div class="content__input-wrapper--field">
+            <label class="content__input--label">メールアドレス</label>
+            <div class="content__input-wrapper--input">
+                <input type=text th:type=text name=email th:field="*{email}"/>
+                <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                    error
+                    code
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    submit-button-->
+    <div class="submit-button">
+        <button class="submit-button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
+        <button class="submit-button__update" type="submit" name="action" value="update">更新</button>
+    </div>
+
+</form>
+
+<a class="delete-button" th:href="@{/emp/edit/{id}/delete(id=${id})}">この社員情報を削除する</a>
 
 </body>
 </html>
