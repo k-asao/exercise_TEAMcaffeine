@@ -87,6 +87,7 @@
             justify-content:center;
             margin:20px;
             color:#f29091;
+            cursor:pointer;
         }
 
         @media screen and (max-width: 479px) { /*ウィンドウ幅が479px以下の場合に適用*/
@@ -110,6 +111,8 @@
                 padding-bottom:20px;
             }
         }
+
+
     </style>
 </head>
 <body>
@@ -119,7 +122,6 @@
 <!--content-->
 <form class="content" th:object="${form}" action="#" th:action="@{/emp/edit/{id}(id = ${id})}"
       enctype="multipart/form-data" method=post>
-
     <!--    content__number-->
     <div class="content__input-wrapper">
         <div class="content__input-wrapper--field">
@@ -133,7 +135,7 @@
         <div class="content__input-wrapper--field">
             <label class="content__input--label">名前</label>
             <div class="content__input-wrapper--input">
-                <input type="text" th:type="text" name="name" th:field="*{name}"/>
+                <input type="text" th:type="text" name="name" th:field="*{name}" placeholder="空白は入れずにご入力ください。"/>
                 <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
                     error code
                 </div>
@@ -147,11 +149,18 @@
         <div class="content__input-wrapper--field">
             <label class="content__input--label">フリガナ</label>
             <div class="content__input-wrapper--input">
-                <input type="text" th:type="text" name="kana" th:field="*{kana}"/>
+                <input type="text" th:type="text" name="kana" th:field="*{kana}" placeholder="空白は入れずにご入力ください。"/>
                 <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('kana')}" th:errors="*{kana}">
                     error code
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="content__input-wrapper">
+        <div class="content__input-wrapper--field">
+            <label class="content__input--label">入社年数</label>
+            <label id="year" class="content__input--label">[[${year}]]年</label>
         </div>
     </div>
 
@@ -160,7 +169,7 @@
         <div class="content__input-wrapper--field">
             <label class="content__input--label">入社年月日</label>
             <div class="content__input-wrapper--input">
-                <input type="date" th:type="date" name="hire_date" th:field="*{hire_date}"/>
+                <input id="setDate" type="date" th:type="date" name="hire_date" th:field="*{hire_date}"/>
                 <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('hire_date')}"
                      th:errors="*{hire_date}">
                     error code
@@ -168,6 +177,21 @@
             </div>
         </div>
     </div>
+    <!--    動的に入社年数が変更される処理-->
+    <script th:inline="javascript">
+        function dateUntilblurred(e) {
+            const dateSince = document.getElementById("setDate");
+            const value = e.target.value;
+            const dateList = value.split("-")
+            const getDate = new Date(Number(dateList[0]),Number(dateList[1])-1,Number(dateList[2]))
+            let result = Date.now() - getDate
+            if (result >= 0) {
+            document.getElementById("year").innerHTML = `<label class='content__input--label'>${Math.floor(result/(1000*60*60*24*365))}年</label>`;
+            }
+        }
+        document.getElementById("setDate").addEventListener("blur", (e) => dateUntilblurred(e));
+
+    </script>
 
     <!--    content__post-->
     <div class="content__input-wrapper">
@@ -211,7 +235,7 @@
         <div class="content__input-wrapper--field">
             <label class="content__input--label">携帯番号</label>
             <div class="content__input-wrapper--input">
-                <input type=text th:type=text name=tel th:field="*{tel}"/>
+                <input type=text th:type=text name=tel th:field="*{tel}" placeholder="ハイフンは入れずにご入力ください。"/>
                 <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('tel')}"
                      th:errors="*{tel}">error
                     code
@@ -239,10 +263,18 @@
         <button class="submit-button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
         <button class="submit-button__update" type="submit" name="action" value="update">更新</button>
     </div>
-
 </form>
 
-<a class="delete-button" th:href="@{/emp/edit/{id}/delete(id=${id})}">この社員情報を削除する</a>
-
+<!--delete element-->
+<a id="delete" class="delete-button">この社員情報を削除する</a>
+<script>
+    document.getElementById("delete").addEventListener("click", (e) => {
+        let result = confirm("削除しますか？")
+        console.log(result)
+        if(result){
+            window.location.href='[[${id}]]/delete'
+        }
+    });
+</script>
 </body>
 </html>

@@ -18,7 +18,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Year;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class UpdateEmpController {
@@ -30,13 +36,13 @@ public class UpdateEmpController {
     DeptDao deptDao;
 
     @GetMapping("/emp")
-    public String showList(Model model){
+    public String showList(Model model) {
         return "list";
     }
 
     @GetMapping("/emp/edit/{id}")
-    public String showEditForm(Model model, @PathVariable("id") Integer id){
-        if(!model.containsAttribute("error")) {
+    public String showEditForm(Model model, @PathVariable("id") Integer id) throws ParseException {
+        if (!model.containsAttribute("error")) {
             Employee emp = updateDao.selectEmpByID(id);
             EmployeeForm form = new EmployeeForm();
             form.setName(emp.getName());
@@ -46,7 +52,17 @@ public class UpdateEmpController {
             form.setDept_id(emp.getDept_id());
             form.setTel(emp.getTel());
             form.setEmail(emp.getEmail());
-            model.addAttribute("form",form);
+
+//            変更点
+            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-mm-dd");
+            Date nowDate = new Date();
+            Date date = java.sql.Date.valueOf(emp.getHire_date());
+            TimeUnit diff = TimeUnit.DAYS;
+            Long result = nowDate.getTime() - date.getTime();
+            Long yearDiff = diff.convert(result, TimeUnit.MILLISECONDS) / 365;
+            model.addAttribute("year", yearDiff);
+
+            model.addAttribute("form", form);
         }
 
         List<Post> postList = postDao.selectAll();
@@ -54,47 +70,42 @@ public class UpdateEmpController {
         model.addAttribute("postList", postList);
         model.addAttribute("deptList", deptList);
         model.addAttribute("id", id);
-
         return "detailEmp";
-
-
     }
 
     @RequestMapping(value = "/emp/edit/{id}", params = "action=cancel")
-    public String cancelUpdate(){
+    public String cancelUpdate() {
         return "redirect:/emp";
     }
 
     @RequestMapping(value = "/emp/edit/{id}", params = "action=update")
     public String updateEmp(@Validated @ModelAttribute EmployeeForm form, BindingResult result,
-                            Model model, RedirectAttributes ra,@PathVariable("id") Integer id){
-       if(result.hasErrors()){
-           ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
-           ra.addFlashAttribute("error", "this has errors");
-           ra.addFlashAttribute("form", form);
-           return "redirect:/emp/edit/{id}";
-       }
-       System.out.print("sssssss");
-       Employee emp = new Employee();
-       emp.setEmp_id(id);
-       emp.setName(form.getName());
-       emp.setKana(form.getKana());
-       emp.setHire_date(form.getHire_date());
-       emp.setPost_id(form.getPost_id());
-       emp.setDept_id(form.getDept_id());
-       emp.setTel(form.getTel());
-       emp.setEmail(form.getEmail());
-       updateDao.update(emp);
-       return "redirect:/emp";
+                            Model model, RedirectAttributes ra, @PathVariable("id") Integer id) {
+        if (result.hasErrors()) {
+            ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
+            ra.addFlashAttribute("error", "this has errors");
+            ra.addFlashAttribute("form", form);
+            return "redirect:/emp/edit/{id}";
+        }
+        System.out.print("sssssss");
+        Employee emp = new Employee();
+        emp.setEmp_id(id);
+        emp.setName(form.getName());
+        emp.setKana(form.getKana());
+        emp.setHire_date(form.getHire_date());
+        emp.setPost_id(form.getPost_id());
+        emp.setDept_id(form.getDept_id());
+        emp.setTel(form.getTel());
+        emp.setEmail(form.getEmail());
+        updateDao.update(emp);
+        return "redirect:/emp";
     }
 
-
     @RequestMapping("/emp/edit/{id}/delete")
-    public String delEmp(EmployeeForm form, @PathVariable("id") Integer id){
+    public String delEmp(EmployeeForm form, @PathVariable("id") Integer id) {
         Employee emp = updateDao.selectEmpByID(id);
         updateDao.delete(emp);
         return "redirect:/emp";
     }
-
 
 }
