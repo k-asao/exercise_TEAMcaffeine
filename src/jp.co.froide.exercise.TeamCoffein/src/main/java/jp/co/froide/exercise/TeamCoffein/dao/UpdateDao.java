@@ -4,6 +4,7 @@ import jp.co.froide.exercise.TeamCoffein.entity.Employee;
 import org.seasar.doma.*;
 import org.seasar.doma.boot.ConfigAutowireable;
 
+//更新・削除用Dao
 @ConfigAutowireable
 @Dao
 public interface UpdateDao {

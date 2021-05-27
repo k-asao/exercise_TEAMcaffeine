@@ -9,6 +9,8 @@ import org.seasar.doma.boot.ConfigAutowireable;
 
 import java.util.List;
 
+
+//所属部署用Dao
 @ConfigAutowireable
 @Dao
 public interface DeptDao {

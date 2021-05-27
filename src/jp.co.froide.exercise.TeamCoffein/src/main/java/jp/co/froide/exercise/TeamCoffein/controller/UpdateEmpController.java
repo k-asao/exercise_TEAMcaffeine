@@ -80,25 +80,26 @@ public class UpdateEmpController {
 
     @RequestMapping(value = "/emp/edit/{id}", params = "action=update")
     public String updateEmp(@Validated @ModelAttribute EmployeeForm form, BindingResult result,
-                            Model model, RedirectAttributes ra, @PathVariable("id") Integer id) {
-        if (result.hasErrors()) {
-            ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
-            ra.addFlashAttribute("error", "this has errors");
-            ra.addFlashAttribute("form", form);
-            return "redirect:/emp/edit/{id}";
-        }
-        System.out.print("sssssss");
-        Employee emp = new Employee();
-        emp.setEmp_id(id);
-        emp.setName(form.getName());
-        emp.setKana(form.getKana());
-        emp.setHire_date(form.getHire_date());
-        emp.setPost_id(form.getPost_id());
-        emp.setDept_id(form.getDept_id());
-        emp.setTel(form.getTel());
-        emp.setEmail(form.getEmail());
-        updateDao.update(emp);
-        return "redirect:/emp";
+
+                            Model model, RedirectAttributes ra,@PathVariable("id") Integer id){
+       if(result.hasErrors()){
+           ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
+           ra.addFlashAttribute("error", "this has errors");
+           ra.addFlashAttribute("form", form);
+           return "redirect:/emp/edit/{id}";
+       }
+
+       Employee emp = new Employee();
+       emp.setEmp_id(id);
+       emp.setName(form.getName());
+       emp.setKana(form.getKana());
+       emp.setHire_date(form.getHire_date());
+       emp.setPost_id(form.getPost_id());
+       emp.setDept_id(form.getDept_id());
+       emp.setTel(form.getTel());
+       emp.setEmail(form.getEmail());
+       updateDao.update(emp);
+       return "redirect:/emp";
     }
 
     @RequestMapping("/emp/edit/{id}/delete")
