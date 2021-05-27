@@ -30,6 +30,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.3'
+	implementation "org.springframework.boot:spring-boot-starter-security"
+	implementation "org.thymeleaf.extras:thymeleaf-extras-springsecurity5"
 
 
 }
