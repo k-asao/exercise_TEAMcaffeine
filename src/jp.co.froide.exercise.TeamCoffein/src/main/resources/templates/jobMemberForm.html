@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1" cellspacing="0" cellpadding="0">
+    <label>社員一覧</label>
+    <div>
+        <button type="button">＋社員情報を登録</button>
+    </div>
+    <form th:object="${searchForm}" th:action="@{users}" id="form1" enctype="multipart/form-data"
+          method="post">
+        <div>
+            <input type="text" th:field="*{name}" th:type="text" placeholder="社員名を入力してください"/>
+        </div>
+        <div>
+            <button type="submit">検索</button>
+        </div>
+        <div>
+            <select th:field="*{order}">
+                <option th:value=ASC selected>昇順</option>
+                <option th:value=DESC>降順</option>
+            </select>
+        </div>
+        <div>
+            <select th:field="*{dept_id}">
+                <option th:value="${noSelect}"  selected>選択肢</option>
+                <option th:each="dept:${deptList}" th:value="${dept.dept_id}" th:text="${dept.dept_name}"/>
+            </select>
+        </div>
+        <div>
+            <select th:field="*{post_id}">
+                <option th:value="${noSelect}"  selected>選択肢</option>
+                <option th:each="post:${postList}" th:value="${post.post_id}" th:text="${post.post_name}">text
+                </option>
+            </select>
+        </div>
+
+    </form>
+    <tr>
+        <th>社員番号</th>
+        <th>名前</th>
+        <th>役職</th>
+        <th>所属部署</th>
+        <th>入社年月日</th>
+    </tr>
+    <tr th:each="user : ${emp}">
+        <td>[[${user.emp_id}]]</td>
+        <td>[[${user.name}]]</td>
+        <td>[[${user.post_name}]]</td>
+        <td>[[${user.dept_name}]]</td>
+        <td>[[${user.hire_date}]]</td>
+    </tr>
+</table>
+<div>
+    <button type="button">◀前へ</button>
+</div>
+<div>
+    <button type="button">次へ▶</button>
+</div>
+<form method="get" th:action="|/admin.csv|">
+    <input type="submit" name="download_file" value="ファイルをダウンロード">
+</form>
+</body>
+</html>

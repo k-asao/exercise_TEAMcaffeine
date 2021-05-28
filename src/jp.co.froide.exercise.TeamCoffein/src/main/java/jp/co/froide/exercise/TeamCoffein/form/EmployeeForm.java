@@ -1,7 +1,9 @@
 package jp.co.froide.exercise.TeamCoffein.form;
 
 import lombok.Data;
+
 import org.hibernate.validator.constraints.Length;
+
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,12 +14,14 @@ import java.io.Serializable;
 @Data
 public class EmployeeForm implements Serializable {
     public static final long serialVersionUID= 1L;
+
     @Length(min=0, max=255)
     @NotBlank
     String name;
 
     @Length(min=0, max=255)
-    @Pattern(regexp = "[ァ-タダ-ヶー]+", message = "全角カナで入力してください")
+    @Pattern(regexp = "[ァ-タダ-ヶー・•]+", message = "全角カナで入力してください")
+
     String kana;
 
     @NotBlank
@@ -29,7 +33,8 @@ public class EmployeeForm implements Serializable {
     @NotNull
     Integer dept_id;
 
-    @Pattern(regexp = "^0\\d{10,11}$", message = "半角数字で電話番号を入力してください。")
+
+    @Pattern(regexp = "^0\\d{9,10}$", message = "半角数字で電話番号を入力してください。")
     String tel;
 
     @Length(min=0, max=255)
