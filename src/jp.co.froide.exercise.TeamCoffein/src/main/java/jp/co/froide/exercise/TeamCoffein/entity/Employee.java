@@ -1,4 +1,4 @@
-package java.jp.co.froide.exercise.TeamCoffein.entity;
+package jp.co.froide.exercise.TeamCoffein.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,10 +16,10 @@ public class Employee {
     String name;
     String kana;
     String hire_date;
-    Integer post_id;
-    Integer dept_id;
+//    Integer post_id;
+//    Integer dept_id;
+    String post_name;
+    String dept_name;
     String tel;
     String email;
-
-
 }

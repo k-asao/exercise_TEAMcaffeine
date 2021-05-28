@@ -1,4 +1,4 @@
-package java.jp.co.froide.exercise.TeamCoffein.form;
+package jp.co.froide.exercise.TeamCoffein.form;
 
 import lombok.Data;
 
@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 public class EmployeeForm implements Serializable {
