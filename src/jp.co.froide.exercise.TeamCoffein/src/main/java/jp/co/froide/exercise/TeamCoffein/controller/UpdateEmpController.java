@@ -4,7 +4,7 @@ import jp.co.froide.exercise.TeamCoffein.dao.DeptDao;
 import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
 import jp.co.froide.exercise.TeamCoffein.dao.UpdateDao;
 import jp.co.froide.exercise.TeamCoffein.entity.Department;
-import jp.co.froide.exercise.TeamCoffein.entity.Employee;
+import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import jp.co.froide.exercise.TeamCoffein.entity.Post;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class UpdateEmpController {
@@ -29,15 +33,11 @@ public class UpdateEmpController {
     @Autowired
     DeptDao deptDao;
 
-    @GetMapping("/emp")
-    public String showList(Model model){
-        return "list";
-    }
 
     @GetMapping("/emp/edit/{id}")
-    public String showEditForm(Model model, @PathVariable("id") Integer id){
-        if(!model.containsAttribute("error")) {
-            Employee emp = updateDao.selectEmpByID(id);
+    public String showEditForm(Model model, @PathVariable("id") Integer id) throws ParseException {
+        if (!model.containsAttribute("error")) {
+            PostEmployee emp = updateDao.selectEmpByID(id);
             EmployeeForm form = new EmployeeForm();
             form.setName(emp.getName());
             form.setKana(emp.getKana());
@@ -46,7 +46,17 @@ public class UpdateEmpController {
             form.setDept_id(emp.getDept_id());
             form.setTel(emp.getTel());
             form.setEmail(emp.getEmail());
-            model.addAttribute("form",form);
+
+//            変更点
+            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-mm-dd");
+            Date nowDate = new Date();
+            Date date = java.sql.Date.valueOf(emp.getHire_date());
+            TimeUnit diff = TimeUnit.DAYS;
+            Long result = nowDate.getTime() - date.getTime();
+            Long yearDiff = diff.convert(result, TimeUnit.MILLISECONDS) / 365;
+            model.addAttribute("year", yearDiff);
+
+            model.addAttribute("form", form);
         }
 
         List<Post> postList = postDao.selectAll();
@@ -54,19 +64,17 @@ public class UpdateEmpController {
         model.addAttribute("postList", postList);
         model.addAttribute("deptList", deptList);
         model.addAttribute("id", id);
-
         return "detailEmp";
-
-
     }
 
     @RequestMapping(value = "/emp/edit/{id}", params = "action=cancel")
-    public String cancelUpdate(){
+    public String cancelUpdate() {
         return "redirect:/emp";
     }
 
     @RequestMapping(value = "/emp/edit/{id}", params = "action=update")
     public String updateEmp(@Validated @ModelAttribute EmployeeForm form, BindingResult result,
+
                             Model model, RedirectAttributes ra,@PathVariable("id") Integer id){
        if(result.hasErrors()){
            System.out.println(form.getPost_id());
@@ -75,8 +83,8 @@ public class UpdateEmpController {
            ra.addFlashAttribute("form", form);
            return "redirect:/emp/edit/{id}";
        }
-       System.out.print("sssssss");
-       Employee emp = new Employee();
+
+       PostEmployee emp = new PostEmployee();
        emp.setEmp_id(id);
        emp.setName(form.getName());
        emp.setKana(form.getKana());
@@ -89,13 +97,11 @@ public class UpdateEmpController {
        return "redirect:/emp";
     }
 
-
     @RequestMapping("/emp/edit/{id}/delete")
-    public String delEmp(EmployeeForm form, @PathVariable("id") Integer id){
-        Employee emp = updateDao.selectEmpByID(id);
+    public String delEmp(EmployeeForm form, @PathVariable("id") Integer id) {
+        PostEmployee emp = updateDao.selectEmpByID(id);
         updateDao.delete(emp);
         return "redirect:/emp";
     }
-
 
 }

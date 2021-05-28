@@ -4,13 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.seasar.doma.*;
 
-import java.util.Optional;
-
 @Table(name = "employee")
 @Entity(metamodel = @Metamodel)
 @Getter
 @Setter
-public class Employee {
+public class PostEmployee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +16,10 @@ public class Employee {
     String name;
     String kana;
     String hire_date;
-    String post_name;
-    String dept_name;
+    Integer post_id;
+    Integer dept_id;
     String tel;
     String email;
-    String pass;
+
 
 }

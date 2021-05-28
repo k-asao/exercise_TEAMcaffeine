@@ -17,14 +17,14 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.20'
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
-	// Doma
+	// doma
 	implementation 'org.seasar.doma.boot:doma-spring-boot-starter:1.5.0'
 	implementation 'org.seasar.doma:doma-core:2.46.0'
 	annotationProcessor 'org.seasar.doma:doma-processor:2.46.0'
 	implementation 'org.seasar.doma:doma-slf4j:2.46.0'
 	implementation 'mysql:mysql-connector-java:8.0.25'
 
-	// Spring boot
+	// spring boot
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -33,7 +33,10 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-security"
 	implementation "org.thymeleaf.extras:thymeleaf-extras-springsecurity5"
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
 
+	//jackson
+	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-csv', version: '2.12.3'
 
 }
 
