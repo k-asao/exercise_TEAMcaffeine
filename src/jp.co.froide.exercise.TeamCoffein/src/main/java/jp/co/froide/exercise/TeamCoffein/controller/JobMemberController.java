@@ -70,20 +70,4 @@ public class JobMemberController {
         return "jobMemberForm";
     }
 
-
-//    htmlに入力した内容をmodel.addAttributeでformに入れる
-//    htmlでformの場所を作って格納できるように
-//    formの内容を受け取ってdaoに渡す
-
-
-
-//    検索について
-//・名前、部署、役職、年度の変数を持った新しいFormを作成
-//・Formの中身をそれぞれ変数として取り出し、それらを引数としてDaoメソッド呼び出し
-//・Daoで、条件コメントを使用してSQL生成
-
-
-
-
-
 }

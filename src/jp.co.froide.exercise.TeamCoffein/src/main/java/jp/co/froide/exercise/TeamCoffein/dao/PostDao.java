@@ -12,9 +12,7 @@ import java.util.List;
 @ConfigAutowireable
 @Dao
 public interface PostDao {
-
     @Sql("select /*%expand*/* from post")
     @Select
     List<Post> selectAll();
-
 }

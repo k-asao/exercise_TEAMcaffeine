@@ -29,8 +29,6 @@ public class InsertEmpController {
     @Autowired
     DeptDao deptDao;
 
-
-
     @GetMapping("/emp/create")
     public String showForm(Model model){
         if(!model.containsAttribute("error")) {
