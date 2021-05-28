@@ -37,4 +37,7 @@ public class EmployeeForm implements Serializable {
     @NotBlank
     String email;
 
+    @NotNull
+    Integer auth;
+
 }

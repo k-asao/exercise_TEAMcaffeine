@@ -26,10 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return  new BCryptPasswordEncoder();
     }
 
-    /*@Override
+    @Override
     public void configure(WebSecurity web) throws Exception{
         web.ignoring().antMatchers();
-    }*/
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .loginProcessingUrl("/processing")
             .successForwardUrl("/success")
             .failureUrl("/loginFail")
-            .usernameParameter("loginID")
+            .usernameParameter("login_id")
             .passwordParameter("password").permitAll();
 
         http.logout()

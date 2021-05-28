@@ -36,6 +36,7 @@ public class EmpDaoRealm implements UserDetailsService {
             Employee emp = empDao.selectByEmail(email);
 
             if(emp == null){
+                System.out.println(email);
                 System.out.println("dame");
                 throw new  UsernameNotFoundException("account not found [id=" + email + "]");
             }
