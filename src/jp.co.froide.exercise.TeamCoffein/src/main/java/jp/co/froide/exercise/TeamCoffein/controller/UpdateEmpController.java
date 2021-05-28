@@ -33,10 +33,6 @@ public class UpdateEmpController {
     @Autowired
     DeptDao deptDao;
 
-    @GetMapping("/emp")
-    public String showList(Model model) {
-        return "list";
-    }
 
     @GetMapping("/emp/edit/{id}")
     public String showEditForm(Model model, @PathVariable("id") Integer id) throws ParseException {

@@ -38,7 +38,7 @@ public class JobMemberController {
     }
 
     //全件取得
-    @GetMapping("users")
+    @GetMapping("/emp")
     public String userList(Model model) {
         Collection<Employee> empDataList  = userDao.selectEmpAll();
         model.addAttribute("emp", empDataList);
@@ -52,7 +52,7 @@ public class JobMemberController {
     }
 
     //検索
-    @PostMapping("users")
+    @PostMapping("/emp")
     public String search(SearchForm form, Model model) {
         String order = form.getOrder();
         String name = form.getName();
