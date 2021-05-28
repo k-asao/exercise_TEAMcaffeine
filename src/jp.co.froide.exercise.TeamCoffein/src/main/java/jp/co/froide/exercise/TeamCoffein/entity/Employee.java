@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.seasar.doma.*;
 
+import java.util.Optional;
+
 @Table(name = "employee")
 @Entity(metamodel = @Metamodel)
 @Getter
@@ -20,4 +22,6 @@ public class Employee {
     String dept_name;
     String tel;
     String email;
+    String pass;
+
 }

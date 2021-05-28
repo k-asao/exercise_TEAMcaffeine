@@ -216,6 +216,18 @@
         </div>
     </div>
 
+    <div class="content__input-wrapper">
+        <div class="content__input-wrapper--input">
+            <label class="content__input--label">権限</label>
+            <select id="selectAuth" name="selectAuth" th:field="*{auth}">
+                <option th:value="${noSelect}" selected>権限を選択してください</option>
+                <option th:value=0 >管理者</option>
+                <option th:value=1 >一般</option>
+            </select>
+            <div th:if="${#fields.hasErrors('post_id')}" th:errors="*{post_id}">error code</div>
+        </div>
+    </div>
+
     <!--    submit-button-->
     <div class="submit-button">
         <button class="submit-button__cancel" type="submit" name="action" value="cancel">キャンセル</button>

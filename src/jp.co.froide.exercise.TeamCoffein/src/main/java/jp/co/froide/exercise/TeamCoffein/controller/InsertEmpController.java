@@ -1,5 +1,6 @@
 package jp.co.froide.exercise.TeamCoffein.controller;
 
+import jp.co.froide.exercise.TeamCoffein.SecurityConfig;
 import jp.co.froide.exercise.TeamCoffein.dao.DeptDao;
 import jp.co.froide.exercise.TeamCoffein.dao.InsertDao;
 import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
@@ -7,7 +8,12 @@ import jp.co.froide.exercise.TeamCoffein.entity.Department;
 import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import jp.co.froide.exercise.TeamCoffein.entity.Post;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +34,9 @@ public class InsertEmpController {
     PostDao postDao;
     @Autowired
     DeptDao deptDao;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/emp/create")
     public String showForm(Model model){
@@ -67,9 +76,19 @@ public class InsertEmpController {
         emp.setDept_id(form.getDept_id());
         emp.setTel(form.getTel());
         emp.setEmail(form.getEmail());
-        System.out.print(form);
-        insertDao.insert(emp);
-        return "redirect:/emp";
+        if(form.getAuth() == 0) {
+            String pass = RandomStringUtils.randomAlphanumeric(6);
+            String hashed_pass = passwordEncoder.encode(pass);
+            emp.setPass(hashed_pass);
+            insertDao.insert(emp);
+            model.addAttribute("emp", emp);
+            model.addAttribute("pass", pass);
+            return "confirmAsAdmin";
+        }else{
+            emp.setPass(null);
+            insertDao.insert(emp);
+            return "redirect:/emp";
+        }
     }
 
 }
