@@ -1,6 +1,6 @@
 package jp.co.froide.exercise.TeamCoffein.dao;
 
-import jp.co.froide.exercise.TeamCoffein.entity.Employee;
+import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.boot.ConfigAutowireable;
@@ -11,6 +11,6 @@ import org.seasar.doma.boot.ConfigAutowireable;
 public interface InsertDao {
 
     @Insert
-    int insert(Employee emp);
+    int insert(PostEmployee emp);
 
 }

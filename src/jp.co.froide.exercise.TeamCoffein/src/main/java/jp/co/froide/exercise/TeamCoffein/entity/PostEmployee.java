@@ -8,7 +8,7 @@ import org.seasar.doma.*;
 @Entity(metamodel = @Metamodel)
 @Getter
 @Setter
-public class Employee {
+public class PostEmployee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

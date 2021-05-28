@@ -1,10 +1,9 @@
 package jp.co.froide.exercise.TeamCoffein.controller;
 
 import jp.co.froide.exercise.TeamCoffein.dao.DeptDao;
-import jp.co.froide.exercise.TeamCoffein.dao.InsertDao;
 import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
 import jp.co.froide.exercise.TeamCoffein.dao.UpdateDao;
-import jp.co.froide.exercise.TeamCoffein.entity.Employee;
+import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,7 +64,7 @@ public class updateTest {
 
         validator.validate(form,result);
 
-        Employee emp = new Employee();
+        PostEmployee emp = new PostEmployee();
         emp.setName(form.getName());
         emp.setKana(form.getKana());
         emp.setHire_date(form.getHire_date());

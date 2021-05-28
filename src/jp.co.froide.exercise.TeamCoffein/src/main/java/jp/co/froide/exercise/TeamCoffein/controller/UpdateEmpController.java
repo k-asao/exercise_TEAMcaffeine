@@ -4,7 +4,7 @@ import jp.co.froide.exercise.TeamCoffein.dao.DeptDao;
 import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
 import jp.co.froide.exercise.TeamCoffein.dao.UpdateDao;
 import jp.co.froide.exercise.TeamCoffein.entity.Department;
-import jp.co.froide.exercise.TeamCoffein.entity.Employee;
+import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import jp.co.froide.exercise.TeamCoffein.entity.Post;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Year;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -43,7 +41,7 @@ public class UpdateEmpController {
     @GetMapping("/emp/edit/{id}")
     public String showEditForm(Model model, @PathVariable("id") Integer id) throws ParseException {
         if (!model.containsAttribute("error")) {
-            Employee emp = updateDao.selectEmpByID(id);
+            PostEmployee emp = updateDao.selectEmpByID(id);
             EmployeeForm form = new EmployeeForm();
             form.setName(emp.getName());
             form.setKana(emp.getKana());
@@ -89,7 +87,7 @@ public class UpdateEmpController {
            return "redirect:/emp/edit/{id}";
        }
 
-       Employee emp = new Employee();
+       PostEmployee emp = new PostEmployee();
        emp.setEmp_id(id);
        emp.setName(form.getName());
        emp.setKana(form.getKana());
@@ -104,7 +102,7 @@ public class UpdateEmpController {
 
     @RequestMapping("/emp/edit/{id}/delete")
     public String delEmp(EmployeeForm form, @PathVariable("id") Integer id) {
-        Employee emp = updateDao.selectEmpByID(id);
+        PostEmployee emp = updateDao.selectEmpByID(id);
         updateDao.delete(emp);
         return "redirect:/emp";
     }

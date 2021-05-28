@@ -4,7 +4,7 @@ import jp.co.froide.exercise.TeamCoffein.dao.DeptDao;
 import jp.co.froide.exercise.TeamCoffein.dao.InsertDao;
 import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
 import jp.co.froide.exercise.TeamCoffein.entity.Department;
-import jp.co.froide.exercise.TeamCoffein.entity.Employee;
+import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import jp.co.froide.exercise.TeamCoffein.entity.Post;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,7 @@ public class InsertEmpController {
             return "redirect:/emp/create";
         }
 
-        Employee emp = new Employee();
+        PostEmployee emp = new PostEmployee();
         emp.setName(form.getName());
         emp.setKana(form.getKana());
         emp.setHire_date(form.getHire_date());
