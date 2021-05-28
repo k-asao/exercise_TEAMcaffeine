@@ -40,8 +40,10 @@ public class EmpDaoRealm implements UserDetailsService {
                 System.out.println("dame");
                 throw new  UsernameNotFoundException("account not found [id=" + email + "]");
             }
-            System.out.println(emp.getName());
-            /*pass = emp.getPass().orElseThrow(() -> new  UsernameNotFoundException("You are not Administrator"));*/
+            if(emp.getPass() == null){
+                throw new  UsernameNotFoundException("You are not Administrator");
+            }
+
             Set<String> roleKeys = new HashSet<>();
             Set<String> permissionKey = new HashSet<>();
 

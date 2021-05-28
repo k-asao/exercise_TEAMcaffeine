@@ -8,9 +8,15 @@
   <h1>Login Page</h1>
 
     <form th:object="${loginForm}" th:action="@{/emp/login}" id=loginForm enctype="multipart/form-data" method=post>
-        login_ID: <input type="text" th:type="text" name="login_id" th:field="*{login_id}"/>
-        password: <input type="text" th:type="text" name="password" th:field="*{password}"/>
+        <div>
+        login_ID: <input type="text" th:type="text" name="login_id" th:field="*{login_id}" placeholder="メールアドレスを入力してください"/>
+        <div th:if="${#fields.hasErrors('login_id')}" th:errors="*{login_id}">error code</div>
+        </div>
+        <div>
+        password: <input type="text" th:type="text" name="password" th:field="*{password}" placeholder="パスワードを入力してください"/>
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">error code</div>
         <input type="submit" value="send"/>
+        </div>
     </form>
 </body>
 </html>
