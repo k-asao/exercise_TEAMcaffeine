@@ -1,27 +1,50 @@
 package jp.co.froide.exercise.TeamCoffein.controller;
 
 import jp.co.froide.exercise.TeamCoffein.dao.EmployeeDao;
+import jp.co.froide.exercise.TeamCoffein.dao.InsertDao;
+import jp.co.froide.exercise.TeamCoffein.dao.UpdateDao;
 import jp.co.froide.exercise.TeamCoffein.entity.Employee;
+import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
+import jp.co.froide.exercise.TeamCoffein.form.ConfMailForm;
+import jp.co.froide.exercise.TeamCoffein.form.ConfPassForm;
 import jp.co.froide.exercise.TeamCoffein.form.LoginForm;
+import jp.co.froide.exercise.TeamCoffein.validation.PassFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 public class LoginController {
 
     @Autowired
     EmployeeDao  empDao;
+    @Autowired
+    UpdateDao updateDao;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    PassFormValidator passFormValidator;
+
+    @InitBinder("confPassForm")
+    public void validatorBinder(WebDataBinder webDataBinder){ webDataBinder.addValidators(passFormValidator);}
 
     @GetMapping("/emp/login")
     public String showLoginPage(@ModelAttribute LoginForm form, Model model){
+        if(!model.containsAttribute("message")){
+            model.addAttribute("message", null);
+        }
         model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
@@ -39,13 +62,77 @@ public class LoginController {
     @PostMapping("/success")
     public String loginSuccess(@ModelAttribute LoginForm form, RedirectAttributes ra){
         ra.addFlashAttribute("message", "login_success");
-        return "redirect:/emp/create";
+        return "redirect:/emp";
     }
 
     @GetMapping("/loginFail")
-    public String loginFailure(@ModelAttribute LoginForm form, Model model){
-        model.addAttribute("message", "login_failure");
-        return "fail";
+    public String loginFailure(@ModelAttribute LoginForm form, Model model, RedirectAttributes ra){
+        ra.addFlashAttribute("message", "ログインIDもしくはパスワードが違います。");
+        return "redirect:/emp/login";
     }
+
+    @GetMapping("/emp/forgetPass")
+    public String forgetPass(Model model){
+        if(!model.containsAttribute("errorMessage")){
+            model.addAttribute("errorMessage", null);
+        }
+        model.addAttribute("mailForm", new ConfMailForm());
+        return "PassConfMail";
+    }
+
+    @GetMapping("/emp/changePass")
+    public String showPassForm(Model model){
+        if(model.containsAttribute("error")){
+            System.out.println("error");
+            return "changePass";
+        }else {
+            return "redirect:/emp/login";
+        }
+    }
+
+
+    @PostMapping("/emp/changePass")
+    public String changePass(@Validated @ModelAttribute ConfMailForm form, BindingResult result, Model model, RedirectAttributes ra){
+        if(result.hasErrors()){
+            ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
+            ra.addFlashAttribute("error", "this has errors");
+            ra.addFlashAttribute("form", form);
+            return "redirect:/emp/forgetPass";
+        }
+        String email = form.getEmail();
+        PostEmployee  emp = empDao.selectByEmail(email);
+        if(emp == null){
+            ra.addFlashAttribute("errorMessage", "メールアドレスが登録されていません");
+            return "redirect:/emp/forgetPass";
+        }else if (emp.getPass() == null){
+            ra.addFlashAttribute("errorMessage", "管理者の権限がありません。");
+            System.out.println("aa");
+            return "redirect:/emp/forgetPass";
+        }else{
+            ConfPassForm passForm = new ConfPassForm();
+            passForm.setEmail(email);
+            model.addAttribute("email", passForm.getEmail());
+            model.addAttribute("passForm", passForm);
+            return "changePass";
+        }
+    }
+
+    @PostMapping("/emp/sucChange")
+    public String successChangePass(@Validated @ModelAttribute ConfPassForm form, BindingResult result, Model model, RedirectAttributes ra){
+        if(result.hasErrors()){
+            ra.addFlashAttribute("org.springframework.validation.BindingResult.passForm", result);
+            ra.addFlashAttribute("error", "this has errors");
+            ra.addFlashAttribute("email", form.getEmail());
+            System.out.println("aiuer");
+            ra.addFlashAttribute("passForm", form);
+            return "redirect:/emp/changePass";
+        }
+        PostEmployee emp = empDao.selectByEmail(form.getEmail());
+        String hashed_pass = passwordEncoder.encode(form.getPass());
+        emp.setPass(hashed_pass);
+        updateDao.update(emp);
+        return "redirect:/emp/login";
+    }
+
 
 }

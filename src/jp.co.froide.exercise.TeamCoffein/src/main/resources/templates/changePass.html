@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>パスワードの変更</h2>
+<form th:object="${passForm}" th:action="@{/emp/sucChange}" id=passForm enctype="multipart/form-data" method=post>
+  <div >
+    <input type="hidden" th:type="hidden" th:name="email" th:field="*{email}">
+  </div>
+  <div>
+    パスワード: <input type="text" th:type="text" name="pass" th:field="*{pass}" placeholder="パスワード"/>
+    <div th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}">error code</div>
+  </div>
+  <div>
+    パスワード(確認用): <input type="text" th:type="text" name="passConf" th:field="*{passConf}" placeholder="確認のためもう一度入力してください。"/>
+    <div th:if="${#fields.hasErrors('passConf')}" th:errors="*{passConf}">error code</div>
+  </div>
+  <input type="submit" value="変更"/>
+</form>
+
+</body>
+</html>

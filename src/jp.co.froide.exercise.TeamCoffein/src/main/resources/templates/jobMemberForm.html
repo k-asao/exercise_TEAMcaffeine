@@ -7,10 +7,11 @@
 <body>
 <table border="1" cellspacing="0" cellpadding="0">
     <label>社員一覧</label>
+    <!--<a th:href="@{/logout}">ログアウト</a>-->
     <div>
-        <button type="button">＋社員情報を登録</button>
+        <button type="submit" th:action="@{/emp/create}" method="get">＋社員情報を登録</button>
     </div>
-    <form th:object="${searchForm}" th:action="@{users}" id="form1" enctype="multipart/form-data"
+    <form th:object="${searchForm}" th:action="@{emp}" id="form1" enctype="multipart/form-data"
           method="post">
         <div>
             <input type="text" th:field="*{name}" th:type="text" placeholder="社員名を入力してください"/>
