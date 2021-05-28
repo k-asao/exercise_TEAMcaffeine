@@ -17,6 +17,4 @@ public interface EmployeeDao {
     @Select
     PostEmployee selectByEmail(String email);
 
-
-
 }
