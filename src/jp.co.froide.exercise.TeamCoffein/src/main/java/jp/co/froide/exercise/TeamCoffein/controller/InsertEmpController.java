@@ -67,7 +67,6 @@ public class InsertEmpController {
             System.out.println(form);
             return "redirect:/emp/create";
         }
-
         PostEmployee emp = new PostEmployee();
         emp.setName(form.getName());
         emp.setKana(form.getKana());
@@ -89,6 +88,11 @@ public class InsertEmpController {
             insertDao.insert(emp);
             return "redirect:/emp";
         }
+    }
+
+    @PostMapping(value = "/emp/create", params = "action=back")
+    public String redirectFromConfirm(){
+        return "redirect:/emp";
     }
 
 }
