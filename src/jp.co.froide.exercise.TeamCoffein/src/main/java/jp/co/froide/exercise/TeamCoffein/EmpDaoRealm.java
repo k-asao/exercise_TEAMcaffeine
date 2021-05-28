@@ -2,6 +2,7 @@ package jp.co.froide.exercise.TeamCoffein;
 
 import jp.co.froide.exercise.TeamCoffein.dao.EmployeeDao;
 import jp.co.froide.exercise.TeamCoffein.entity.Employee;
+import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -33,7 +34,7 @@ public class EmpDaoRealm implements UserDetailsService {
         List<GrantedAuthority> authorityList = null;
 
         try{
-            Employee emp = empDao.selectByEmail(email);
+            PostEmployee emp = empDao.selectByEmail(email);
 
             if(emp == null){
                 System.out.println(email);

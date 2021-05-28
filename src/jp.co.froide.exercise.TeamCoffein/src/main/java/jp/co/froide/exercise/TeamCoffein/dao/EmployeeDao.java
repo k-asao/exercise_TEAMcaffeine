@@ -1,6 +1,7 @@
 package jp.co.froide.exercise.TeamCoffein.dao;
 
 import jp.co.froide.exercise.TeamCoffein.entity.Employee;
+import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Select;
 import org.seasar.doma.Sql;
@@ -14,7 +15,7 @@ public interface EmployeeDao {
 
     @Sql("select /*%expand*/* from employee where email = /*email*/0")
     @Select
-    Employee selectByEmail(String email);
+    PostEmployee selectByEmail(String email);
 
 
 
