@@ -7,6 +7,7 @@ import org.seasar.doma.Id;
 import org.seasar.doma.Metamodel;
 import org.seasar.doma.Table;
 
+
 @Entity(metamodel = @Metamodel)
 @Table(name = "department")
 @Getter
