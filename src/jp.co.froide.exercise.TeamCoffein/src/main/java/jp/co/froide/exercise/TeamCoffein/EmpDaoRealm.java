@@ -30,15 +30,16 @@ public class EmpDaoRealm implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
-        Employee emp = null;
         List<GrantedAuthority> authorityList = null;
 
         try{
-            emp = empDao.selectByEmail(email);
+            Employee emp = empDao.selectByEmail(email);
 
             if(emp == null){
+                System.out.println("dame");
                 throw new  UsernameNotFoundException("account not found [id=" + email + "]");
             }
+            System.out.println(emp.getName());
             /*pass = emp.getPass().orElseThrow(() -> new  UsernameNotFoundException("You are not Administrator"));*/
             Set<String> roleKeys = new HashSet<>();
             Set<String> permissionKey = new HashSet<>();

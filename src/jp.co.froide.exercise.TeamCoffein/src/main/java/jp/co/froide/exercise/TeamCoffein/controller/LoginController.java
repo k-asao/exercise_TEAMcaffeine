@@ -26,15 +26,14 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping("/emp/login/oo")
+    @PostMapping("/emp/login")
     public String index(@Validated @ModelAttribute LoginForm form, BindingResult result){
         if(result.hasErrors()){
             System.out.println("BBBBBBBB");
             return "login";
         }
         System.out.println("aaaaaa");
-        return "fail";
-        //return "forward:" + "/processing" ;
+        return "forward:" + "/processing" ;
     }
 
     @PostMapping("/success")

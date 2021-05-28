@@ -69,6 +69,7 @@ public class UpdateEmpController {
     public String updateEmp(@Validated @ModelAttribute EmployeeForm form, BindingResult result,
                             Model model, RedirectAttributes ra,@PathVariable("id") Integer id){
        if(result.hasErrors()){
+           System.out.println(form.getPost_id());
            ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
            ra.addFlashAttribute("error", "this has errors");
            ra.addFlashAttribute("form", form);
