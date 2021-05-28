@@ -116,6 +116,7 @@
     </style>
 </head>
 <body>
+
 <!--page-title-->
 <h1 class="page-title">ログイン</h1>
 <!--content-->
@@ -129,6 +130,7 @@
             <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('login_id')}" th:errors="*{login_id}">
                 error code
             </div>
+          <div><p  class="content__input-wrapper--error" th:if="${message!=null}">[[${message}]]</p></div>
         </div>
     </div>
 
@@ -141,11 +143,12 @@
                 error code
             </div>
         </div>
+
     </div>
 
     <!--content__forgetPassword-button-->
     <div class="tabbox__text">
-        <a class="tabbox__link" href="#">
+        <a class="tabbox__link" th:href="@{/emp/forgetPass}">
             パスワードをお忘れですか?
         </a>
     </div>
@@ -154,5 +157,6 @@
     <button class="submit-button__login" type="submit" value="send">ログイン</button>
 
 </form>
+
 </body>
 </html>

@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
 
         http.authorizeRequests()
-            .antMatchers("/","/emp","/loginFail","/*.csv").permitAll()
+            .antMatchers("/emp","/loginFail","/emp/forgetPass", "/emp/changePass","/emp/sucChange","/*.csv").permitAll()
             .anyRequest().authenticated()
             .and()
             .exceptionHandling();
@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .loginPage("/emp/login")
             .loginProcessingUrl("/processing")
             .successForwardUrl("/success")
-            .failureUrl("/login")
+            .failureUrl("/loginFail")
             .usernameParameter("login_id")
             .passwordParameter("password").permitAll();
 

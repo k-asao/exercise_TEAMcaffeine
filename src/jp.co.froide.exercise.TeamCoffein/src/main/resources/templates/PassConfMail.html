@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:object="${mailForm}" th:action="@{/emp/changePass}" id=mailForm enctype="multipart/form-data" method=post>
+    <div>
+        <p>メールアドレスの確認</p>
+      <input type="text" th:type="text" name="email" th:field="*{email}" placeholder="メールアドレス"/>
+      <div><p th:if="${errorMessage != null}">[[${errorMessage}]]</p></div>
+      <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">error code</div>
+    </div>
+    <input type="submit" value="次へ"/>
+
+</form>
+</body>
+</html>

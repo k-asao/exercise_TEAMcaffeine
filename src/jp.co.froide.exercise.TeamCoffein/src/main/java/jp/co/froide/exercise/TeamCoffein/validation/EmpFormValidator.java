@@ -1,4 +1,4 @@
-package jp.co.froide.exercise.TeamCoffein.validation;
+/*package jp.co.froide.exercise.TeamCoffein.validation;
 
 
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
@@ -19,6 +19,6 @@ public class EmpFormValidator implements Validator {
 //            errors.rejectValue("passwordConfirm", "UserFormValidator.userForm.passwordConfirm","これがエラ〜メッセージですよ。");
 //        }
     }
-}
+}*/
 
 

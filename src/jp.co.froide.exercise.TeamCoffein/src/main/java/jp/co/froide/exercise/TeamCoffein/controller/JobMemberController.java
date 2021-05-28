@@ -8,7 +8,7 @@ import jp.co.froide.exercise.TeamCoffein.entity.Department;
 import jp.co.froide.exercise.TeamCoffein.entity.Post;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import jp.co.froide.exercise.TeamCoffein.form.SearchForm;
-import jp.co.froide.exercise.TeamCoffein.validation.EmpFormValidator;
+//import jp.co.froide.exercise.TeamCoffein.validation.EmpFormValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,14 +28,14 @@ public class JobMemberController {
 
     @Autowired
     UserDao userDao;
-    @Autowired
+    /*@Autowired
     EmpFormValidator empFormValidator;
 
     //html↓
     @InitBinder("employeeForm")
     public void validatorBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(empFormValidator);
-    }
+    }*/
 
     //全件取得
     @GetMapping("/emp")
