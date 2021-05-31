@@ -82,6 +82,8 @@ CREATE TABLE `employee` (
   `email` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL UNIQUE,
   `password` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `delete_flag` int(2) NOT NULL,
+  `create_at` datetime COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `update_at` datetime COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   FOREIGN KEY fk_post(post_id) REFERENCES post(post_id),
   FOREIGN KEY fk_dept(dept_id) REFERENCES department(dept_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -105,55 +107,76 @@ CREATE TABLE `employee` (
 
 
 
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES  --管理者　　　パス：admin
-            ('桐生ココ', 'キリュウココ', '1972-04-01', 1, 8, '08024338464', 'emp111@example.co.jp','$2a$10$LBvlmRQr3NBxi5JMyeDQAO822DlRuzGvfY4V172AOfa54kDLPAkla',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('加賀美隼人', 'カガミハヤト', '1972-04-01', 2, 8, '08002745293', 'emp000@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('海馬瀬人', 'カイバセト', '1972-04-01', 3, 8, '08073548292', 'emp001@example.co.jp','0',0);                        
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('麻倉葉', 'アサクラヨウ', '1977-08-01', 3, 8, '08054833414', 'emp002@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('ランデル・オーランド', 'ランデル・オーランド', '1976-04-01', 3, 8, '08078330868', 'emp003@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('虎杖悠二', 'イタドリユウジ', '1979-04-01', 3, 8, '08019258645', 'emp004@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('阿良々木暦', 'アララギコヨミ', '1982-04-01', 6, 8, '08081510801', 'emp005@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('兎田ぺこら', 'ウサダペコラ', '1982-04-01', 4, 4, '08068774992', 'emp022@example.co.jp','0',0);            
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('立花響', 'タチバナヒビキ', '1984-04-01', 4, 8, '08000320846', 'emp006@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('上条当麻', 'カミジョウトウマ', '1985-04-01', 5, 8, '08012532148', 'emp007@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('禅院真希', 'ゼンインマキ', '1986-04-01', 5, 8, '08087327823', 'emp008@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('比企谷八幡', 'ヒキガヤハチマン', '1986-04-01', 7, 8, '08097651275', 'emp009@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('槙島聖護', 'マキシマショウゴ', '1992-04-01', 4, 8, '08078322964', 'emp010@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('月ノ美兎', 'ツキノミト', '1993-04-01', 4, 8, '08019728365', 'emp011@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('黒崎一護', 'クロサキイチゴ', '2002-04-01', 8, 3, '08087631221', 'emp012@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('爆轟克己', 'バクゴウカツキ', '2003-04-01', 6, 6, '08014513243', 'emp013@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('工藤新一', 'クドウシンイチ', '2006-04-01', 6, 5, '08048541452', 'emp014@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('笠原郁', 'カサハライク', '2008-04-01', 8, 3, '08067337634', 'emp015@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('岡部倫太郎', 'オカベリンタロウ', '2012-04-01', 9, 8, '08094628466', 'emp016@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('有馬公生', 'アリマコウセイ', '2014-04-01', 9, 5, '08027452947', 'emp017@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('金木研', 'カネキケン', '2017-04-01', 10, 1, '08000388462', 'emp018@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('夏目貴志', 'ナツメタカシ', '2020-04-01', 10, 3, '08027551836', 'emp019@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('海馬モクバ', 'カイバモクバ', '2021-04-01', 10, 6, '08064728912', 'emp020@example.co.jp','0',0);
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag) VALUES 
-            ('禅院真衣', 'ゼンインマイ', '2021-04-01', 10, 4, '08053859334', 'emp021@example.co.jp','0',0);
-                        
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES  /*管理者　pass:admin*/
+            ('桐生ココ', 'キリュウココ', '1972-04-01', 1, 8, '08024338464', 'emp111@example.co.jp','$2a$10$LBvlmRQr3NBxi5JMyeDQAO822DlRuzGvfY4V172AOfa54kDLPAkla', 0,'1972-04-01 10:23:45', '1972-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('加賀美隼人', 'カガミハヤト', '1972-04-01', 2, 8, '08002745293', 'emp000@example.co.jp','0',0,'1972-04-01 10:23:45', '1972-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('海馬瀬人', 'カイバセト', '1972-04-01', 3, 8, '08073548292', 'emp001@example.co.jp','0',0,'1972-04-01 10:23:45', '1972-04-01 10:23:45');                        
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('麻倉葉', 'アサクラヨウ', '1977-08-01', 3, 8, '08054833414', 'emp002@example.co.jp','0',0,'1977-04-01 10:23:45', '1977-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('ランデル・オーランド', 'ランデル・オーランド', '1976-04-01', 3, 8, '08078330868', 'emp003@example.co.jp','0',0,'1976-04-01 10:23:45', '1976-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('虎杖悠二', 'イタドリユウジ', '1979-04-01', 3, 8, '08019258645', 'emp004@example.co.jp','0',0,'1979-04-01 10:23:45', '1979-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('阿良々木暦', 'アララギコヨミ', '1982-04-01', 6, 8, '08081510801', 'emp005@example.co.jp','0',0,'1982-04-01 10:23:45', '1982-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('兎田ぺこら', 'ウサダペコラ', '1982-04-01', 4, 4, '08068774992', 'emp022@example.co.jp','0',0,'1982-04-01 10:23:45', '1982-04-01 10:23:45');            
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('立花響', 'タチバナヒビキ', '1984-04-01', 4, 8, '08000320846', 'emp006@example.co.jp','0',0,'1984-04-01 10:23:45', '1984-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('上条当麻', 'カミジョウトウマ', '1985-04-01', 5, 8, '08012532148', 'emp007@example.co.jp','0',0,'1985-04-01 10:23:45', '1985-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('禅院真希', 'ゼンインマキ', '1986-04-01', 5, 8, '08087327823', 'emp008@example.co.jp','0',0,'1986-04-01 10:23:45', '1986-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('比企谷八幡', 'ヒキガヤハチマン', '1986-04-01', 7, 8, '08097651275', 'emp009@example.co.jp','0',0,'1986-04-01 10:23:45', '1986-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('槙島聖護', 'マキシマショウゴ', '1992-04-01', 4, 8, '08078322964', 'emp010@example.co.jp','0',0,'1992-04-01 10:23:45', '1992-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('月ノ美兎', 'ツキノミト', '1993-04-01', 4, 8, '08019728365', 'emp011@example.co.jp','0',0,'1993-04-01 10:23:45', '1993-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('黒崎一護', 'クロサキイチゴ', '2002-04-01', 8, 3, '08087631221', 'emp012@example.co.jp','0',0,'2002-04-01 10:23:45', '2002-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('爆轟克己', 'バクゴウカツキ', '2003-04-01', 6, 6, '08014513243', 'emp013@example.co.jp','0',0,'2003-04-01 10:23:45', '2003-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('工藤新一', 'クドウシンイチ', '2006-04-01', 6, 5, '08048541452', 'emp014@example.co.jp','0',0,'2006-04-01 10:23:45', '2006-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('笠原郁', 'カサハライク', '2008-04-01', 8, 3, '08067337634', 'emp015@example.co.jp','0',0,'2008-04-01 10:23:45', '2008-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('岡部倫太郎', 'オカベリンタロウ', '2012-04-01', 9, 8, '08094628466', 'emp016@example.co.jp','0',0,'2012-04-01 10:23:45', '2012-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('有馬公生', 'アリマコウセイ', '2014-04-01', 9, 5, '08027452947', 'emp017@example.co.jp','0',0,'2014-04-01 10:23:45', '2014-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('金木研', 'カネキケン', '2017-04-01', 10, 1, '08000388462', 'emp018@example.co.jp','0',0,'2017-04-01 10:23:45', '2017-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('夏目貴志', 'ナツメタカシ', '2020-04-01', 10, 3, '08027551836', 'emp019@example.co.jp','0',0,'2020-04-01 10:23:45', '2020-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('海馬モクバ', 'カイバモクバ', '2021-04-01', 10, 6, '08064728912', 'emp020@example.co.jp','0',0,'2021-04-01 10:23:45', '2021-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
+            ('禅院真衣', 'ゼンインマイ', '2021-04-01', 10, 4, '08053859334', 'emp021@example.co.jp','0',0,'2021-04-01 10:23:45', '2021-04-01 10:23:45');
+
+
+
+DROP TABLE IF EXISTS `emp_history`;
+CREATE TABLE `emp_history` (
+  `emp_history_id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `emp_id` int(11) NOT NULL,
+  `name` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL ,
+  `kana` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL ,
+  `hire_date` DATE COLLATE utf8mb4_unicode_ci DEFAULT NULL ,
+  `post_id` int(11) DEFAULT NULL ,
+  `dept_id` int(11) DEFAULT NULL ,
+  `tel` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL UNIQUE,
+  `email` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL UNIQUE,
+  `password` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delete_flag` int(2) NOT NULL,
+  `create_at` datetime COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `update_at` datetime COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  FOREIGN KEY fk_post(post_id) REFERENCES post(post_id),
+  FOREIGN KEY fk_dept(dept_id) REFERENCES department(dept_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 COMMIT;
 
