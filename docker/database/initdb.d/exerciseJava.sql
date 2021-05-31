@@ -30,19 +30,20 @@ USE `employee`;
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post`(
   `post_id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `post_name` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL 
+  `post_name` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL ,
+  `delete_flag` int(2) NOT NULL
 );
 
-INSERT INTO post (post_name) VALUES ('会長');  -- id = 1
-INSERT INTO post (post_name) VALUES ('代表取締役社長');  -- id = 2
-INSERT INTO post (post_name) VALUES ('取締役');  -- id = 3
-INSERT INTO post (post_name) VALUES ('本部長');  -- id = 4
-INSERT INTO post (post_name) VALUES ('部長');  -- id = 5
-INSERT INTO post (post_name) VALUES ('次長');  -- id = 6
-INSERT INTO post (post_name) VALUES ('課長');  -- id = 7
-INSERT INTO post (post_name) VALUES ('係長');  -- id = 8
-INSERT INTO post (post_name) VALUES ('主任');  -- id = 9
-INSERT INTO post (post_name) VALUES ('一般社員');  -- id = 10
+INSERT INTO post (post_name) VALUES ('会長', 0);  -- id = 1
+INSERT INTO post (post_name) VALUES ('代表取締役社長', 0);  -- id = 2
+INSERT INTO post (post_name) VALUES ('取締役', 0);  -- id = 3
+INSERT INTO post (post_name) VALUES ('本部長', 0);  -- id = 4
+INSERT INTO post (post_name) VALUES ('部長', 0);  -- id = 5
+INSERT INTO post (post_name) VALUES ('次長', 0);  -- id = 6
+INSERT INTO post (post_name) VALUES ('課長', 0);  -- id = 7
+INSERT INTO post (post_name) VALUES ('係長', 0);  -- id = 8
+INSERT INTO post (post_name) VALUES ('主任', 0);  -- id = 9
+INSERT INTO post (post_name) VALUES ('一般社員', 0);  -- id = 10
 
 --
 -- テーブルの構造 `department`
@@ -50,17 +51,18 @@ INSERT INTO post (post_name) VALUES ('一般社員');  -- id = 10
 DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department`(
   `dept_id` int(11)  PRIMARY KEY AUTO_INCREMENT,
-  `dept_name` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL 
+  `dept_name` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delete_flag` int(2) NOT NULL
 );
 
-INSERT INTO department(dept_name) VALUES ('総務部');  -- id = 1
-INSERT INTO department(dept_name) VALUES ('人事部');  -- id = 2
-INSERT INTO department(dept_name) VALUES ('経理部');  -- id = 3
-INSERT INTO department(dept_name) VALUES ('営業部');  -- id = 4
-INSERT INTO department(dept_name) VALUES ('開発部');  -- id = 5
-INSERT INTO department(dept_name) VALUES ('事業部');  -- id = 6
-INSERT INTO department(dept_name) VALUES ('製造部');  -- id = 7
-INSERT INTO department(dept_name) VALUES ('その他');  -- id = 8
+INSERT INTO department(dept_name) VALUES ('総務部', 0);  -- id = 1
+INSERT INTO department(dept_name) VALUES ('人事部', 0);  -- id = 2
+INSERT INTO department(dept_name) VALUES ('経理部', 0);  -- id = 3
+INSERT INTO department(dept_name) VALUES ('営業部', 0);  -- id = 4
+INSERT INTO department(dept_name) VALUES ('開発部', 0);  -- id = 5
+INSERT INTO department(dept_name) VALUES ('事業部', 0);  -- id = 6
+INSERT INTO department(dept_name) VALUES ('製造部', 0);  -- id = 7
+INSERT INTO department(dept_name) VALUES ('その他', 0);  -- id = 8
 
 
 
@@ -107,7 +109,7 @@ CREATE TABLE `employee` (
 
 
 
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES  /*管理者　pass:admin*/
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES  /*管理者　パス　admin*/
             ('桐生ココ', 'キリュウココ', '1972-04-01', 1, 8, '08024338464', 'emp111@example.co.jp','$2a$10$LBvlmRQr3NBxi5JMyeDQAO822DlRuzGvfY4V172AOfa54kDLPAkla', 0,'1972-04-01 10:23:45', '1972-04-01 10:23:45');
 INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
             ('加賀美隼人', 'カガミハヤト', '1972-04-01', 2, 8, '08002745293', 'emp000@example.co.jp','0',0,'1972-04-01 10:23:45', '1972-04-01 10:23:45');
