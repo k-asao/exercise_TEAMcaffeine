@@ -9,7 +9,8 @@
     <label>社員一覧</label>
     <!--<a th:href="@{/logout}">ログアウト</a>-->
     <div>
-        <button type="submit" th:action="@{/emp/create}" method="get">＋社員情報を登録</button>
+        <!--<button type="submit" th:action="@{/emp/create}" method="get">＋社員情報を登録</button>-->
+        <a th:href="@{/emp/create}">＋社員情報を登録</a>
     </div>
     <form th:object="${searchForm}" th:action="@{emp}" id="form1" enctype="multipart/form-data"
           method="post">
