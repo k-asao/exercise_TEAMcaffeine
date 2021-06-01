@@ -9,7 +9,6 @@
     <div>
         <p>メールアドレスの確認</p>
       <input type="text" th:type="text" name="email" th:field="*{email}" placeholder="メールアドレス"/>
-      <div><p th:if="${errorMessage != null}">[[${errorMessage}]]</p></div>
       <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">error code</div>
     </div>
     <input type="submit" value="次へ"/>

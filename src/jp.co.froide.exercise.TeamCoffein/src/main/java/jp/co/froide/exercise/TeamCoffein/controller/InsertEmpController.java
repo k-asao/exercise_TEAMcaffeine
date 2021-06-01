@@ -78,13 +78,13 @@ public class InsertEmpController {
         if(form.getAuth() == 0) {
             String pass = RandomStringUtils.randomAlphanumeric(6);
             String hashed_pass = passwordEncoder.encode(pass);
-            emp.setPass(hashed_pass);
+            emp.setPassword(hashed_pass);
             insertDao.insert(emp);
             model.addAttribute("emp", emp);
             model.addAttribute("pass", pass);
             return "confirmAsAdmin";
         }else{
-            emp.setPass(null);
+            emp.setPassword(null);
             insertDao.insert(emp);
             return "redirect:/emp";
         }
