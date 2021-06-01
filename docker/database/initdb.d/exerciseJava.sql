@@ -34,16 +34,16 @@ CREATE TABLE `post`(
   `delete_flag` int(2) NOT NULL
 );
 
-INSERT INTO post (post_name) VALUES ('会長', 0);  -- id = 1
-INSERT INTO post (post_name) VALUES ('代表取締役社長', 0);  -- id = 2
-INSERT INTO post (post_name) VALUES ('取締役', 0);  -- id = 3
-INSERT INTO post (post_name) VALUES ('本部長', 0);  -- id = 4
-INSERT INTO post (post_name) VALUES ('部長', 0);  -- id = 5
-INSERT INTO post (post_name) VALUES ('次長', 0);  -- id = 6
-INSERT INTO post (post_name) VALUES ('課長', 0);  -- id = 7
-INSERT INTO post (post_name) VALUES ('係長', 0);  -- id = 8
-INSERT INTO post (post_name) VALUES ('主任', 0);  -- id = 9
-INSERT INTO post (post_name) VALUES ('一般社員', 0);  -- id = 10
+INSERT INTO post (post_name, delete_flag) VALUES ('会長', 0);  -- id = 1
+INSERT INTO post (post_name, delete_flag) VALUES ('代表取締役社長', 0);  -- id = 2
+INSERT INTO post (post_name, delete_flag) VALUES ('取締役', 0);  -- id = 3
+INSERT INTO post (post_name, delete_flag) VALUES ('本部長', 0);  -- id = 4
+INSERT INTO post (post_name, delete_flag) VALUES ('部長', 0);  -- id = 5
+INSERT INTO post (post_name, delete_flag) VALUES ('次長', 0);  -- id = 6
+INSERT INTO post (post_name, delete_flag) VALUES ('課長', 0);  -- id = 7
+INSERT INTO post (post_name, delete_flag) VALUES ('係長', 0);  -- id = 8
+INSERT INTO post (post_name, delete_flag) VALUES ('主任', 0);  -- id = 9
+INSERT INTO post (post_name, delete_flag) VALUES ('一般社員', 0);  -- id = 10
 
 --
 -- テーブルの構造 `department`
@@ -55,14 +55,14 @@ CREATE TABLE `department`(
   `delete_flag` int(2) NOT NULL
 );
 
-INSERT INTO department(dept_name) VALUES ('総務部', 0);  -- id = 1
-INSERT INTO department(dept_name) VALUES ('人事部', 0);  -- id = 2
-INSERT INTO department(dept_name) VALUES ('経理部', 0);  -- id = 3
-INSERT INTO department(dept_name) VALUES ('営業部', 0);  -- id = 4
-INSERT INTO department(dept_name) VALUES ('開発部', 0);  -- id = 5
-INSERT INTO department(dept_name) VALUES ('事業部', 0);  -- id = 6
-INSERT INTO department(dept_name) VALUES ('製造部', 0);  -- id = 7
-INSERT INTO department(dept_name) VALUES ('その他', 0);  -- id = 8
+INSERT INTO department(dept_name, delete_flag) VALUES ('総務部', 0);  -- id = 1
+INSERT INTO department(dept_name, delete_flag) VALUES ('人事部', 0);  -- id = 2
+INSERT INTO department(dept_name, delete_flag) VALUES ('経理部', 0);  -- id = 3
+INSERT INTO department(dept_name, delete_flag) VALUES ('営業部', 0);  -- id = 4
+INSERT INTO department(dept_name, delete_flag) VALUES ('開発部', 0);  -- id = 5
+INSERT INTO department(dept_name, delete_flag) VALUES ('事業部', 0);  -- id = 6
+INSERT INTO department(dept_name, delete_flag) VALUES ('製造部', 0);  -- id = 7
+INSERT INTO department(dept_name, delete_flag) VALUES ('その他', 0);  -- id = 8
 
 
 
