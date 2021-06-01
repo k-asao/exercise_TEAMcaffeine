@@ -179,9 +179,9 @@ CREATE TABLE `emp_history` (
   FOREIGN KEY fk_post(post_id) REFERENCES post(post_id),
   FOREIGN KEY fk_dept(dept_id) REFERENCES department(dept_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*CREATE INDEX　idx_emp_id ON emp_history(emp_id);*/
 
 ALTER TABLE emp_history ADD INDEX idx_emp_id (emp_id); 
+
 
 COMMIT;
 
