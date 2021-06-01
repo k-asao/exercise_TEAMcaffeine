@@ -17,6 +17,8 @@ public class PassFormValidator implements Validator {
         ConfPassForm passForm = (ConfPassForm)  target;
         if (!passForm.getPass().equals(passForm.getPassConf())) {
             errors.rejectValue("passConf", "UserFormValidator.userForm.passwordConfirm");
+            System.out.println("ppppp");
         }
+
     }
 }

@@ -12,6 +12,6 @@ import java.util.Collections;
 
 public class LoginEmp extends User {
     public LoginEmp(PostEmployee emp, Collection<? extends GrantedAuthority> authorities){
-        super(emp.getEmail(), emp.getPass(), authorities);
+        super(emp.getEmail(), emp.getPassword(), authorities);
     }
 }

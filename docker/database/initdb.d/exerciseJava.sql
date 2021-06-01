@@ -175,6 +175,7 @@ CREATE TABLE `emp_history` (
   `delete_flag` int(2) NOT NULL,
   `create_at` datetime COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `update_at` datetime COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `insert_history_at` datetime COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   FOREIGN KEY fk_post(post_id) REFERENCES post(post_id),
   FOREIGN KEY fk_dept(dept_id) REFERENCES department(dept_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

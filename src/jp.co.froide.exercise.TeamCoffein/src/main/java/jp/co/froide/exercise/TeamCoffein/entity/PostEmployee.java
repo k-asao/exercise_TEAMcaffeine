@@ -20,6 +20,6 @@ public class PostEmployee {
     Integer dept_id;
     String tel;
     String email;
-    String pass;
+    String password;
 
 }

@@ -8,6 +8,7 @@ import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import jp.co.froide.exercise.TeamCoffein.form.ConfMailForm;
 import jp.co.froide.exercise.TeamCoffein.form.ConfPassForm;
 import jp.co.froide.exercise.TeamCoffein.form.LoginForm;
+import jp.co.froide.exercise.TeamCoffein.validation.MailFormValidator;
 import jp.co.froide.exercise.TeamCoffein.validation.PassFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -37,8 +38,14 @@ public class LoginController {
     @Autowired
     PassFormValidator passFormValidator;
 
+    @Autowired
+    MailFormValidator mailFormValidator;
+
     @InitBinder("confPassForm")
     public void validatorBinder(WebDataBinder webDataBinder){ webDataBinder.addValidators(passFormValidator);}
+
+    @InitBinder("confMailForm")
+    public void validatorBinder2(WebDataBinder webDataBinder){webDataBinder.addValidators(mailFormValidator);}
 
     @GetMapping("/emp/login")
     public String showLoginPage(@ModelAttribute LoginForm form, Model model){
@@ -73,17 +80,15 @@ public class LoginController {
 
     @GetMapping("/emp/forgetPass")
     public String forgetPass(Model model){
-        if(!model.containsAttribute("errorMessage")){
-            model.addAttribute("errorMessage", null);
+        if(!model.containsAttribute("error")) {
+            model.addAttribute("mailForm", new ConfMailForm());
         }
-        model.addAttribute("mailForm", new ConfMailForm());
         return "PassConfMail";
     }
 
     @GetMapping("/emp/changePass")
     public String showPassForm(Model model){
         if(model.containsAttribute("error")){
-            System.out.println("error");
             return "changePass";
         }else {
             return "redirect:/emp/login";
@@ -94,27 +99,18 @@ public class LoginController {
     @PostMapping("/emp/changePass")
     public String changePass(@Validated @ModelAttribute ConfMailForm form, BindingResult result, Model model, RedirectAttributes ra){
         if(result.hasErrors()){
-            ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
+            ra.addFlashAttribute("org.springframework.validation.BindingResult.mailForm", result);
             ra.addFlashAttribute("error", "this has errors");
-            ra.addFlashAttribute("form", form);
+            ra.addFlashAttribute("mailForm", form);
             return "redirect:/emp/forgetPass";
         }
+
         String email = form.getEmail();
-        PostEmployee  emp = empDao.selectByEmail(email);
-        if(emp == null){
-            ra.addFlashAttribute("errorMessage", "メールアドレスが登録されていません");
-            return "redirect:/emp/forgetPass";
-        }else if (emp.getPass() == null){
-            ra.addFlashAttribute("errorMessage", "管理者の権限がありません。");
-            System.out.println("aa");
-            return "redirect:/emp/forgetPass";
-        }else{
-            ConfPassForm passForm = new ConfPassForm();
-            passForm.setEmail(email);
-            model.addAttribute("email", passForm.getEmail());
-            model.addAttribute("passForm", passForm);
-            return "changePass";
-        }
+        ConfPassForm passForm = new ConfPassForm();
+        passForm.setEmail(email);
+        model.addAttribute("email", passForm.getEmail());
+        model.addAttribute("passForm", passForm);
+        return "changePass";
     }
 
     @PostMapping("/emp/sucChange")
@@ -123,13 +119,12 @@ public class LoginController {
             ra.addFlashAttribute("org.springframework.validation.BindingResult.passForm", result);
             ra.addFlashAttribute("error", "this has errors");
             ra.addFlashAttribute("email", form.getEmail());
-            System.out.println("aiuer");
             ra.addFlashAttribute("passForm", form);
             return "redirect:/emp/changePass";
         }
         PostEmployee emp = empDao.selectByEmail(form.getEmail());
         String hashed_pass = passwordEncoder.encode(form.getPass());
-        emp.setPass(hashed_pass);
+        emp.setPassword(hashed_pass);
         updateDao.update(emp);
         return "redirect:/emp/login";
     }
