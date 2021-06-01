@@ -39,8 +39,8 @@ public class InsertEmpController {
 
 
     @GetMapping("/emp/create")
-    public String showForm(Model model){
-        if(!model.containsAttribute("error")) {
+    public String showForm(Model model) {
+        if (!model.containsAttribute("error")) {
             EmployeeForm form = new EmployeeForm();
             model.addAttribute("form", new EmployeeForm());
         }
@@ -53,14 +53,14 @@ public class InsertEmpController {
     }
 
     @PostMapping(value = "/emp/create", params = "action=cancel")
-    public String cancelInsert(){
+    public String cancelInsert() {
         return "redirect:/emp";
     }
 
     @PostMapping(value = "/emp/create", params = "action=insert")
     public String createEmp(@Validated @ModelAttribute EmployeeForm form, BindingResult result,
-                            Model model, RedirectAttributes ra){
-        if(result.hasErrors()){
+                            Model model, RedirectAttributes ra) {
+        if (result.hasErrors()) {
             ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
             ra.addFlashAttribute("error", "this has errors");
             ra.addFlashAttribute("form", form);
@@ -75,7 +75,7 @@ public class InsertEmpController {
         emp.setDept_id(form.getDept_id());
         emp.setTel(form.getTel());
         emp.setEmail(form.getEmail());
-        if(form.getAuth() == 0) {
+        if (form.getAuth() == 0) {
             String pass = RandomStringUtils.randomAlphanumeric(6);
             String hashed_pass = passwordEncoder.encode(pass);
             emp.setPassword(hashed_pass);
@@ -83,16 +83,10 @@ public class InsertEmpController {
             model.addAttribute("emp", emp);
             model.addAttribute("pass", pass);
             return "confirmAsAdmin";
-        }else{
+        } else {
             emp.setPassword(null);
             insertDao.insert(emp);
             return "redirect:/emp";
         }
     }
-
-    @PostMapping(value = "/emp/create", params = "action=back")
-    public String redirectFromConfirm(){
-        return "redirect:/emp";
-    }
-
 }
