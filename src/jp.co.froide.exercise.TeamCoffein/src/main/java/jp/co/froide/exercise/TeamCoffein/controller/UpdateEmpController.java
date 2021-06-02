@@ -4,12 +4,11 @@ import jp.co.froide.exercise.TeamCoffein.dao.DeptDao;
 import jp.co.froide.exercise.TeamCoffein.dao.InsertDao;
 import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
 import jp.co.froide.exercise.TeamCoffein.dao.UpdateDao;
-import jp.co.froide.exercise.TeamCoffein.entity.Department;
-import jp.co.froide.exercise.TeamCoffein.entity.EmpHistory;
-import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
-import jp.co.froide.exercise.TeamCoffein.entity.Post;
+import jp.co.froide.exercise.TeamCoffein.entity.*;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.modelmapper.internal.bytebuddy.asm.Advice;
+import org.seasar.doma.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -96,6 +95,9 @@ public class UpdateEmpController {
         empHis.cloneEmp(emp);
         empHis.setInsert_history_at(str_nowDate);
         insertDao.insert(empHis);
+        if(updateDao.count(id) > 20){
+            updateDao.deleteOver20(id);
+        }
 
         emp.cloneForm(form);
         emp.setEmp_id(id);
@@ -126,5 +128,14 @@ public class UpdateEmpController {
         updateDao.update(emp);
         return "redirect:/emp";
     }
+
+    @GetMapping("/emp/edit/{id}/history")
+    public String showHistory(Model model, @PathVariable("id") Integer id){
+        List<EmpHisReceive> empHis = updateDao.selectEmpHisById(id);
+        model.addAttribute("id", id);
+        model.addAttribute("history", empHis);
+        return "empHistory";
+    }
+
 
 }
