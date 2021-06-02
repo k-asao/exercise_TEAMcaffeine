@@ -1,5 +1,6 @@
 package jp.co.froide.exercise.TeamCoffein.form;
 
+import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import lombok.Data;
 
 import org.hibernate.validator.constraints.Length;
@@ -45,6 +46,20 @@ public class EmployeeForm implements Serializable {
     @NotNull
     Integer auth;
 
+    public void cloneEmp(PostEmployee emp){
+        this.name = emp.getName();
+        this.kana = emp.getKana();
+        this.hire_date = emp.getHire_date();
+        this.post_id = emp.getPost_id();
+        this.dept_id = emp.getDept_id();
+        this.tel = emp.getTel();
+        this.email = emp.getEmail();
+        if(emp.getPassword().equals("0")){
+            this.auth = 1;
+        }else{
+            this.auth = 0;
+        }
 
+    }
 
 }

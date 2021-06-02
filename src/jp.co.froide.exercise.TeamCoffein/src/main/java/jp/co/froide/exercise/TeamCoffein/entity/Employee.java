@@ -1,5 +1,6 @@
 package jp.co.froide.exercise.TeamCoffein.entity;
 
+import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import lombok.Getter;
 import lombok.Setter;
 import org.seasar.doma.*;
@@ -22,5 +23,7 @@ public class Employee {
     String dept_name;
     String tel;
     String email;
+
+
 
 }
