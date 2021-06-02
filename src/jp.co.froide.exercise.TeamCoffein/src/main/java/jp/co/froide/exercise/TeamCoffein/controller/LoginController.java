@@ -75,7 +75,7 @@ public class LoginController {
 
     @GetMapping("/loginFail")
     public String loginFailure(@ModelAttribute LoginForm form, Model model, RedirectAttributes ra) {
-        ra.addFlashAttribute("message", "ログインIDもしくはパスワードが違います。");
+        ra.addFlashAttribute("message", "メールアドレスもしくはパスワードが違います。");
         return "redirect:/emp/login";
     }
 
