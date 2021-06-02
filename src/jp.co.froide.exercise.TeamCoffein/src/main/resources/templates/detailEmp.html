@@ -9,6 +9,7 @@
 <body>
 <!--page-title-->
 <h1 class="page-title">編集画面</h1>
+<h3><a th:href="@{/emp/edit/{id}/history(id = *{id})}">変更履歴を確認</a></h3>
 
 <!--content-->
 <form class="content" th:object="${form}" action="#" th:action="@{/emp/edit/{id}(id = ${id})}"
