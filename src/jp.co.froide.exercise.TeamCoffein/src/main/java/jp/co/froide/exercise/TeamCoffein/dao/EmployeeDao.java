@@ -17,4 +17,7 @@ public interface EmployeeDao {
     @Select
     PostEmployee selectByEmail(String email);
 
+    @Sql("select /*%expand*/* from employee where tel = /*tel*/0")
+    @Select
+    PostEmployee selectByTel(String tel);
 }

@@ -8,6 +8,7 @@ import jp.co.froide.exercise.TeamCoffein.entity.Department;
 import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import jp.co.froide.exercise.TeamCoffein.entity.Post;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
+import jp.co.froide.exercise.TeamCoffein.validation.EmpFormValidator;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,6 +41,11 @@ public class InsertEmpController {
     DeptDao deptDao;
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    EmpFormValidator empFormValidator;
+
+    @InitBinder("employeeForm")
+    public void validatorBinder(WebDataBinder webDataBinder){ webDataBinder.addValidators(empFormValidator);}
 
 
     @GetMapping("/emp/create")

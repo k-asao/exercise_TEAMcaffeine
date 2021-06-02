@@ -209,7 +209,7 @@ CREATE TABLE `emp_history` (
   `tel` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL UNIQUE,
   `email` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL UNIQUE,
   `password` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `delete_flag` int(2) NOT NULL,
+  `delete_flag` int(2) NOT NULL DEFAULT 0,
   `create_at` datetime COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `update_at` datetime COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `insert_history_at` datetime COLLATE utf8mb4_unicode_ci DEFAULT NULL,
