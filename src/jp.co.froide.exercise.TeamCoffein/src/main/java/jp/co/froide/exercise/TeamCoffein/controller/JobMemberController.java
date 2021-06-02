@@ -45,7 +45,7 @@ public class JobMemberController {
     @RequestMapping(value = "/emp", method = RequestMethod.POST)
     public String search(@RequestParam HashMap<String, String> params, SearchForm form, Model model) {
         String order = form.getOrder();
-        String name = form.getName();
+        String name = form.getName() ;
         Integer post_id = form.getPost_id();
         Integer dept_id = form.getDept_id();
         String hire_date = form.getHire_date();
