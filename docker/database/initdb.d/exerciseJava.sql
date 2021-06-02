@@ -82,7 +82,7 @@ CREATE TABLE `employee` (
   `dept_id` int(11) DEFAULT NULL ,
   `tel` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL UNIQUE,
   `email` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL UNIQUE,
-  `password` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT "0",
   `delete_flag` int(2) NOT NULL DEFAULT 0,
   `create_at` datetime COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `update_at` datetime COLLATE utf8mb4_unicode_ci DEFAULT NULL,
