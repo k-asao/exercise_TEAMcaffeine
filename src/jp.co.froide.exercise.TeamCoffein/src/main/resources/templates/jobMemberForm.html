@@ -7,7 +7,9 @@
 <body>
 <table border="1" cellspacing="0" cellpadding="0">
     <label>社員一覧</label>
-    <!--<a th:href="@{/logout}">ログアウト</a>-->
+    <form id="logout" method="post" th:action="@{/logout}">
+    <button  type="submit">ログアウト</button>
+    </form>
     <div>
         <!--<button type="submit" th:action="@{/emp/create}" method="get">＋社員情報を登録</button>-->
         <a th:href="@{/emp/create}">＋社員情報を登録</a>
