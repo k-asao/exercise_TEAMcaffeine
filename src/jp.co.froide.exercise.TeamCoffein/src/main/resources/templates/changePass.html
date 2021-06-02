@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>パスワードの変更</title>
+    <link th:href="@{/css/sub.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!--page-title-->
+<h1 class="page-title">パスワード変更画面</h1>
+
+<form class="content" th:object="${passForm}" th:action="@{/emp/sucChange}" id=passForm enctype="multipart/form-data"
+      method=post>
+    <!--    hidden-element-->
+    <div>
+        <input type="hidden" th:type="hidden" th:name="email" th:field="*{email}">
+    </div>
+
+    <!--content__input-password-->
+    <div class="content__input-wrapper--field">
+        <div class="content__input-wrapper--input">
+            <input type="text" th:type="text" name="pass" th:field="*{pass}" placeholder="パスワード"/>
+            <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}">error
+                code
+            </div>
+        </div>
+    </div>
+
+    <!--content__input-confirmPassword-->
+    <div class="content__input-wrapper--field">
+        <div class="content__input-wrapper--input">
+            <input type="text" th:type="text" name="passConf" th:field="*{passConf}"
+                   placeholder="確認のためもう一度入力してください。"/>
+            <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('passConf')}" th:errors="*{passConf}">
+                error code
+            </div>
+        </div>
+    </div>
+
+    <!--content__submit-button-->
+    <button class="button__submit" type="submit" value="send">変更</button>
+
+    <!--content__cancel-button-->
+    <button class="button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
+</form>
+
+</body>
+</html>

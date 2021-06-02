@@ -30,7 +30,7 @@ public interface UserDao {
     }
 
     @Sql("select /*%expand*/*  from employee inner join department on employee" +
-            ".dept_id = department.dept_id inner join post on employee.post_id = post.post_id")
+            ".dept_id = department.dept_id inner join post on employee.post_id = post.post_id order by emp_id asc")
     @Select
     List<Employee> selectEmpAll();
 

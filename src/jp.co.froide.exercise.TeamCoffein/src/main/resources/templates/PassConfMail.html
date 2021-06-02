@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>メールアドレスの確認</title>
+    <link th:href="@{/css/sub.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!--page-title-->
+<h1 class="page-title">メールアドレス確認画面</h1>
+<!--content-->
+<form class="content" th:object="${mailForm}" th:action="@{/emp/changePass}" id=mailForm enctype="multipart/form-data"
+      method=post>
+    <!--content__input-mail-->
+    <div class="content__input-wrapper--field">
+        <div class="content__input-wrapper--input">
+            <input type="text" th:type="text" name="email" th:field="*{email}" placeholder="メールアドレス"/>
+            <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">error
+                code
+            </div>
+        </div>
+    </div>
+    <!--content__login-button-->
+    <button class="button__submit" type="submit" value="send">次へ</button>
+    <!--content__cancel-button-->
+    <button class="button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
+</form>
+</body>
+</html>

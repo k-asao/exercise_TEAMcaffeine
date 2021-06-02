@@ -20,10 +20,10 @@ services:
     image: phpmyadmin/phpmyadmin
     environment:
     - PMA_ARBITRARY=1
-    - PMA_HOSTS=exercise_mysql_host
+    - PMA_HOST=exercise_mysql_host
     - PMA_USER=root
     - PMA_PASSWORD=root
     ports:
-    - 10080:80
+    - 10090:80
 
 

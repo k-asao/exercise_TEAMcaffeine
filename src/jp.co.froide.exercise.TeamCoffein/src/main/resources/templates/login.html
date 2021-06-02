@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン</title>
+    <link th:href="@{/css/sub.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!--page-title-->
+<h1 class="page-title">ログイン</h1>
+<!--content-->
+<form class="content" th:object="${loginForm}" th:action="@{/emp/login}" id=loginForm enctype="multipart/form-data"
+      method=post>
+    <!--content__input-mail-->
+    <div class="content__input-wrapper--field">
+        <div class="content__input-wrapper--input">
+            <input type="text" th:type="text" name="login_id" th:field="*{login_id}"
+                   placeholder="メールアドレス"/>
+            <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('login_id')}" th:errors="*{login_id}">
+                error code
+            </div>
+            <div class="content__input-wrapper--error">
+                [[${message}]]
+            </div>
+        </div>
+    </div>
+
+    <!--content__input-password-->
+    <div class="content__input-wrapper--field">
+        <div class="content__input-wrapper--input">
+            <input type="text" th:type="text" name="password" th:field="*{password}"
+                   placeholder="パスワード"/>
+            <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                error code
+            </div>
+        </div>
+
+    </div>
+
+    <!--content__forgetPassword-button-->
+    <div class="tabbox__text">
+        <a class="tabbox__link" th:href="@{/emp/forgetPass}">
+            パスワードをお忘れですか?
+        </a>
+    </div>
+
+    <!--content__login-button-->
+    <button class="button__submit" type="submit" value="send">ログイン</button>
+
+    <!--content__cancel-button-->
+    <button class="button__cancel" type="submit" name ="action" value="cancel">キャンセル</button>
+
+</form>
+
+</body>
+</html>

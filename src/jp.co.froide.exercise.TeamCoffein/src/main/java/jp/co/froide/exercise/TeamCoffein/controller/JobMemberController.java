@@ -8,7 +8,7 @@ import jp.co.froide.exercise.TeamCoffein.entity.Department;
 import jp.co.froide.exercise.TeamCoffein.entity.Post;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import jp.co.froide.exercise.TeamCoffein.form.SearchForm;
-import jp.co.froide.exercise.TeamCoffein.validation.EmpFormValidator;
+//import jp.co.froide.exercise.TeamCoffein.validation.EmpFormValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,14 +32,15 @@ public class JobMemberController {
 
     @Autowired
     UserDao userDao;
-    @Autowired
+    /*@Autowired
     EmpFormValidator empFormValidator;
 
     //html↓
     @InitBinder("employeeForm")
     public void validatorBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(empFormValidator);
-    }
+    }*/
+
 
     @RequestMapping(value = "/emp", method = RequestMethod.POST)
     public String search(@RequestParam HashMap<String, String> params, SearchForm form, Model model) {
@@ -90,6 +91,7 @@ public class JobMemberController {
                 off);
         Collection<Employee> empDataList = userDao.selectEmpAll();
         Collection<Employee> dateList = userDao.selectEmpAll();
+
         Collection<Department> deptList = userDao.selectDeptAll();
         Collection<Post> postList = userDao.selectPostAll();
 //        model.addAttribute("emplo", list);
@@ -197,6 +199,7 @@ public class JobMemberController {
     }
 }
 
+
 //検索込みで表示非表示にできるようにする
 //今検索前のボタン非表示はできている
 
@@ -205,3 +208,4 @@ public class JobMemberController {
 
 //getは得たやつ
 //新しいsearchFormを作った
+
