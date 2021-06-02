@@ -41,7 +41,7 @@ public class EmpDaoRealm implements UserDetailsService {
                 System.out.println("dame");
                 throw new  UsernameNotFoundException("account not found [id=" + email + "]");
             }
-            if(emp.getPassword() == null){
+            if(emp.getPassword() == "0"){
                 throw new  UsernameNotFoundException("You are not Administrator");
             }
 

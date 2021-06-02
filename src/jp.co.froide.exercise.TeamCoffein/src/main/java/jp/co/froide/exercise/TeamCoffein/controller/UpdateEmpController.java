@@ -7,7 +7,9 @@ import jp.co.froide.exercise.TeamCoffein.entity.Department;
 import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import jp.co.froide.exercise.TeamCoffein.entity.Post;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +34,8 @@ public class UpdateEmpController {
     PostDao postDao;
     @Autowired
     DeptDao deptDao;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     @GetMapping("/emp/edit/{id}")
@@ -84,7 +88,12 @@ public class UpdateEmpController {
            return "redirect:/emp/edit/{id}";
        }
 
-       PostEmployee emp = new PostEmployee();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date nowDate = new Date();
+        String str_nowDate = format.format(nowDate);
+
+
+       PostEmployee emp = updateDao.selectEmpByID(id);
        emp.setEmp_id(id);
        emp.setName(form.getName());
        emp.setKana(form.getKana());
@@ -93,14 +102,27 @@ public class UpdateEmpController {
        emp.setDept_id(form.getDept_id());
        emp.setTel(form.getTel());
        emp.setEmail(form.getEmail());
-       updateDao.update(emp);
-       return "redirect:/emp";
+       emp.setUpdate_at(str_nowDate);
+        if (form.getAuth() == 0) {
+            String pass = RandomStringUtils.randomAlphanumeric(6);
+            String hashed_pass = passwordEncoder.encode(pass);
+            emp.setPassword(hashed_pass);
+            updateDao.update(emp);
+            model.addAttribute("emp", emp);
+            model.addAttribute("pass", pass);
+            return "confirmAsAdmin";
+        } else {
+            emp.setPassword("0");
+            updateDao.update(emp);
+            return "redirect:/emp";
+        }
     }
 
     @RequestMapping("/emp/edit/{id}/delete")
     public String delEmp(EmployeeForm form, @PathVariable("id") Integer id) {
         PostEmployee emp = updateDao.selectEmpByID(id);
-        updateDao.delete(emp);
+        emp.setDelete_flag(1);
+        updateDao.update(emp);
         return "redirect:/emp";
     }
 

@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -64,9 +66,13 @@ public class InsertEmpController {
             ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
             ra.addFlashAttribute("error", "this has errors");
             ra.addFlashAttribute("form", form);
-            System.out.println(form);
+            System.out.println(result);
             return "redirect:/emp/create";
         }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date nowDate = new Date();
+        String str_nowDate = format.format(nowDate);
+
         PostEmployee emp = new PostEmployee();
         emp.setName(form.getName());
         emp.setKana(form.getKana());
@@ -75,6 +81,9 @@ public class InsertEmpController {
         emp.setDept_id(form.getDept_id());
         emp.setTel(form.getTel());
         emp.setEmail(form.getEmail());
+        emp.setDelete_flag(0);
+        emp.setUpdate_at(str_nowDate);
+        emp.setCreate_at(str_nowDate);
         if (form.getAuth() == 0) {
             String pass = RandomStringUtils.randomAlphanumeric(6);
             String hashed_pass = passwordEncoder.encode(pass);
@@ -84,7 +93,7 @@ public class InsertEmpController {
             model.addAttribute("pass", pass);
             return "confirmAsAdmin";
         } else {
-            emp.setPassword(null);
+            emp.setPassword("0");
             insertDao.insert(emp);
             return "redirect:/emp";
         }

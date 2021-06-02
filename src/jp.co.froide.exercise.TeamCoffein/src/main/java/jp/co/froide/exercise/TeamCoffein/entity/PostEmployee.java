@@ -21,5 +21,9 @@ public class PostEmployee {
     String tel;
     String email;
     String password;
+    Integer delete_flag;
+    String update_at;
+    String create_at;
+
 
 }
