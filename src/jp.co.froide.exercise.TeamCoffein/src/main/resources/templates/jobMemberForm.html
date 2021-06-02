@@ -11,8 +11,8 @@
     <button  type="submit">ログアウト</button>
     </form>
     <div>
-        <!--<button type="submit" th:action="@{/emp/create}" method="get">＋社員情報を登録</button>-->
-        <a th:href="@{/emp/create}">＋社員情報を登録</a>
+
+        <button type="button"><a th:href="@{/emp/create}">＋社員情報を登録</a></button>
     </div>
     <form th:object="${searchForm}" th:action="@{emp}" id="form1" enctype="multipart/form-data"
           method="post">
@@ -24,8 +24,8 @@
         </div>
         <div>
             <select th:field="*{order}">
-                <option th:value=ASC selected>昇順</option>
-                <option th:value=DESC>降順</option>
+                <option th:value=asc selected>昇順</option>
+                <option th:value=desc>降順</option>
             </select>
         </div>
         <div>
@@ -41,7 +41,13 @@
                 </option>
             </select>
         </div>
-
+        <div>
+            <select th:field="*{hire_date}">
+                <option th:value="${noSelect}"  selected>選択肢</option>
+                <option th:each="date:${dateList}" th:value="${date.hire_date}" th:text="${date.hire_date}">text
+                </option>
+            </select>
+        </div>
     </form>
     <tr>
         <th>社員番号</th>
@@ -50,20 +56,23 @@
         <th>所属部署</th>
         <th>入社年月日</th>
     </tr>
-    <tr th:each="user : ${emp}">
-        <td>[[${user.emp_id}]]</td>
-        <td>[[${user.name}]]</td>
+    <tr th:each="user : ${searchList}">
+        <td>[[${user .emp_id}]]</td>
+        <td><a th:href="@{'/emp/edit/' + ${user.emp_id}}">[[${user.name}]]</a></td>
         <td>[[${user.post_name}]]</td>
         <td>[[${user.dept_name}]]</td>
         <td>[[${user.hire_date}]]</td>
     </tr>
 </table>
-<div>
-    <button type="button">◀前へ</button>
-</div>
-<div>
-    <button type="button">次へ▶</button>
-</div>
+
+<nav>
+    <th:block>
+        <button form="form1" th:if="${page > 1}" th:formaction="@{'/emp?page=' + ${page-1}}" type="submit">◀前へ</button>
+    </th:block>
+    <th:block>
+        <button form="form1" th:if="${page} < ${totalPage}" th:formaction="@{'/emp?page=' + ${page+1}}" type="submit">次へ▶</button>
+    </th:block>
+</nav>
 <form method="get" th:action="|/admin.csv|">
     <input type="submit" name="download_file" value="ファイルをダウンロード">
 </form>

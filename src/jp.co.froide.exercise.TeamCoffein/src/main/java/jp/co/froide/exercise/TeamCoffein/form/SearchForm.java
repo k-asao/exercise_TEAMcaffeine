@@ -6,13 +6,12 @@ import java.io.Serializable;
 @Data
 public class SearchForm implements Serializable {
 
-//    入力するもの
-//    検索フォームにある４つ
-//    変数宣言
-//    htmlからの入力を受け取るようにする
+    Integer emp_id;
     String order;
     String name;
     Integer post_id;
     Integer dept_id;
     String hire_date;
+    Integer lim;
+    Integer off;
 }
