@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <title>登録完了</title>
+    <link th:href="@{/css/sub.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<form class="content" th:object="${form}" th:action="@{/emp/create}" id=empForm enctype="multipart/form-data"
+      method=post>
+    <p>[[${emp.name}]]を管理者として登録しました。<br>
+        パスワードは、忘れないように保存してください。</p>
+    <h3>[[${pass}]]</h3>
+    <button class="button__submit" type="submit" name="action" value="cancel">一覧画面に戻る</button>
+</form>
+</body>
+</html>

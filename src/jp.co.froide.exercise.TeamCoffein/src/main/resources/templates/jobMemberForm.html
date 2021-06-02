@@ -7,7 +7,11 @@
 <body>
 <table border="1" cellspacing="0" cellpadding="0">
     <label>社員一覧</label>
+    <form id="logout" method="post" th:action="@{/logout}">
+    <button  type="submit">ログアウト</button>
+    </form>
     <div>
+
         <button type="button"><a th:href="@{/emp/create}">＋社員情報を登録</a></button>
     </div>
     <form th:object="${searchForm}" th:action="@{emp}" id="form1" enctype="multipart/form-data"
@@ -60,6 +64,7 @@
         <td>[[${user.hire_date}]]</td>
     </tr>
 </table>
+
 <nav>
     <th:block>
         <button form="form1" th:if="${page > 1}" th:formaction="@{'/emp?page=' + ${page-1}}" type="submit">◀前へ</button>
@@ -68,8 +73,8 @@
         <button form="form1" th:if="${page} < ${totalPage}" th:formaction="@{'/emp?page=' + ${page+1}}" type="submit">次へ▶</button>
     </th:block>
 </nav>
-<div>
-    <button type="submit">CSVファイルをダウンロード</button>
-</div>
+<form method="get" th:action="|/admin.csv|">
+    <input type="submit" name="download_file" value="ファイルをダウンロード">
+</form>
 </body>
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>社員番号[[${id}]]の変更履歴</h3>
+<table>
+<tr>
+    <th>名前</th>
+    <th>フリガナ</th>
+    <th>役職</th>
+    <th>所属部署</th>
+    <th>入社年月日</th>
+    <th>メールアドレス</th>
+    <th>電話番号</th>
+    <th>更新日時</th>
+</tr>
+<tr th:each="his : ${history}">
+    <td>[[${his.name}]]</td>
+    <td>[[${his.kana}]]</td>
+    <td>[[${his.post_name}]]</td>
+    <td>[[${his.dept_name}]]</td>
+    <td>[[${his.hire_date}]]</td>
+    <td>[[${his.email}]]</td>
+    <td>[[${his.tel}]]</td>
+    <td>[[${his.insert_history_at}]]</td>
+</tr>
+</table>
+<a  th:href="@{/emp/edit/{id}(id = *{id})}">戻る</a>
+</body>
+</html>
