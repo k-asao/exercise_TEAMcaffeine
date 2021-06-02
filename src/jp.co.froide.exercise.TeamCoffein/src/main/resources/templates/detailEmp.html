@@ -4,116 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>詳細画面</title>
-    <style>
-        body{
-            background-color:#f0f1f4;
-            margin: 80px 80px;
-        }
-        .page-title{
-            color:#384359;
-            font-weight:700;
-            font-size:30px;
-            margin:0px;
-        }
-        .content{
-            background-color:white;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-        }
-        .content__input-wrapper{
-            width:60%;
-            padding:32px 0px;
-            border-bottom:1px solid #f0f1f4;
-        }
-        .content__input-wrapper--field{
-            display:flex;
-            align-items:center;
-        }
-        .content__input--label{
-            font-size:18px;
-            color:#384359;
-            font-weight:700;
-            width:160px;
-        }
-        .content__input-wrapper--input{
-            width:100%;
-        }
-        .content__input-wrapper--input input,select{
-            background-color:#fcfcfd;
-            border:1px solid #c2c8d2;
-            box-sizing:border-box;
-            height:40px;
-            padding:0px 12px;
-            border-radius:4px;
-            width:100%;
-        }
-        .content__input-wrapper--error{
-            font-size:13px;
-            color:#f29091;
-        }
-        .submit-button{
-            display:flex;
-            justify-content:center;
-            margin-top:16px;
-            padding:32px;
-        }
-        .submit-button__cancel{
-            margin:0 12px;
-            border-radius:8px;
-            font-size:16px;
-            background-color:#c2c8d2;
-            color:white;
-            cursor:pointer;
-            font-weight:700;
-            border:none;
-            width:320px;
-            padding:8px;
-        }
-        .submit-button__update{
-            margin:0 12px;
-            border-radius:8px;
-            font-size:16px;
-            background-color:#11beae;
-            color:white;
-            cursor:pointer;
-            font-weight:700;
-            border:none;
-            width:320px;
-            padding:8px;
-        }
-        .delete-button{
-            display:flex;
-            justify-content:center;
-            margin:20px;
-            color:#f29091;
-            cursor:pointer;
-        }
-
-        @media screen and (max-width: 479px) { /*ウィンドウ幅が479px以下の場合に適用*/
-            body{
-                margin:0 auto;
-            }
-            .content__input-wrapper--field{
-                display:flex;
-                flex-direction:column;
-                align-items:flex-start;
-            }
-            .submit-button{
-                padding:0px;
-                align-items:center;
-                flex-direction:column-reverse;
-            }
-            .submit-button button{
-                margin-top:10px;
-            }
-            .content{
-                padding-bottom:20px;
-            }
-        }
-
-
-    </style>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <!--page-title-->
@@ -261,7 +152,7 @@
     <!--    submit-button-->
     <div class="submit-button">
         <button class="submit-button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
-        <button class="submit-button__update" type="submit" name="action" value="update">更新</button>
+        <button class="submit-button__create" type="submit" name="action" value="update">更新</button>
     </div>
 </form>
 
