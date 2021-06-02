@@ -1,5 +1,6 @@
 package jp.co.froide.exercise.TeamCoffein.dao;
 
+import jp.co.froide.exercise.TeamCoffein.entity.EmpHistory;
 import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
@@ -12,5 +13,8 @@ public interface InsertDao {
 
     @Insert
     int insert(PostEmployee emp);
+
+    @Insert
+    int insert(EmpHistory empHis);
 
 }
