@@ -36,7 +36,7 @@ public interface UserDao {
 
     @Sql("select /*%expand*/* from employee inner join department on employee.dept_id = department.dept_id " +
             "inner join post on employee.post_id = post.post_id where /*%if name != \"\" */ " +
-            "name like /* \"\" */99 /*%end*/" +
+            "name like /* @infix(name) */'smith'/*%end*/" +
             "/*%if hire_date != \"\" */ and employee.hire_date = /* hire_date */99 /*%end*/" +
             "/*%if post_id != null */ and employee.post_id = /* post_id */99 /*%end*/" +
             "/*%if dept_id != null */ and employee.dept_id = /* dept_id */99 /*%end*/" +
@@ -63,7 +63,7 @@ Integer lim, Integer off);
 
     @Sql("select count(*) from employee inner join department on employee.dept_id = department.dept_id " +
             "inner join post on employee.post_id = post.post_id where /*%if name != \"\" */ " +
-            "name like /* \"\" */99 /*%end*/" +
+            "name like /* @infix(name) */'smith'/*%end*/" +
             "/*%if hire_date != \"\" */ and employee.hire_date = /* hire_date */99 /*%end*/" +
             "/*%if post_id != null */ and employee.post_id = /* post_id */99 /*%end*/" +
             "/*%if dept_id != null */ and employee.dept_id = /* dept_id */99 /*%end*/" +

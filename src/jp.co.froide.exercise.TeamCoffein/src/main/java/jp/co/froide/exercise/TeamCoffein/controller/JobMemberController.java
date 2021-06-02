@@ -50,6 +50,8 @@ public class JobMemberController {
         String hire_date = form.getHire_date();
         String currentPage = params.get("page");
 
+
+
 //        初期設定ではパラメータを取得できないので、1ページに設定
         if(currentPage == null) {
             currentPage = "1";
