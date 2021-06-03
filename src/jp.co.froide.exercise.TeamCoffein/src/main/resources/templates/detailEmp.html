@@ -9,6 +9,7 @@
 <body>
 <!--page-title-->
 <h1 class="page-title">編集画面</h1>
+<h3><a th:href="@{/emp/edit/{id}/history(id = *{id})}">変更履歴を確認</a></h3>
 
 <!--content-->
 <form class="content" th:object="${form}" action="#" th:action="@{/emp/edit/{id}(id = ${id})}"
@@ -151,7 +152,7 @@
     <div class="content__input-wrapper">
         <div class="content__input-wrapper--field">
             <label class="content__input--label">権限</label>
-            <select id="selectAuth" name="selectAuth" th:field="*{auth}">
+            <select id="selectAuth" name="auth" th:field="*{auth}">
                 <option th:value="${noSelect}" selected>権限を選択してください</option>
                 <option th:value=0 >管理者</option>
                 <option th:value=1 >一般</option>

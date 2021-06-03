@@ -84,13 +84,8 @@ public class InsertEmpController {
         String str_nowDate = format.format(nowDate);
 
         PostEmployee emp = new PostEmployee();
-        emp.setName(form.getName());
-        emp.setKana(form.getKana());
-        emp.setHire_date(form.getHire_date());
-        emp.setPost_id(form.getPost_id());
-        emp.setDept_id(form.getDept_id());
-        emp.setTel(form.getTel());
-        emp.setEmail(form.getEmail());
+        emp.cloneForm(form);
+
         emp.setDelete_flag(0);
         emp.setUpdate_at(str_nowDate);
         emp.setCreate_at(str_nowDate);

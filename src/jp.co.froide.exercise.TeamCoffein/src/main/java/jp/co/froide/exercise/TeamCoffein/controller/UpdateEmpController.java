@@ -1,13 +1,14 @@
 package jp.co.froide.exercise.TeamCoffein.controller;
 
 import jp.co.froide.exercise.TeamCoffein.dao.DeptDao;
+import jp.co.froide.exercise.TeamCoffein.dao.InsertDao;
 import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
 import jp.co.froide.exercise.TeamCoffein.dao.UpdateDao;
-import jp.co.froide.exercise.TeamCoffein.entity.Department;
-import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
-import jp.co.froide.exercise.TeamCoffein.entity.Post;
+import jp.co.froide.exercise.TeamCoffein.entity.*;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.modelmapper.internal.bytebuddy.asm.Advice;
+import org.seasar.doma.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,8 @@ public class UpdateEmpController {
     @Autowired
     DeptDao deptDao;
     @Autowired
+    InsertDao insertDao;
+    @Autowired
     PasswordEncoder passwordEncoder;
 
 
@@ -43,13 +46,7 @@ public class UpdateEmpController {
         if (!model.containsAttribute("error")) {
             PostEmployee emp = updateDao.selectEmpByID(id);
             EmployeeForm form = new EmployeeForm();
-            form.setName(emp.getName());
-            form.setKana(emp.getKana());
-            form.setHire_date(emp.getHire_date());
-            form.setPost_id(emp.getPost_id());
-            form.setDept_id(emp.getDept_id());
-            form.setTel(emp.getTel());
-            form.setEmail(emp.getEmail());
+            form.cloneEmp(emp);
 
 //            変更点
             SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-mm-dd");
@@ -81,7 +78,7 @@ public class UpdateEmpController {
 
                             Model model, RedirectAttributes ra,@PathVariable("id") Integer id){
        if(result.hasErrors()){
-           System.out.println(form.getPost_id());
+           System.out.println(result);
            ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
            ra.addFlashAttribute("error", "this has errors");
            ra.addFlashAttribute("form", form);
@@ -93,17 +90,20 @@ public class UpdateEmpController {
         String str_nowDate = format.format(nowDate);
 
 
-       PostEmployee emp = updateDao.selectEmpByID(id);
-       emp.setEmp_id(id);
-       emp.setName(form.getName());
-       emp.setKana(form.getKana());
-       emp.setHire_date(form.getHire_date());
-       emp.setPost_id(form.getPost_id());
-       emp.setDept_id(form.getDept_id());
-       emp.setTel(form.getTel());
-       emp.setEmail(form.getEmail());
-       emp.setUpdate_at(str_nowDate);
-        if (form.getAuth() == 0) {
+        PostEmployee emp = updateDao.selectEmpByID(id);
+        EmpHistory empHis = new EmpHistory();
+        empHis.cloneEmp(emp);
+        empHis.setInsert_history_at(str_nowDate);
+        insertDao.insert(empHis);
+        if(updateDao.count(id) > 20){
+            updateDao.deleteOver20(id);
+        }
+
+        emp.cloneForm(form);
+        emp.setEmp_id(id);
+        emp.setUpdate_at(str_nowDate);
+
+        if (form.getAuth() == 0 && empHis.getPassword().equals("0")) {
             String pass = RandomStringUtils.randomAlphanumeric(6);
             String hashed_pass = passwordEncoder.encode(pass);
             emp.setPassword(hashed_pass);
@@ -111,7 +111,10 @@ public class UpdateEmpController {
             model.addAttribute("emp", emp);
             model.addAttribute("pass", pass);
             return "confirmAsAdmin";
-        } else {
+        } else if(form.getAuth() == 0 && !empHis.getPassword().equals("0")){
+            updateDao.update(emp);
+            return "redirect:/emp";
+        }else {
             emp.setPassword("0");
             updateDao.update(emp);
             return "redirect:/emp";
@@ -125,5 +128,14 @@ public class UpdateEmpController {
         updateDao.update(emp);
         return "redirect:/emp";
     }
+
+    @GetMapping("/emp/edit/{id}/history")
+    public String showHistory(Model model, @PathVariable("id") Integer id){
+        List<EmpHisReceive> empHis = updateDao.selectEmpHisById(id);
+        model.addAttribute("id", id);
+        model.addAttribute("history", empHis);
+        return "empHistory";
+    }
+
 
 }

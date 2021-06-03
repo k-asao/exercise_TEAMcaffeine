@@ -1,20 +1,17 @@
 package jp.co.froide.exercise.TeamCoffein.entity;
 
-import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import lombok.Getter;
 import lombok.Setter;
-import org.seasar.doma.*;
+import org.seasar.doma.Entity;
+import org.seasar.doma.Metamodel;
+import org.seasar.doma.Table;
 
-import java.util.Optional;
-
-@Table(name = "employee")
+@Table(name = "emp_history")
 @Entity(metamodel = @Metamodel)
 @Getter
 @Setter
-public class Employee {
+public class EmpHisReceive {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer emp_id;
     String name;
     String kana;
@@ -23,7 +20,5 @@ public class Employee {
     String dept_name;
     String tel;
     String email;
-
-
-
+    String insert_history_at;
 }
