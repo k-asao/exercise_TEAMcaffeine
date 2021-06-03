@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,9 +7,13 @@
 <body>
 <table border="1" cellspacing="0" cellpadding="0">
     <label>社員一覧</label>
-    <form id="logout" method="post" th:action="@{/logout}">
-    <button  type="submit">ログアウト</button>
-    </form>
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{/logout}">Log out</a>
+    </div>
+    <div sec:authorize="isAnonymous()">
+        <a th:href="@{/login}">Log in</a>
+    </div>
+
     <div>
 
         <button type="button"><a th:href="@{/emp/create}">＋社員情報を登録</a></button>
