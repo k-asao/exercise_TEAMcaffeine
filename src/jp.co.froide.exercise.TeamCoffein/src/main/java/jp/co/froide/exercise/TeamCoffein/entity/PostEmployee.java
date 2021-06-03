@@ -35,6 +35,4 @@ public class PostEmployee {
         this.tel = form.getTel();
         this.email = form.getEmail();
     }
-
-
 }

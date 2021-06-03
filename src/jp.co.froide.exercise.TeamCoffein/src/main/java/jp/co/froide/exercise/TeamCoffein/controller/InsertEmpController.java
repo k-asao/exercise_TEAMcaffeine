@@ -45,7 +45,9 @@ public class InsertEmpController {
     EmpFormValidator empFormValidator;
 
     @InitBinder("employeeForm")
-    public void validatorBinder(WebDataBinder webDataBinder){ webDataBinder.addValidators(empFormValidator);}
+    public void validatorBinder(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(empFormValidator);
+    }
 
 
     @GetMapping("/emp/create")
