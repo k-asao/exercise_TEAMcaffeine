@@ -24,6 +24,4 @@ public class PostEmployee {
     Integer delete_flag;
     String update_at;
     String create_at;
-
-
 }

@@ -47,7 +47,6 @@ public interface UserDao {
     @Select
     List<Post> selectPostAll();
 
-
     @Insert
     int insert(Employee emp);
 
@@ -56,5 +55,4 @@ public interface UserDao {
 
     @Delete
     int delete(Employee emp);
-
 }
