@@ -19,7 +19,7 @@
     <!--content__input-password-->
     <div class="content__input-wrapper--field">
         <div class="content__input-wrapper--input">
-            <input type="text" th:type="text" name="pass" th:field="*{pass}" placeholder="パスワード"/>
+            <input type="password" th:type="password" name="pass" th:field="*{pass}" placeholder="パスワード"/>
             <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}">error
                 code
             </div>
@@ -29,7 +29,7 @@
     <!--content__input-confirmPassword-->
     <div class="content__input-wrapper--field">
         <div class="content__input-wrapper--input">
-            <input type="text" th:type="text" name="passConf" th:field="*{passConf}"
+            <input type="password" th:type="password" name="passConf" th:field="*{passConf}"
                    placeholder="確認のためもう一度入力してください。"/>
             <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('passConf')}" th:errors="*{passConf}">
                 error code
