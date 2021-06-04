@@ -123,8 +123,8 @@
                     <option th:value=0>管理者</option>
                     <option th:value=1>一般</option>
                 </select>
-                <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('')}"
-                     th:errors="*{post_id}">error code
+                <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('auth')}"
+                     th:errors="*{auth}">error code
                 </div>
             </div>
         </div>
