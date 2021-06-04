@@ -42,7 +42,8 @@ public class JobMemberController {
     }*/
 
 
-    @RequestMapping(value = "/emp", method = RequestMethod.POST)
+
+    @RequestMapping(value = {"/emp", "/"}, method = RequestMethod.POST)
     public String search(@RequestParam HashMap<String, String> params, SearchForm form, Model model) {
         String order = form.getOrder();
         String name = form.getName() ;
