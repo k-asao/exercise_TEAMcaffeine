@@ -43,7 +43,7 @@ public class JobMemberController {
 
 
 
-    @RequestMapping(value = {"/emp", "/"}, method = RequestMethod.POST)
+    @RequestMapping(value = "/emp", method = RequestMethod.POST)
     public String search(@RequestParam HashMap<String, String> params, SearchForm form, Model model) {
         String order = form.getOrder();
         String name = form.getName() ;
@@ -128,7 +128,7 @@ public class JobMemberController {
     //ページネーションで表示するページ数
 //    private int showPageSize = 3;
 
-    @RequestMapping(value = "/emp", method = RequestMethod.GET)
+    @RequestMapping(value = {"/emp","/"}, method = RequestMethod.GET)
     @Transactional(readOnly = true)
     public String index(Model model, SearchForm form, @RequestParam HashMap<String, String> params) throws Exception {
 //        パラメータを設定し、現在のページを取得する
