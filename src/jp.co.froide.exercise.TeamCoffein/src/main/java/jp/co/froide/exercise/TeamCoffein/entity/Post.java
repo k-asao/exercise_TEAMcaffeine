@@ -6,6 +6,7 @@ import org.seasar.doma.Entity;
 import org.seasar.doma.Id;
 import org.seasar.doma.Table;
 
+//役職テーブル受取用
 @Entity
 @Table(name = "post")
 @Getter

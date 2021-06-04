@@ -24,11 +24,11 @@ public class EmpFormValidator implements Validator {
         EmployeeForm empForm = (EmployeeForm) target;
         PostEmployee empByEmail = empDao.selectByEmail(empForm.getEmail());
         PostEmployee empByTel = empDao.selectByTel(empForm.getTel());
-
-        if(empByEmail != null){
+        Integer id = empForm.getEmp_id();
+        if(empByEmail != null && !empByEmail.getEmp_id().equals(id)){
             errors.rejectValue("email", "EmployeeForm.Email.AlreadyExist");
         }
-        if(empByTel != null){
+        if(empByTel != null && !empByTel.getEmp_id().equals(id)){
             errors.rejectValue("tel", "EmployeeForm.Tel.AlreadyExist");
         }
     }

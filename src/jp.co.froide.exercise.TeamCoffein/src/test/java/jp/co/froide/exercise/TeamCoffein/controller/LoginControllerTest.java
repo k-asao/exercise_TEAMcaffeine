@@ -6,6 +6,7 @@ import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
 import jp.co.froide.exercise.TeamCoffein.dao.UpdateDao;
 import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import jp.co.froide.exercise.TeamCoffein.form.ConfPassForm;
+import jp.co.froide.exercise.TeamCoffein.validation.MailFormValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,6 +29,8 @@ import static org.hamcrest.CoreMatchers.is;
 public class LoginControllerTest {
     @Autowired
     Validator validator;
+    @Autowired
+    MailFormValidator mailFormValidator;
     @Mock
     UpdateDao updateDao;
     @Mock
@@ -40,6 +43,8 @@ public class LoginControllerTest {
     PasswordEncoder passwordEncoder;
     @Mock
     PostEmployee emp;
+    @Mock
+    BindingResult result;
 
 
     @InjectMocks
@@ -51,18 +56,24 @@ public class LoginControllerTest {
     }
 
     @Test
-    public  void changePassTest(){
+    public  void successChangePassTest(){
         ConfPassForm passForm = new ConfPassForm();
-        BindingResult result = new BindException(passForm,"form");
         emp.setPassword("a");
         emp.setEmp_id(12);
         passForm.setEmail("emp1111@ex.co.jp");
-        passForm.setPass("12345");
+        passForm.setPass("123459");
         passForm.setPassConf("123456");
-        validator.validate(passForm, result);
+        if(passForm.getPass().length() < 6 || passForm.getPass().length() > 73) Mockito.when(result.hasErrors()).thenReturn(true);
+        if(passForm.getPassConf().length() < 6) Mockito.when(result.hasErrors()).thenReturn(true);
+        if(!passForm.getPass().equals(passForm.getPassConf())) Mockito.when(result.hasErrors()).thenReturn(true);
         Mockito.when(employeeDao.selectByEmail(passForm.getEmail())).thenReturn(emp);
         Mockito.when(passwordEncoder.encode(passForm.getPass())).thenReturn("aaaa");
         String expected = loginController.successChangePass(passForm, result, model, ra);
-        assertThat(expected, is("redirect:/emp/login"));
+        assertThat(expected, is("redirect:/emp/changePass"));
+    }
+
+    @Test
+    public void changePassTest(){
+
     }
 }

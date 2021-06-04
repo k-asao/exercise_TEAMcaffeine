@@ -1,6 +1,5 @@
 package jp.co.froide.exercise.TeamCoffein.controller;
 
-import jp.co.froide.exercise.TeamCoffein.SecurityConfig;
 import jp.co.froide.exercise.TeamCoffein.dao.DeptDao;
 import jp.co.froide.exercise.TeamCoffein.dao.InsertDao;
 import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
@@ -10,10 +9,7 @@ import jp.co.froide.exercise.TeamCoffein.entity.Post;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
 import jp.co.froide.exercise.TeamCoffein.validation.EmpFormValidator;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,7 +72,6 @@ public class InsertEmpController {
             ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
             ra.addFlashAttribute("error", "this has errors");
             ra.addFlashAttribute("form", form);
-            System.out.println(result);
             return "redirect:/emp/create";
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
