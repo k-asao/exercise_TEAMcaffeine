@@ -29,9 +29,10 @@ public interface UserDao {
         return builder.getScalarSingleResult(int.class);
     }
 
-    @Sql("select hire_date  from employee group by hire_date order by hire_date asc")
+    @Sql("select /*%expand*/*  from employee inner join department on employee" +
+            ".dept_id = department.dept_id inner join post on employee.post_id = post.post_id order by emp_id asc")
     @Select
-    List<String> selectEmpAll();
+    List<Employee> selectEmpAll();
 
     @Sql("select /*%expand*/* from employee inner join department on employee.dept_id = department.dept_id " +
             "inner join post on employee.post_id = post.post_id where /*%if name != \"\" */ " +
