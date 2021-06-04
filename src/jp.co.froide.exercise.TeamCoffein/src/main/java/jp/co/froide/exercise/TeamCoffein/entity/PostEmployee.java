@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.seasar.doma.*;
 
+//社員情報送信用
 @Table(name = "employee")
 @Entity(metamodel = @Metamodel)
 @Getter

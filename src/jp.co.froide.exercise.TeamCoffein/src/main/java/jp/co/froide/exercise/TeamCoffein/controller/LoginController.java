@@ -1,9 +1,7 @@
 package jp.co.froide.exercise.TeamCoffein.controller;
 
 import jp.co.froide.exercise.TeamCoffein.dao.EmployeeDao;
-import jp.co.froide.exercise.TeamCoffein.dao.InsertDao;
 import jp.co.froide.exercise.TeamCoffein.dao.UpdateDao;
-import jp.co.froide.exercise.TeamCoffein.entity.Employee;
 import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import jp.co.froide.exercise.TeamCoffein.form.ConfMailForm;
 import jp.co.froide.exercise.TeamCoffein.form.ConfPassForm;
@@ -11,7 +9,6 @@ import jp.co.froide.exercise.TeamCoffein.form.LoginForm;
 import jp.co.froide.exercise.TeamCoffein.validation.MailFormValidator;
 import jp.co.froide.exercise.TeamCoffein.validation.PassFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,10 +57,8 @@ public class LoginController {
     @PostMapping("/emp/login")
     public String index(@Validated @ModelAttribute LoginForm form, BindingResult result) {
         if (result.hasErrors()) {
-            System.out.println("BBBBBBBB");
             return "login";
         }
-        System.out.println("aaaaaa");
         return "forward:" + "/processing";
     }
 

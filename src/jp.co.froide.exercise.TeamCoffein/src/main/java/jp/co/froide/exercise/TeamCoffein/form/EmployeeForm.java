@@ -16,6 +16,9 @@ import java.io.Serializable;
 public class EmployeeForm implements Serializable {
     public static final long serialVersionUID= 1L;
 
+
+    Integer emp_id;
+
     @Length(min=0, max=255)
     @NotBlank
     String name;
@@ -47,6 +50,7 @@ public class EmployeeForm implements Serializable {
     Integer auth;
 
     public void cloneEmp(PostEmployee emp){
+        this.emp_id = emp.getEmp_id();
         this.name = emp.getName();
         this.kana = emp.getKana();
         this.hire_date = emp.getHire_date();

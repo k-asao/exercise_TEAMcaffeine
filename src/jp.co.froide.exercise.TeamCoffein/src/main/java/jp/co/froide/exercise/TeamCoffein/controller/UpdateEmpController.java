@@ -6,19 +6,16 @@ import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
 import jp.co.froide.exercise.TeamCoffein.dao.UpdateDao;
 import jp.co.froide.exercise.TeamCoffein.entity.*;
 import jp.co.froide.exercise.TeamCoffein.form.EmployeeForm;
+import jp.co.froide.exercise.TeamCoffein.validation.EmpFormValidator;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.modelmapper.internal.bytebuddy.asm.Advice;
-import org.seasar.doma.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.ParseException;
@@ -39,6 +36,11 @@ public class UpdateEmpController {
     InsertDao insertDao;
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    EmpFormValidator empFormValidator;
+
+    @InitBinder("employeeForm")
+    public void validatorBinder(WebDataBinder webDataBinder) {webDataBinder.addValidators(empFormValidator);}
 
 
     @GetMapping("/emp/edit/{id}")
@@ -78,7 +80,6 @@ public class UpdateEmpController {
 
                             Model model, RedirectAttributes ra,@PathVariable("id") Integer id){
        if(result.hasErrors()){
-           System.out.println(result);
            ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
            ra.addFlashAttribute("error", "this has errors");
            ra.addFlashAttribute("form", form);

@@ -7,7 +7,7 @@ import org.seasar.doma.Id;
 import org.seasar.doma.Metamodel;
 import org.seasar.doma.Table;
 
-
+//部署テーブル受取用
 @Entity(metamodel = @Metamodel)
 @Table(name = "department")
 @Getter

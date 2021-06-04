@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.seasar.doma.*;
 
+//履歴登録用
 @Table(name = "emp_history")
 @Entity(metamodel = @Metamodel)
 @Getter
