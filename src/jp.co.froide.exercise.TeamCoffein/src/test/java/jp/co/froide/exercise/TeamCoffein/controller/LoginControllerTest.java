@@ -5,6 +5,7 @@ import jp.co.froide.exercise.TeamCoffein.dao.EmployeeDao;
 import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
 import jp.co.froide.exercise.TeamCoffein.dao.UpdateDao;
 import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
+import jp.co.froide.exercise.TeamCoffein.form.ConfMailForm;
 import jp.co.froide.exercise.TeamCoffein.form.ConfPassForm;
 import jp.co.froide.exercise.TeamCoffein.validation.MailFormValidator;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,9 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Arrays;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -73,7 +77,15 @@ public class LoginControllerTest {
     }
 
     @Test
-    public void changePassTest(){
-
+    public void checkMailTest(){
+        ConfMailForm cmf = new ConfMailForm();
+        cmf.setEmail("aaab@gmail.com");
+        String[] existing_address = {"aaaa@gmail.com", "bbbb@gmail.com"};
+        //メアドが存在しない場合
+        if(!Arrays.asList(existing_address).contains(cmf.getEmail())) Mockito.when(result.hasErrors()).thenReturn(true);
+        //メアドが未入力
+        if(cmf.getEmail().length()==0) Mockito.when(result.hasErrors()).thenReturn(true);
+        String expected = loginController.changePass(cmf, result, model, ra);
+        assertThat(expected, is("redirect:/emp/forgetPass"));
     }
 }
