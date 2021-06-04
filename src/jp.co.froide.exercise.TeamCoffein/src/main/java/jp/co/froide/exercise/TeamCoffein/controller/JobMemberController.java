@@ -91,7 +91,6 @@ public class JobMemberController {
 
         Collection<Employee> searchList = userDao.selectSearchAll(order, name, post_id, dept_id, hire_date, lim,
                 off);
-        Collection<Employee> empDataList = userDao.selectEmpAll();
         Collection<Employee> dateList = userDao.selectEmpAll();
 
         Collection<Department> deptList = userDao.selectDeptAll();

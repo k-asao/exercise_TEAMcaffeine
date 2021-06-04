@@ -46,14 +46,12 @@ public class RemovedEmployeeController {
         PostEmployee emp = updateDao.selectEmpByID(id);
         Collection<Department> deptList = userDao.selectDeptAll();
         Collection<Post> postList = userDao.selectPostAll();
-        Collection<Employee> empDataList = userDao.selectEmpAll();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         emp.setUpdate_at(LocalDateTime.now().format(formatter));
         emp.setDelete_flag(0);
         updateDao.update(emp);
 
-        model.addAttribute("emp", empDataList);
         model.addAttribute("searchForm", new SearchForm());
         model.addAttribute("deptList", deptList);
         model.addAttribute("postList", postList);
