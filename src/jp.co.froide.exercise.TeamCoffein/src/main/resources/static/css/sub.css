@@ -39,10 +39,23 @@ body{
             font-size:13px;
             color:#f29091;
         }
+        .link_and_box{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 70%
+        }
+        .rememberMe__checkbox{
+            margin-top:15px;
+            width:50%;
+        }
+        .checkbox__text{
+        font-size:13px;
+        }
         .tabbox__text{
             text-align:right;
             margin-top:15px;
-            width:70%;
+            width:50%;
         }
         .tabbox__link{
             color:#333;

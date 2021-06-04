@@ -39,12 +39,14 @@
     </div>
 
     <!--content__forgetPassword-button-->
-    <div class="tabbox__text">
-        <a class="tabbox__link" th:href="@{/emp/forgetPass}">
-            パスワードをお忘れですか?
-        </a>
+    <div class="link_and_box">
+        <div class="rememberMe__checkbox" ><input type="checkbox" name="remember-me"><a class="checkbox__text">ログイン状態を保持する</a></div>
+        <div class="tabbox__text">
+            <a class="tabbox__link" th:href="@{/emp/forgetPass}">
+                パスワードをお忘れですか?
+            </a>
+        </div>
     </div>
-    <div><input type="checkbox" name="remember-me">ログインしたままにする</div>
 
     <!--content__login-button-->
     <button class="button__submit" type="submit" value="send">ログイン</button>
