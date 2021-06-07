@@ -6,6 +6,7 @@ import jp.co.froide.exercise.TeamCoffein.entity.PostEmployee;
 import org.seasar.doma.*;
 import org.seasar.doma.boot.ConfigAutowireable;
 import org.seasar.doma.jdbc.Config;
+import org.seasar.doma.jdbc.builder.DeleteBuilder;
 import org.seasar.doma.jdbc.builder.SelectBuilder;
 
 import java.util.List;
@@ -40,12 +41,12 @@ public interface UpdateDao {
     @Delete
     int delete(PostEmployee employee);
 
-    default int deleteOver20(Integer id) {
+    default void deleteOver20(Integer id) {
         Config config = Config.get(this);
-        SelectBuilder builder = SelectBuilder.newInstance(config);
-        builder.sql("delete from emp_history where emp_id =").param(Integer.class, id);
+        DeleteBuilder builder = DeleteBuilder.newInstance(config);
+        builder.sql("delete from emp_history where emp_id = ").param(Integer.class, id);
         builder.sql(" order by emp_history_id asc limit 1");
-        return builder.getScalarSingleResult(int.class);
+        builder.execute();
     }
 
 }
