@@ -31,3 +31,13 @@ localhost:10080
 localhost:8080
 
 ```
+
+<h4>管理者アカウント（初期設定）</h4>
+
+```
+ 
+  email: emp111@example.co.jp
+ 
+  pass: password
+  
+```
