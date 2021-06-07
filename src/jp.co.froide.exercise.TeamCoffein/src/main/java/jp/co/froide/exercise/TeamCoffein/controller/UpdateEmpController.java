@@ -63,6 +63,7 @@ public class UpdateEmpController {
 
         List<Post> postList = postDao.selectAll();
         List<Department> deptList = deptDao.selectAll();
+        model.addAttribute("noSelect", null);
         model.addAttribute("postList", postList);
         model.addAttribute("deptList", deptList);
         model.addAttribute("id", id);
