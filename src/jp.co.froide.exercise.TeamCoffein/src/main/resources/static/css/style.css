@@ -77,7 +77,31 @@ body{
             width:320px;
             padding:8px;
         }
+        .button-wrapper{
+            display:flex;
+            justify-content:flex-end;
+        }
+        .button-wrapper button{
+              border-radius:8px;
+              font-size:16px;
+              background-color:#11beae;
+              color:white;
+              cursor:pointer;
+              font-weight:700;
+              border:none;
+              width:200px;
+              padding:8px;
+              margin-bottom:15px;
+        }
 
+        .auth-button a{
+             text-decoration:none;
+             color:white;
+        }
+        .button__text{
+             color:white;
+             text-decoration:none;
+        }
         .delete-button{
             display:flex;
             justify-content:center;
