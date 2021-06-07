@@ -7,22 +7,22 @@ import lombok.Value;
 
 @Value
 @AllArgsConstructor
-@JsonPropertyOrder({"emp_id", "name", "kana", "hire_date", "post_name", "dept_name", "tel", "email"})
+@JsonPropertyOrder({"社員番号", "名前", "フリガナ", "入社年月日", "役職", "所属部署", "電話番号", "メールアドレス"})
 public class CsvView {
-    @JsonProperty("emp_id")
+    @JsonProperty("社員番号")
     private long emp_id;
-    @JsonProperty("name")
+    @JsonProperty("名前")
     private String name;
-    @JsonProperty("kana")
+    @JsonProperty("フリガナ")
     private String kana;
-    @JsonProperty("hire_date")
+    @JsonProperty("入社年月日")
     private String hire_date;
-    @JsonProperty("post_name")
+    @JsonProperty("役職")
     private String post_name;
-    @JsonProperty("dept_name")
+    @JsonProperty("所属部署")
     private String dept_name;
-    @JsonProperty("tel")
+    @JsonProperty("電話番号")
     private String tel;
-    @JsonProperty("email")
+    @JsonProperty("メールアドレス")
     private String email;
 }

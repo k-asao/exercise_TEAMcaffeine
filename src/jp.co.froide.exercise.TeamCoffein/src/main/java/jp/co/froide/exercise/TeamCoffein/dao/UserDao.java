@@ -3,6 +3,7 @@ package jp.co.froide.exercise.TeamCoffein.dao;
 import jp.co.froide.exercise.TeamCoffein.entity.Department;
 import jp.co.froide.exercise.TeamCoffein.entity.Employee;
 import jp.co.froide.exercise.TeamCoffein.entity.Post;
+import jp.co.froide.exercise.TeamCoffein.entity.Year;
 import org.seasar.doma.*;
 import org.seasar.doma.boot.ConfigAutowireable;
 import org.seasar.doma.jdbc.Config;
@@ -29,25 +30,20 @@ public interface UserDao {
         return builder.getScalarSingleResult(int.class);
     }
 
-    @Sql("select /*%expand*/*  from employee inner join department on employee" +
-            ".dept_id = department.dept_id inner join post on employee.post_id = post.post_id order by emp_id asc")
+    @Sql("select EXTRACT(year FROM hire_date) AS year from employee GROUP BY EXTRACT(year FROM hire_date)")
     @Select
-    List<Employee> selectEmpAll();
+    List<Year> selectHireDateAll();
 
     @Sql("select /*%expand*/* from employee inner join department on employee.dept_id = department.dept_id " +
-            "inner join post on employee.post_id = post.post_id where /*%if name != \"\" */ " +
-            "name like /* @infix(name) */'smith'/*%end*/" +
-            "/*%if hire_date != \"\" */ and employee.hire_date = /* hire_date */99 /*%end*/" +
+            "inner join post on employee.post_id = post.post_id and employee.delete_flag = /* delete_flag */0 " +
+            "where /*%if name != \"\" */ name like /* @infix(name) */'smith'/*%end*/" +
+            "/*%if hire_date != \"\" */ and employee.hire_date between /* hire_date + \"-01-01 00:00:00\" */0  AND /* hire_date + \"-12-31 00:00:00\" */0 /*%end*/" +
             "/*%if post_id != null */ and employee.post_id = /* post_id */99 /*%end*/" +
             "/*%if dept_id != null */ and employee.dept_id = /* dept_id */99 /*%end*/" +
             "order by  emp_id /*# order */ limit /*# lim */ offset /*# off */")
     @Select
     List<Employee> selectSearchAll(String order, String name, Integer post_id, Integer dept_id, String hire_date,
-Integer lim, Integer off);
-
-    @Sql("select /*%expand*/* from employee where id = /* id */0")
-    @Select
-    Employee selectById(Integer id);
+                                   Integer lim, Integer off, Integer delete_flag);
 
     @Sql("select /*%expand*/* from department")
     @Select
@@ -61,56 +57,19 @@ Integer lim, Integer off);
     @Select
     int getMemberListCount();
 
+    @Sql("select count(*) from employee where delete_flag = 1")
+    @Select
+    int getRemovedMemberListCount();
+
+
     @Sql("select count(*) from employee inner join department on employee.dept_id = department.dept_id " +
-            "inner join post on employee.post_id = post.post_id where /*%if name != \"\" */ " +
-            "name like /* @infix(name) */'smith'/*%end*/" +
-            "/*%if hire_date != \"\" */ and employee.hire_date = /* hire_date */99 /*%end*/" +
+            "inner join post on employee.post_id = post.post_id and employee.delete_flag = /* delete_flag */0 " +
+            "where /*%if name != \"\" */ name like /* @infix(name) */'smith'/*%end*/" +
+            "/*%if hire_date != \"\" */ and employee.hire_date between /* hire_date + \"-01-01 00:00:00\" */0  AND /* hire_date + \"-12-31 00:00:00\" */0 /*%end*/" +
             "/*%if post_id != null */ and employee.post_id = /* post_id */99 /*%end*/" +
             "/*%if dept_id != null */ and employee.dept_id = /* dept_id */99 /*%end*/" +
             "order by  emp_id /*# order */")
     @Select
-    int getSearch(String order, String name, Integer post_id, Integer dept_id, String hire_date);
+    int getSearch(String order, String name, Integer post_id, Integer dept_id, String hire_date, Integer delete_flag);
 
-
-//    @Sql("select /*%expand*/*  from employee inner join department on employee.dept_id = department.dept_id inner " +
-//            "join post on employee.post_id = post.post_id limit 20")
-//    @Select
-//    List<Employee> getMemberList();
-
-//    default List<Employee> getMemberList(HashMap<String, String> search) throws SQLException, IOException {
-//        Config config = Config.get(this);
-//        SelectBuilder builder = SelectBuilder.newInstance(config);
-//        int limit = Integer.valueOf(search.get("limit"));
-//        int page = Integer.valueOf(search.get("page")) - 1;
-//        int offset = limit * page;
-//        System.out.println(limit);
-//
-//        builder.sql("select emp_id, name, kana, hire_date, post_name, dept_name, tel, email " +
-//                "from (select emp_id, name, kana, hire_date, post_name, dept_name, tel, email " +
-//                "from employee inner join department on employee.dept_id = department.dept_id " +
-//                "inner join post on employee.post_id = post.post_id order by emp_id asc) as emp " );
-//        builder.sql(" limit ").param(Integer.class, limit);
-//        builder.sql(" offset ").param(Integer.class, offset);
-//
-//        System.out.println(builder.getSql());
-//
-//        List<Employee> emp = builder.getEntityResultList(Employee.class);
-//
-//
-////        builder.addParameter(String, "limit");
-////        emp.addParameter(limit * page, "offset");
-//
-//
-//        return emp;
-//    }
-
-
-    @Insert
-    int insert(Employee emp);
-
-    @Update
-    int update(Employee emp);
-
-    @Delete
-    int delete(Employee emp);
 }

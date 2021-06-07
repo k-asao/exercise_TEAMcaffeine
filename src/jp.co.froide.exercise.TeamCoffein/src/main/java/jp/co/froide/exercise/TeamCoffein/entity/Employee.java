@@ -23,7 +23,4 @@ public class Employee {
     String dept_name;
     String tel;
     String email;
-
-
-
 }

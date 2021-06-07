@@ -1,36 +1,251 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>離籍者一覧</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
+    <style>
+        body{
+            background-color:#f0f1f4;
+            margin:0px auto;
+            width:70%;
+            color:#384359;
+        }
+        .page-title{
+            color:#384359;
+            font-weight:700;
+            font-size:30px;
+            margin:0px;
+        }
+        .button-wrapper{
+            display:flex;
+            justify-content:flex-end;
+        }
+        .button-wrapper button{
+            margin:10px;
+            margin:0 12px;
+            border-radius:8px;
+            font-size:16px;
+            background-color:#11beae;
+            color:white;
+            cursor:pointer;
+            font-weight:700;
+            border:none;
+            width:200px;
+            padding:8px;
+        }
+        .button__text{
+            color:white;
+            text-decoration:none;
+        }
+        .content{
+            background-color:white;
+            margin-top:24px;
+            padding:30px;
+        }
+        .content__search-form{
+            display:flex;
+            width:100%;
+           justify-content: space-between;
+           align-items:center;
+        }
+        .content__search-form--search-field{
+            display:flex;
+            position:relative;
+        }
+        .content__search-select{
+            display:flex;
+        }
+        .content__search-form--search-field input{
+            background-color:#fcfcfd;
+            border:1px solid #c2c8d2;
+            border-radius:100px;
+            height:40px;
+            padding:0 40px 0 20px;
+            width:100%;
+        }
+        .content__search-form--search-field input:focus{
+            border:1px solid #11beae;
+            outline:0;
+        }
+        .content__search-form--search-field button{
+            position:absolute;
+            right:12px;
+            top:30%;
+            border:none;
+            background-color:transparent;
+            width:20px;
+            cursor:pointer;
+            padding-right:17px;
+            color:#384359;
+        }
+        .content__search-form--search-field button:hover{
+            color:#11beae;
+        }
+        select{
+            width:100px;
+            cursor:pointer;
+            background-color:transparent;
+            border:none;
+            border-bottom:1px solid rgba(0,0,0, 0.3);
+        }
+
+        table{
+            border-collapse:collapse;
+        }
+        .content__table{
+            margin:40px 0 24px;
+            width:100%;
+        }
+        .content__thead{
+            border-bottom:1px solid #c2c8d2;
+            color:#c2c8d2;
+            font-size:12px;
+        }
+        .content__thead td{
+           border-bottom: 1px solid #c2c8d2;
+           text-align:center;
+        }
+        .content__row{
+            border-bottom:1px solid #f0f1f4;
+        }
+        .content__row th,td{
+            padding:16px 8px;
+            vertical-align:middle;
+        }
+        .content__row--id{
+            width:8%;
+            text-align:center;
+        }
+        .content__row--name{
+            font-weight:bold;
+        }
+        .content__row--post,.content__row--dept,.content__row--date{
+            width:15%;
+            text-align:center;
+        }
+        .pagination{
+            display:flex;
+            justify-content:space-around;
+        }
+        .pagination button{
+            border:none;
+            background:none;
+            color:#11beae;
+        }
+        .csvButton{
+            margin:10px 0px 100px 0px;
+            border-radius:8px;
+            font-size:16px;
+            background-color:#11beae;
+            color:white;
+            cursor:pointer;
+            font-weight:700;
+            border:none;
+            width:220px;
+            padding:8px;
+        }
+
+    </style>
 </head>
 <body>
-<table border="1" cellspacing="0" cellpadding="0">
-    <tr>
-        <th>社員番号</th>
-        <th>名前</th>
-        <th>役職</th>
-        <th>所属部署</th>
-        <th>入社年月日</th>
-        <th>戻す</th>
-    </tr>
-    <tr th:each="data : ${removedData}">
-        <td>[[${data.emp_id}]]</td>
-        <td>[[${data.name}]]</td>
-        <td>[[${data.post_name}]]</td>
-        <td>[[${data.dept_name}]]</td>
-        <td>[[${data.hire_date}]]</td>
-        <td><a th:href="@{'/emp/removed/'+ ${data.emp_id}}">復帰</a></td>
-    </tr>
-</table>
-<div>
-    <button type="button">◀前へ</button>
+<!--page-title-->
+<h1 class="page-title">離籍者一覧</h1>
+
+<div class="button-wrapper">
+    <button type="button"><a class="button__text" th:href="@{/emp}">一覧画面に戻る</a></button>
 </div>
-<div>
-    <button type="button">次へ▶</button>
+
+<div class="content">
+    <!--    searchFunctions-->
+    <form class="content__search-form" th:object="${searchForm}" th:action="@{/emp/removed}" id="form1"
+          enctype="multipart/form-data"
+          method="post">
+        <div class="content__search-form--search-field">
+            <input type="text" th:field="*{name}" th:type="text" placeholder="社員名から検索"/>
+            <button type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <div>
+            <label>社員番号</label>
+            <select th:field="*{order}">
+                <option th:value=asc selected>昇順</option>
+                <option th:value=desc>降順</option>
+            </select>
+        </div>
+
+        <div>
+            <label>所属部署</label>
+            <select th:field="*{dept_id}">
+                <option th:value="${noSelect}" hidden>すべて</option>
+                <option th:each="dept:${deptList}" th:value="${dept.dept_id}" th:text="${dept.dept_name}"/>
+            </select>
+        </div>
+
+
+        <div>
+            <label>役職</label>
+            <select th:field="*{post_id}">
+                <option th:value="${noSelect}" selected>すべて</option>
+                <option th:each="post:${postList}" th:value="${post.post_id}" th:text="${post.post_name}">text
+                </option>
+            </select>
+        </div>
+
+
+        <div>
+            <label>入社年</label>
+            <select th:field="*{hire_date}">
+                <option th:value="${noSelect}" selected>すべて</option>
+                <option th:each="date:${dateList}" th:value="${date.year}" th:text="${date.year}">text
+                </option>
+            </select>
+        </div>
+
+    </form>
+
+    <!--    content__table-->
+    <table class="content__table">
+        <thead class="content__thead">
+        <tr>
+            <td>社員番号</td>
+            <td>名前</td>
+            <td>役職</td>
+            <td>所属部署</td>
+            <td>入社年月日</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="content__row" th:each="user : ${searchList}">
+            <td class="content__row--id">[[${user .emp_id}]]</td>
+            <td class="content__row--name"><a th:href="@{'/emp/edit/' + ${user.emp_id}}">[[${user.name}]]</a></td>
+            <td class="content__row--post">[[${user.post_name}]]</td>
+            <td class="content__row--dept">[[${user.dept_name}]]</td>
+            <td class="content__row--date">[[${user.hire_date}]]</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav class="pagination">
+        <th:block>
+            <button form="form1" th:if="${page > 1}" th:formaction="@{'/emp/removed?page=' + ${page-1}}" type="submit">◀前へ
+            </button>
+        </th:block>
+        <th:block>
+            <button form="form1" th:if="${page} < ${totalPage}" th:formaction="@{'/emp/removed?page=' + ${page+1}}"
+                    type="submit">
+                次へ▶
+            </button>
+        </th:block>
+    </nav>
 </div>
-<form method="get" th:action="|/admin.csv|">
-    <input type="submit" name="download_file" value="removedList">
+
+<form method="get" th:action="|/removed.csv|">
+    <button class="csvButton" type="submit" name="download_file">csvファイルをダウンロード</button>
 </form>
+
 </body>
 </html>

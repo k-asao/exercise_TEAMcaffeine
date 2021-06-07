@@ -111,3 +111,17 @@ body{
                 padding-bottom:20px;
             }
         }
+
+        @media screen and (max-width: 768px) { /*ウィンドウ幅が479px以下の場合に適用*/
+                    body{
+                        margin:0 auto;
+                    }
+                    .content__input-wrapper--field{
+                        display:flex;
+                        flex-direction:column;
+                        align-items:flex-start;
+                    }
+                    .submit-button{
+                        width:50%;
+                    }
+        }
