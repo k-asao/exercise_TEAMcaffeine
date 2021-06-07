@@ -59,6 +59,7 @@ public class RemovedEmployeeController {
             currentPage = "1";
         }
 
+
         HashMap<String, String> search = new HashMap<String, String>();
         search.put("limit", limit);
         search.put("page", currentPage);
@@ -79,6 +80,7 @@ public class RemovedEmployeeController {
         Collection<Year> dateList = userDao.selectHireDateAll();
         Collection<Department> deptList = userDao.selectDeptAll();
         Collection<Post> postList = userDao.selectPostAll();
+        model.addAttribute("searchForm", new SearchForm());
         model.addAttribute("deptList", deptList);
         model.addAttribute("postList", postList);
         model.addAttribute("dateList", dateList);

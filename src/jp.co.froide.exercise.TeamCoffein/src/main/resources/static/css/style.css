@@ -85,6 +85,10 @@ body{
             color:#f29091;
             cursor:pointer;
         }
+        .content__input-wrapper--error__no-change{
+            font-size = 20px;
+            color:#f29091;
+        }
 
         @media screen and (max-width: 479px) { /*ウィンドウ幅が479px以下の場合に適用*/
             body{

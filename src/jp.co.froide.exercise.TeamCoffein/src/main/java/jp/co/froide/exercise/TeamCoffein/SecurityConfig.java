@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
 
         http.authorizeRequests()
-            .antMatchers("/emp","/loginFail","/emp/forgetPass", "/emp/changePass","/emp/sucChange","/css/**").permitAll()
+            .antMatchers("/","/emp","/loginFail","/emp/forgetPass", "/emp/changePass","/emp/sucChange","/*.csv","/css/**","/emp/removed","/emp/removed/{id}").permitAll()
             .anyRequest().authenticated()
             .and()
             .exceptionHandling();
@@ -55,17 +55,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.logout()
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-            .logoutSuccessUrl("/emp/login")
+            .logoutSuccessUrl("/emp")
             .invalidateHttpSession(true).permitAll();
-        /*
-        http.rememberMe().key("remkey")
-            .rememberMeServices(multiDeviceRememberMeServices()); */
+        http.rememberMe()
+            .key("remkey")
+            .rememberMeCookieName("name")
+            .tokenValiditySeconds(86400)
+            .useSecureCookie(true);
     }
-    /*
-    @Bean
-    piblic AccessDeniedHandler accessDeniedHandler(){
-        return new DefaultAccessDeniedHandler();
-    }*/
-
 
 }

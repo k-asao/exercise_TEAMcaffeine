@@ -19,7 +19,7 @@
     <!--content__input-password-->
     <div class="content__input-wrapper--field">
         <div class="content__input-wrapper--input">
-            <input type="password" th:type="password" name="pass" th:field="*{pass}" placeholder="パスワード"/>
+            <input type="password" th:type="password" name="pass" th:field="*{pass}" placeholder="新しいパスワードを6~72文字で入力してください。"/>
             <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}">error
                 code
             </div>

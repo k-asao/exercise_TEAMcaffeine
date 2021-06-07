@@ -72,7 +72,6 @@ public class InsertEmpController {
             ra.addFlashAttribute("org.springframework.validation.BindingResult.form", result);
             ra.addFlashAttribute("error", "this has errors");
             ra.addFlashAttribute("form", form);
-            System.out.println(result);
             return "redirect:/emp/create";
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

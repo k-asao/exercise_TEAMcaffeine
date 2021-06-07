@@ -109,8 +109,8 @@ CREATE TABLE `employee` (
 
 
 
-INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES  /*管理者　パス　admin*/
-            ('桐生ココ', 'キリュウココ', '1972-04-01', 1, 8, '08024338464', 'emp111@example.co.jp','$2a$10$LBvlmRQr3NBxi5JMyeDQAO822DlRuzGvfY4V172AOfa54kDLPAkla', 0,'1972-04-01 10:23:45', '1972-04-01 10:23:45');
+INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES  /*管理者　パス　password*/
+            ('桐生ココ', 'キリュウココ', '1972-04-01', 1, 8, '08024338464', 'emp111@example.co.jp','$2a$10$k3l27LtOqz6FfzeCWjbh.OfQ.BsT65Exbi6BgxkGZg2T4X/L5IpbG', 0,'1972-04-01 10:23:45', '1972-04-01 10:23:45');
 INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 
             ('加賀美隼人', 'カガミハヤト', '1972-04-01', 2, 8, '08002745293', 'emp000@example.co.jp','0',0,'1972-04-01 10:23:45', '1972-04-01 10:23:45');
 INSERT INTO employee(name, kana, hire_date, post_id, dept_id, tel, email, password, delete_flag, create_at, update_at) VALUES 

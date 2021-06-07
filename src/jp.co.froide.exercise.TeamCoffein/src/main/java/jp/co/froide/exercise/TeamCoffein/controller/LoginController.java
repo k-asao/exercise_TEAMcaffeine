@@ -57,10 +57,8 @@ public class LoginController {
     @PostMapping("/emp/login")
     public String index(@Validated @ModelAttribute LoginForm form, BindingResult result) {
         if (result.hasErrors()) {
-            System.out.println("BBBBBBBB");
             return "login";
         }
-        System.out.println("aaaaaa");
         return "forward:" + "/processing";
     }
 

@@ -6,6 +6,7 @@ import org.seasar.doma.Entity;
 import org.seasar.doma.Metamodel;
 import org.seasar.doma.Table;
 
+//内部結合後の履歴受取用
 @Table(name = "emp_history")
 @Entity(metamodel = @Metamodel)
 @Getter

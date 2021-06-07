@@ -33,6 +33,7 @@ public class JobMemberController {
 
     Collection<Employee> searchList;
 
+
     @RequestMapping(value = "/emp", method = RequestMethod.POST)
     public String search(@RequestParam HashMap<String, String> params, SearchForm form, Model model) {
         String order = form.getOrder();
@@ -62,8 +63,10 @@ public class JobMemberController {
         int lim = Integer.valueOf(limit);
         int off = lim * (page - 1);
 
+
         searchList = userDao.selectSearchAll(order, name, post_id, dept_id, hire_date, lim, off, 0);
         Collection<Year> dateList = userDao.selectHireDateAll();
+
         Collection<Department> deptList = userDao.selectDeptAll();
         Collection<Post> postList = userDao.selectPostAll();
         model.addAttribute("deptList", deptList);
@@ -78,7 +81,8 @@ public class JobMemberController {
         return "jobMemberForm";
     }
 
-    @RequestMapping(value = "/emp", method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/emp","/"}, method = RequestMethod.GET)
     @Transactional(readOnly = true)
     public String index(Model model, SearchForm form, @RequestParam HashMap<String, String> params) throws Exception {
         String currentPage = params.get("page");

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>一覧画面</title>
@@ -149,14 +149,18 @@
     </style>
 </head>
 <body>
+
 <!--page-title-->
 <h1 class="page-title">社員一覧</h1>
 
 <div class="button-wrapper">
     <!--logout-button-->
-    <form id="logout" method="post" th:action="@{/logout}">
-        <button type="submit">ログアウト</button>
-    </form>
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{/logout}">Log out</a>
+    </div>
+    <div sec:authorize="isAnonymous()">
+        <a th:href="@{/login}">Log in</a>
+    </div>
     <!--moveToCreateButton-->
     <button type="button"><a class="button__text" th:href="@{/emp/create}">＋社員情報を登録</a></button>
     <button type="button"><a class="button__text" th:href="@{/emp/removed}">離籍者を確認</a></button>
