@@ -34,6 +34,25 @@
             width:200px;
             padding:8px;
         }
+        .auth-button{
+            margin:10px;
+            margin:0 12px;
+            border-radius:8px;
+            font-size:16px;
+            background-color:#11beae;
+            color:white;
+            cursor:pointer;
+            font-weight:700;
+            border:none;
+            width:200px;
+            padding:8px;
+            display:flex;
+            justify-content:center;
+        }
+        .auth-button a{
+            text-decoration:none;
+            color:white;
+        }
         .button__text{
             color:white;
             text-decoration:none;
@@ -155,10 +174,10 @@
 
 <div class="button-wrapper">
     <!--logout-button-->
-    <div sec:authorize="isAuthenticated()">
+    <div class="auth-button" sec:authorize="isAuthenticated()">
         <a th:href="@{/logout}">Log out</a>
     </div>
-    <div sec:authorize="isAnonymous()">
+    <div class="auth-button" sec:authorize="isAnonymous()">
         <a th:href="@{/login}">Log in</a>
     </div>
     <!--moveToCreateButton-->
