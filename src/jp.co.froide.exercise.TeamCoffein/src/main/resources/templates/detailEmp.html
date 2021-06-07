@@ -9,14 +9,18 @@
 <body>
 <!--page-title-->
 <h1 class="page-title">編集画面</h1>
-<h3><a th:href="@{/emp/edit/{id}/history(id = *{id})}">変更履歴を確認</a></h3>
+
+<div class="button-wrapper">
+    <button type="button"><a class="button__text" th:href="@{/emp/edit/{id}/history(id = *{id})}">変更履歴を確認</a></button>
+</div>
 
 
 <!--content-->
 <form class="content" th:object="${form}" action="#" th:action="@{/emp/edit/{id}(id = ${id})}"
       enctype="multipart/form-data" method=post>
     <div class="content__input-wrapper--error__no-change" th:if="${#fields.hasErrors('emp_id')}" th:errors="*{emp_id}">
-        error code </div>
+        error code
+    </div>
     <!--    content__number-->
     <div class="content__input-wrapper">
         <div class="content__input-wrapper--field">
@@ -86,6 +90,7 @@
             }
         }
         document.getElementById("setDate").addEventListener("blur", (e) => dateUntilblurred(e));
+
 
     </script>
 
@@ -158,8 +163,8 @@
             <label class="content__input--label">権限</label>
             <select id="selectAuth" name="auth" th:field="*{auth}">
                 <option th:value="${noSelect}" selected>権限を選択してください</option>
-                <option th:value=0 >管理者</option>
-                <option th:value=1 >一般</option>
+                <option th:value=0>管理者</option>
+                <option th:value=1>一般</option>
             </select>
             <div th:if="${#fields.hasErrors('auth')}" th:errors="*{auth}">error code</div>
         </div>
@@ -182,6 +187,7 @@
             window.location.href='[[${id}]]/delete'
         }
     });
+
 </script>
 </body>
 </html>

@@ -3,31 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body{
+            background-color:#f0f1f4;
+            margin:0px auto;
+            width:90%;
+            color:#384359;
+            font-size:12px;
+        }
+        .page-title{
+            color:#384359;
+            font-weight:700;
+            font-size:30px;
+            margin:0px;
+        }
+        .button-wrapper{
+            display:flex;
+            justify-content:center;
+        }
+        .button-wrapper button{
+            margin:10px;
+            margin:0 12px;
+            border-radius:8px;
+            font-size:16px;
+            background-color:#11beae;
+            color:white;
+            cursor:pointer;
+            font-weight:700;
+            border:none;
+            width:200px;
+            padding:8px;
+        }
+        .auth-button{
+            margin:10px;
+            margin:0 12px;
+            border-radius:8px;
+            font-size:16px;
+            background-color:#11beae;
+            color:white;
+            cursor:pointer;
+            font-weight:700;
+            border:none;
+            width:200px;
+            padding:8px;
+            display:flex;
+            justify-content:center;
+        }
+        .auth-button a{
+            text-decoration:none;
+            color:white;
+        }
+        .button__text{
+            color:white;
+            text-decoration:none;
+        }
+        .content{
+            background-color:white;
+            margin-top:24px;
+            padding:30px;
+        }
+        .content__search-form{
+            display:flex;
+            width:100%;
+           justify-content: space-between;
+           align-items:center;
+        }
+        .content__search-form--search-field{
+            display:flex;
+            position:relative;
+        }
+        .content__search-select{
+            display:flex;
+        }
+        .content__search-form--search-field input{
+            background-color:#fcfcfd;
+            border:1px solid #c2c8d2;
+            border-radius:100px;
+            height:40px;
+            padding:0 40px 0 20px;
+            width:100%;
+        }
+        .content__search-form--search-field input:focus{
+            border:1px solid #11beae;
+            outline:0;
+        }
+        .content__search-form--search-field button{
+            position:absolute;
+            right:12px;
+            top:30%;
+            border:none;
+            background-color:transparent;
+            width:20px;
+            cursor:pointer;
+            padding-right:17px;
+            color:#384359;
+        }
+        .content__search-form--search-field button:hover{
+            color:#11beae;
+        }
+        select{
+            width:100px;
+            cursor:pointer;
+            background-color:transparent;
+            border:none;
+            border-bottom:1px solid rgba(0,0,0, 0.3);
+        }
+        table{
+            border-collapse:collapse;
+        }
+        .content__table{
+            margin:40px 0 24px;
+            width:100%;
+        }
+        .content__thead{
+            border-bottom:1px solid #c2c8d2;
+            color:#c2c8d2;
+            font-size:12px;
+        }
+        .content__thead td{
+           border-bottom: 1px solid #c2c8d2;
+           text-align:center;
+        }
+        .content__row{
+            border-bottom:1px solid #f0f1f4;
+        }
+        .content__row th,td{
+            padding:16px 8px;
+            vertical-align:middle;
+            text-align:center;
+        }
+        .pagination{
+            display:flex;
+            justify-content:space-around;
+        }
+        .pagination button{
+            border:none;
+            background:none;
+            color:#11beae;
+        }
+        .csvButton{
+            margin:10px 0px 100px 0px;
+            border-radius:8px;
+            font-size:16px;
+            background-color:#11beae;
+            color:white;
+            cursor:pointer;
+            font-weight:700;
+            border:none;
+            width:220px;
+            padding:8px;
+        }
+
+
+
+
+
+
+
+    </style>
 </head>
 <body>
-<h3>社員番号[[${id}]]の変更履歴</h3>
-<table>
-<tr>
-    <th>名前</th>
-    <th>フリガナ</th>
-    <th>役職</th>
-    <th>所属部署</th>
-    <th>入社年月日</th>
-    <th>メールアドレス</th>
-    <th>電話番号</th>
-    <th>更新日時</th>
-</tr>
-<tr th:each="his : ${history}">
-    <td>[[${his.name}]]</td>
-    <td>[[${his.kana}]]</td>
-    <td>[[${his.post_name}]]</td>
-    <td>[[${his.dept_name}]]</td>
-    <td>[[${his.hire_date}]]</td>
-    <td>[[${his.email}]]</td>
-    <td>[[${his.tel}]]</td>
-    <td>[[${his.insert_history_at}]]</td>
-</tr>
-</table>
-<a  th:href="@{/emp/edit/{id}(id = *{id})}">戻る</a>
+
+<!--page-title-->
+<h1 class="page-title">社員番号[[${id}]]の変更履歴</h1>
+<div class="content">
+    <table class="content__table">
+        <thead class="content__thead">
+        <tr>
+            <td>名前</td>
+            <td>フリガナ</td>
+            <td>役職</td>
+            <td>所属部署</td>
+            <td>入社年月日</td>
+            <td>メールアドレス</td>
+            <td>電話番号</td>
+            <td>更新日時</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="content__row" th:each="his : ${history}">
+            <td>[[${his.name}]]</td>
+            <td>[[${his.kana}]]</td>
+            <td>[[${his.post_name}]]</td>
+            <td>[[${his.dept_name}]]</td>
+            <td>[[${his.hire_date}]]</td>
+            <td>[[${his.email}]]</td>
+            <td>[[${his.tel}]]</td>
+            <td>[[${his.insert_history_at}]]</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="button-wrapper">
+        <button type="button">
+            <a class="button__text" th:href="@{/emp/edit/{id}(id = *{id})}">戻る</a>
+        </button>
+    </div>
+</div>
 </body>
 </html>

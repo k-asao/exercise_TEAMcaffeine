@@ -175,10 +175,10 @@
 <div class="button-wrapper">
     <!--logout-button-->
     <div class="auth-button" sec:authorize="isAuthenticated()">
-        <a th:href="@{/logout}">Log out</a>
+        <a th:href="@{/logout}">ログアウト</a>
     </div>
     <div class="auth-button" sec:authorize="isAnonymous()">
-        <a th:href="@{/login}">Log in</a>
+        <a th:href="@{/login}">ログイン</a>
     </div>
     <!--moveToCreateButton-->
     <button type="button"><a class="button__text" th:href="@{/emp/create}">＋社員情報を登録</a></button>
