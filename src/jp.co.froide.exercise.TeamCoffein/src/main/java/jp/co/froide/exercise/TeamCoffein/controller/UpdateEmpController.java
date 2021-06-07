@@ -48,7 +48,6 @@ public class UpdateEmpController {
             EmployeeForm form = new EmployeeForm();
             form.cloneEmp(emp);
 
-//            変更点
             SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-mm-dd");
             Date nowDate = new Date();
             Date date = java.sql.Date.valueOf(emp.getHire_date());
