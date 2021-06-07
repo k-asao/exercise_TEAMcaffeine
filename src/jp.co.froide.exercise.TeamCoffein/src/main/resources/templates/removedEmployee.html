@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <meta charset="UTF-8">
     <title>離籍者一覧</title>
@@ -216,6 +215,7 @@
             <td>役職</td>
             <td>所属部署</td>
             <td>入社年月日</td>
+            <td>戻す</td>
         </tr>
         </thead>
         <tbody>
@@ -225,6 +225,7 @@
             <td class="content__row--post">[[${user.post_name}]]</td>
             <td class="content__row--dept">[[${user.dept_name}]]</td>
             <td class="content__row--date">[[${user.hire_date}]]</td>
+            <td class="content__row--date"><a th:href="@{'/emp/removed/'+ ${user.emp_id}}"><i class="fas fa-undo-alt"></i></a></td>
         </tr>
         </tbody>
     </table>
