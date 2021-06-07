@@ -20,4 +20,8 @@ public interface EmployeeDao {
     @Sql("select /*%expand*/* from employee where tel = /*tel*/0")
     @Select
     PostEmployee selectByTel(String tel);
+
+    @Sql("select /*%expand*/* from employee where emp_id = /*id*/0")
+    @Select
+    PostEmployee selectById(Integer id);
 }
