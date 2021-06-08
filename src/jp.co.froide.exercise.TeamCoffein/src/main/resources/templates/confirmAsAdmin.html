@@ -8,12 +8,12 @@
     <link th:href="@{/css/sub.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<form class="content" th:object="${form}" th:action="@{/emp/create}" id=empForm enctype="multipart/form-data"
-      method=post>
+<form class="content" th:object="${form}" th:action="@{'/emp/edit/' + ${emp_id} }" id=empForm enctype="multipart/form-data"
+      method=get>
     <p>[[${emp.name}]]を管理者として登録しました。<br>
         パスワードは、忘れないように保存してください。</p>
     <h3>[[${pass}]]</h3>
-    <button class="button__submit" type="submit" name="action" value="cancel">一覧画面に戻る</button>
+    <button class="button__submit" type="submit" name="action" >詳細画面に戻る</button>
 </form>
 </body>
 </html>

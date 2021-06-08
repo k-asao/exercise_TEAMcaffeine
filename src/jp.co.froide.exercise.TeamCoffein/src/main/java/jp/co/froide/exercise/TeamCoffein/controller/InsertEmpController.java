@@ -1,6 +1,7 @@
 package jp.co.froide.exercise.TeamCoffein.controller;
 
 import jp.co.froide.exercise.TeamCoffein.dao.DeptDao;
+import jp.co.froide.exercise.TeamCoffein.dao.EmployeeDao;
 import jp.co.froide.exercise.TeamCoffein.dao.InsertDao;
 import jp.co.froide.exercise.TeamCoffein.dao.PostDao;
 import jp.co.froide.exercise.TeamCoffein.entity.Department;
@@ -35,6 +36,8 @@ public class InsertEmpController {
     PostDao postDao;
     @Autowired
     DeptDao deptDao;
+    @Autowired
+    EmployeeDao employeeDao;
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
@@ -89,13 +92,17 @@ public class InsertEmpController {
             String hashed_pass = passwordEncoder.encode(pass);
             emp.setPassword(hashed_pass);
             insertDao.insert(emp);
+            PostEmployee inserted_emp = employeeDao.selectByEmail(emp.getEmail());
+            model.addAttribute("emp_id", inserted_emp.getEmp_id());
             model.addAttribute("emp", emp);
             model.addAttribute("pass", pass);
             return "confirmAsAdmin";
         } else {
             emp.setPassword("0");
             insertDao.insert(emp);
-            return "redirect:/emp";
+            PostEmployee inserted_emp = employeeDao.selectByEmail(emp.getEmail());
+            Integer id = inserted_emp.getEmp_id();
+            return "redirect:/emp/edit/" + id;
         }
     }
 }

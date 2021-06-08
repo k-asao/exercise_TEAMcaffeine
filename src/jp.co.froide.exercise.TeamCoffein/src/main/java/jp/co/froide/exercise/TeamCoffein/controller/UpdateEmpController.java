@@ -60,6 +60,9 @@ public class UpdateEmpController {
 
             model.addAttribute("form", form);
         }
+        if(!model.containsAttribute("successMessage")){
+            model.addAttribute("successMessage", null);
+        }
 
         List<Post> postList = postDao.selectAll();
         List<Department> deptList = deptDao.selectAll();
@@ -109,16 +112,19 @@ public class UpdateEmpController {
             String hashed_pass = passwordEncoder.encode(pass);
             emp.setPassword(hashed_pass);
             updateDao.update(emp);
+            model.addAttribute("emp_id", emp.getEmp_id());
             model.addAttribute("emp", emp);
             model.addAttribute("pass", pass);
             return "confirmAsAdmin";
         } else if(form.getAuth() == 0 && !empHis.getPassword().equals("0")){
             updateDao.update(emp);
-            return "redirect:/emp";
+            ra.addFlashAttribute("successMessage", "success");
+            return "redirect:/emp/edit/{id}";
         }else {
             emp.setPassword("0");
             updateDao.update(emp);
-            return "redirect:/emp";
+            ra.addFlashAttribute("successMessage", "success");
+            return "redirect:/emp/edit/{id}";
         }
     }
 

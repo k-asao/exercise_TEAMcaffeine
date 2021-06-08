@@ -21,6 +21,7 @@
     <div class="content__input-wrapper--error__no-change" th:if="${#fields.hasErrors('emp_id')}" th:errors="*{emp_id}">
         error code
     </div>
+    <p class="content__input-wrapper--error__no-change" th:if="${successMessage} != null" >更新されました。</p>
     <!--    content__number-->
     <div class="content__input-wrapper">
         <div class="content__input-wrapper--field">
