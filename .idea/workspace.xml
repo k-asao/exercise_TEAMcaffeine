@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c4bce883-be7b-45f1-b562-2ac2e389e503" name="Default Changelist" comment="Default Changelist">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jp.co.froide.exercise.TeamCoffein/src/main/java/jp/co/froide/exercise/TeamCoffein/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jp.co.froide.exercise.TeamCoffein/src/main/java/jp/co/froide/exercise/TeamCoffein/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
