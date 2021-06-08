@@ -37,7 +37,7 @@ public class RemovedEmployeeController {
         emp.setUpdate_at(LocalDateTime.now().format(formatter));
         emp.setDelete_flag(0);
         updateDao.update(emp);
-        return "redirect:/emp";
+        return "redirect:/emp/removed";
     }
 
     @GetMapping(value = "**/removed.csv", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE + "; charset=UTF-8; Content-Disposition: attachment")
