@@ -50,7 +50,9 @@ public class EmpFormValidator implements Validator {
                 status = 1;
             } else if (!empById.getEmail().equals(empForm.getEmail())){
                 status =1;
-            }else if ( (!(empById.getPassword().equals("0") && Objects.equals(empForm.getAuth(), 1)) || (!empById.getPassword().equals("0") && Objects.equals(empForm.getAuth(), 0)))) {
+            }else if ((empById.getPassword().equals("0") && Objects.equals(empForm.getAuth(), 0)) || (!empById.getPassword().equals("0") && Objects.equals(empForm.getAuth(), 1))) {
+               System.out.println((!empById.getPassword().equals("0") && Objects.equals(empForm.getAuth(), 0)));
+
                 status = 1;
             }
 
