@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import java.util.Objects;
 
 
 @Component
@@ -49,7 +50,7 @@ public class EmpFormValidator implements Validator {
                 status = 1;
             } else if (!empById.getEmail().equals(empForm.getEmail())){
                 status =1;
-            }else if ( !(empById.getPassword().equals("0") && empForm.getAuth().intValue()==1) || (!empById.getPassword().equals("0") && empForm.getAuth().intValue()==0)) {
+            }else if ( (!(empById.getPassword().equals("0") && Objects.equals(empForm.getAuth(), 1)) || (!empById.getPassword().equals("0") && Objects.equals(empForm.getAuth(), 0)))) {
                 status = 1;
             }
 

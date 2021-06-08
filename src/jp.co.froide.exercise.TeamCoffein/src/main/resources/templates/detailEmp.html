@@ -161,12 +161,14 @@
     <div class="content__input-wrapper">
         <div class="content__input-wrapper--field">
             <label class="content__input--label">権限</label>
+            <div class="content__input-wrapper--input">
             <select id="selectAuth" name="auth" th:field="*{auth}">
                 <option th:value="${noSelect}" selected>権限を選択してください</option>
                 <option th:value=0>管理者</option>
                 <option th:value=1>一般</option>
             </select>
-            <div th:if="${#fields.hasErrors('auth')}" th:errors="*{auth}">error code</div>
+            <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('auth')}" th:errors="*{auth}">error code</div>
+        </div>
         </div>
     </div>
 
