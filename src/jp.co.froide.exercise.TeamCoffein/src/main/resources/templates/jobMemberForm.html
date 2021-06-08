@@ -209,7 +209,7 @@
         <div>
             <label>所属部署</label>
             <select th:field="*{dept_id}">
-                <option th:value="${noSelect}" hidden>すべて</option>
+                <option th:value="${noSelect}" selected>すべて</option>
                 <option th:each="dept:${deptList}" th:value="${dept.dept_id}" th:text="${dept.dept_name}"/>
             </select>
         </div>

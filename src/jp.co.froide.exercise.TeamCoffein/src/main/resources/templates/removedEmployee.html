@@ -179,7 +179,7 @@
         <div>
             <label>所属部署</label>
             <select th:field="*{dept_id}">
-                <option th:value="${noSelect}" hidden>すべて</option>
+                <option th:value="${noSelect}" selected>すべて</option>
                 <option th:each="dept:${deptList}" th:value="${dept.dept_id}" th:text="${dept.dept_name}"/>
             </select>
         </div>
@@ -221,7 +221,7 @@
         <tbody>
         <tr class="content__row" th:each="user : ${searchList}">
             <td class="content__row--id">[[${user .emp_id}]]</td>
-            <td class="content__row--name"><a th:href="@{'/emp/edit/' + ${user.emp_id}}">[[${user.name}]]</a></td>
+            <td class="content__row--name">[[${user.name}]]</td>
             <td class="content__row--post">[[${user.post_name}]]</td>
             <td class="content__row--dept">[[${user.dept_name}]]</td>
             <td class="content__row--date">[[${user.hire_date}]]</td>
