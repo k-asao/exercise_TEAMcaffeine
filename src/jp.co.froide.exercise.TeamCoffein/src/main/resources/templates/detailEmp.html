@@ -36,7 +36,7 @@
         <div class="content__input-wrapper--field">
             <label class="content__input--label">名前</label>
             <div class="content__input-wrapper--input">
-                <input type="text" th:type="text" name="name" th:field="*{name}" placeholder="空白は入れずにご入力ください。"/>
+                <input type="text" th:type="text" name="name" th:field="*{name}" placeholder="空白なしで入力してください"/>
                 <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
                     error code
                 </div>
@@ -50,7 +50,7 @@
         <div class="content__input-wrapper--field">
             <label class="content__input--label">フリガナ</label>
             <div class="content__input-wrapper--input">
-                <input type="text" th:type="text" name="kana" th:field="*{kana}" placeholder="空白は入れずにご入力ください。"/>
+                <input type="text" th:type="text" name="kana" th:field="*{kana}" placeholder="空白なしで入力してください"/>
                 <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('kana')}" th:errors="*{kana}">
                     error code
                 </div>
@@ -137,7 +137,7 @@
         <div class="content__input-wrapper--field">
             <label class="content__input--label">携帯番号</label>
             <div class="content__input-wrapper--input">
-                <input type=text th:type=text name=tel th:field="*{tel}" placeholder="ハイフンは入れずにご入力ください。"/>
+                <input type=text th:type=text name=tel th:field="*{tel}" placeholder="ハイフンなし半角数字で入力してください"/>
                 <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('tel')}"
                      th:errors="*{tel}">error
                     code
@@ -151,7 +151,7 @@
         <div class="content__input-wrapper--field">
             <label class="content__input--label">メールアドレス</label>
             <div class="content__input-wrapper--input">
-                <input type=text th:type=text name=email th:field="*{email}"/>
+                <input type=text th:type=text name=email th:field="*{email}"　placeholder="メールアドレスを入力してください"/>
                 <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
                     error
                     code
