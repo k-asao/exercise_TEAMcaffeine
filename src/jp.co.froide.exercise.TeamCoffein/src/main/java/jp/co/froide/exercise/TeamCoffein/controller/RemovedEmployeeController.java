@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -47,82 +49,47 @@ public class RemovedEmployeeController {
     }
 
     @RequestMapping(value = "/emp/removed", method = RequestMethod.POST)
-    public String search(@RequestParam HashMap<String, String> params, SearchForm form, Model model) {
+    public String search(@RequestParam HashMap<String, String> params, SearchForm form, Model model, RedirectAttributes ra) {
         String order = form.getOrder();
         String name = form.getName();
         Integer post_id = form.getPost_id();
         Integer dept_id = form.getDept_id();
         String hire_date = form.getHire_date();
         String currentPage = params.get("page");
-
-        if (currentPage == null) {
-            currentPage = "1";
-        }
+        ra.addAttribute("name", name);
 
 
-        HashMap<String, String> search = new HashMap<String, String>();
-        search.put("limit", limit);
-        search.put("page", currentPage);
+        String redirectUrl = (currentPage == null) ? "?order=" + order : "?page=" + currentPage + "&order=" + order;
+        if(!name.equals("")) redirectUrl = redirectUrl + "&name={name}" ;
+        if(post_id != null) redirectUrl = redirectUrl + "&post_id=" + post_id;
+        if(dept_id != null) redirectUrl = redirectUrl + "&dept_id=" + dept_id;
+        if(!hire_date.equals("")) redirectUrl = redirectUrl + "&hire_date=" + hire_date;
 
-        int total = 0;
-        try {
-            total = userDao.getSearch(order, name, post_id, dept_id, hire_date,1);
-        } catch (Exception e) {
-            return "error/fatal";
-        }
-
-        int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
-        int page = Integer.valueOf(currentPage);
-        int lim = Integer.valueOf(limit);
-        int off = lim * (page - 1);
-
-        removedData = userDao.selectSearchAll(order, name, post_id, dept_id, hire_date, lim, off, 1);
-        Collection<Year> dateList = userDao.selectHireDateAll();
-        Collection<Department> deptList = userDao.selectDeptAll();
-        Collection<Post> postList = userDao.selectPostAll();
-        model.addAttribute("searchForm", new SearchForm());
-        model.addAttribute("deptList", deptList);
-        model.addAttribute("postList", postList);
-        model.addAttribute("dateList", dateList);
-        model.addAttribute("noSelect", null);
-        model.addAttribute("total", total);
-        model.addAttribute("page", page);
-        model.addAttribute("totalPage", totalPage);
-        model.addAttribute("searchForm", form);
-        model.addAttribute("searchList", removedData);
-        return "removedEmployee";
+        return "redirect:/emp/removed" + redirectUrl;
     }
 
     @RequestMapping(value = "/emp/removed", method = RequestMethod.GET)
     @Transactional(readOnly = true)
-    public String showRemovedData(Model model, SearchForm form, @RequestParam HashMap<String, String> params) throws Exception {
-        String currentPage = params.get("page");
+    public String showRemovedData(Model model, @RequestParam HashMap<String, String> params) throws Exception {
+        String currentPage = (params.get("page") == null) ? "1": params.get("page");
+        String order = params.get("order");
+        String name = (params.get("name") == null) ? "" : params.get("name");
+        Integer post_id = (params.get("post_id") == null) ? null : Integer.valueOf(params.get("post_id"));
+        Integer dept_id = (params.get("dept_id") == null) ? null : Integer.valueOf(params.get("dept_id"));
+        String hire_date = (params.get("hire_date") == null) ? "" : params.get("hire_date");
 
-        if (currentPage == null) {
-            currentPage = "1";
-        }
 
-        HashMap<String, String> search = new HashMap<String, String>();
-        search.put("limit", limit);
-        search.put("page", currentPage);
+        int total = userDao.getSearch(order, name, post_id, dept_id, hire_date, 1);
 
-        int total = 0;
-        try {
-            total = userDao.getRemovedMemberListCount();
-        } catch (Exception e) {
-            return "error/fatal";
-        }
 
-        int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
-        int page = Integer.valueOf(currentPage);
-        int lim = Integer.valueOf(limit);
-        int off = lim * (page - 1);
+        Integer totalPage = (total + Integer.parseInt(limit) - 1) / Integer.parseInt(limit);
+        int page = Integer.parseInt(currentPage);
+        int lim = Integer.parseInt(limit);
+        Integer off = lim * (page - 1);
 
-        String order = "asc";
-        String name = "";
-        Integer post_id = null;
-        Integer dept_id = null;
-        String hire_date = "";
+
+        SearchForm form = new SearchForm(order, name, post_id, dept_id, hire_date);
+        System.out.println(form);
         Collection<Year> dateList = userDao.selectHireDateAll();
         Collection<Department> deptList = userDao.selectDeptAll();
         Collection<Post> postList = userDao.selectPostAll();
@@ -134,6 +101,7 @@ public class RemovedEmployeeController {
         model.addAttribute("total", total);
         model.addAttribute("page", page);
         model.addAttribute("totalPage", totalPage);
+        model.addAttribute("searchForm_page", form);
         model.addAttribute("searchForm", form);
         model.addAttribute("searchList", removedData);
         return "removedEmployee";

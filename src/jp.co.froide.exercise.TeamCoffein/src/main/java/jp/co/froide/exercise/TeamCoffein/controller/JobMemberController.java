@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.spring5.processor.SpringOptionInSelectFieldTagProcessor;
 
 import java.util.Collection;
@@ -34,16 +35,19 @@ public class JobMemberController {
 
     Collection<Employee> searchList;
 
+    @GetMapping("/")
+    public String rootAddress(){ return "redirect:/emp";}
 
 
 
 
-    @RequestMapping(value = {"/emp","/"}, method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/emp"}, method = RequestMethod.GET)
     @Transactional(readOnly = true)
     public String index(Model model, @RequestParam HashMap<String, String> params) {
 
         String currentPage = (params.get("page") == null) ? "1": params.get("page");
-        String order = params.get("order");
+        String order = (params.get("order")==null) ? "asc" : params.get("order");
         String name = (params.get("name") == null) ? "" : params.get("name");
         Integer post_id = (params.get("post_id") == null) ? null : Integer.valueOf(params.get("post_id"));
         Integer dept_id = (params.get("dept_id") == null) ? null : Integer.valueOf(params.get("dept_id"));
@@ -79,20 +83,20 @@ public class JobMemberController {
     }
 
     @RequestMapping(value = "/emp", method = RequestMethod.POST)
-    public String search(@RequestParam HashMap<String, String> params, SearchForm form, Model model) {
+    public String search(@RequestParam HashMap<String, String> params, SearchForm form, Model model, RedirectAttributes ra) {
         String order = form.getOrder();
         String name = form.getName();
         Integer post_id = form.getPost_id();
         Integer dept_id = form.getDept_id();
         String hire_date = form.getHire_date();
         String currentPage = params.get("page");
-
-
+        ra.addAttribute("name", name);
         String redirectUrl = (currentPage == null) ? "?order=" + order : "?page=" + currentPage + "&order=" + order;
-        if(!name.equals("")) redirectUrl = redirectUrl + "&name=" + name;
+        if(!name.equals("")) redirectUrl = redirectUrl + "&name={name}" ;
         if(post_id != null) redirectUrl = redirectUrl + "&post_id=" + post_id;
         if(dept_id != null) redirectUrl = redirectUrl + "&dept_id=" + dept_id;
         if(!hire_date.equals("")) redirectUrl = redirectUrl + "&hire_date=" + hire_date;
+        System.out.println(redirectUrl);
 
         return "redirect:/emp" + redirectUrl;
     }
