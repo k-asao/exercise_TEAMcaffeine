@@ -168,7 +168,11 @@
     </style>
 </head>
 <body>
-
+<script>
+    window.addEventListener('pageshow',()=>{
+        if(window.performance.navigation.type==2) location.reload();
+    });
+</script>
 <!--page-title-->
 <h1 class="page-title">社員一覧</h1>
 
