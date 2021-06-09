@@ -108,6 +108,8 @@ public class InsertEmpController {
 
     @GetMapping("/emp/create/asAdministrator")
     public String showasAdmin(Model model){
+        System.out.println("A");
+        if(!model.containsAttribute("emp")){return "redirect:/emp/create";}
         return "confirmAsAdmin";
     }
 }
