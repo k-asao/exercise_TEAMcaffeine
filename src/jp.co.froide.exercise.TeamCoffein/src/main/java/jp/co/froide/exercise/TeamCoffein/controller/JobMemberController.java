@@ -90,9 +90,12 @@ public class JobMemberController {
         Integer dept_id = form.getDept_id();
         String hire_date = form.getHire_date();
         String currentPage = params.get("page");
-        ra.addAttribute("name", name);
         String redirectUrl = (currentPage == null) ? "?order=" + order : "?page=" + currentPage + "&order=" + order;
-        if(!name.equals("")) redirectUrl = redirectUrl + "&name={name}" ;
+        if(!name.equals("")) {
+            ra.addAttribute("name", name);
+            redirectUrl = redirectUrl + "&name={name}" ;
+            System.out.println("a");
+        }
         if(post_id != null) redirectUrl = redirectUrl + "&post_id=" + post_id;
         if(dept_id != null) redirectUrl = redirectUrl + "&dept_id=" + dept_id;
         if(!hire_date.equals("")) redirectUrl = redirectUrl + "&hire_date=" + hire_date;
