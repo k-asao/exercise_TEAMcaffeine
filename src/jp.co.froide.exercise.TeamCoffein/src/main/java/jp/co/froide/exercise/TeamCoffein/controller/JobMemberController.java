@@ -34,16 +34,19 @@ public class JobMemberController {
 
     Collection<Employee> searchList;
 
+    @GetMapping("/")
+    public String rootAddress(){ return "redirect:/emp";}
 
 
 
 
-    @RequestMapping(value = {"/emp","/"}, method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/emp"}, method = RequestMethod.GET)
     @Transactional(readOnly = true)
     public String index(Model model, @RequestParam HashMap<String, String> params) {
 
         String currentPage = (params.get("page") == null) ? "1": params.get("page");
-        String order = params.get("order");
+        String order = (params.get("order")==null) ? "asc" : params.get("order");
         String name = (params.get("name") == null) ? "" : params.get("name");
         Integer post_id = (params.get("post_id") == null) ? null : Integer.valueOf(params.get("post_id"));
         Integer dept_id = (params.get("dept_id") == null) ? null : Integer.valueOf(params.get("dept_id"));

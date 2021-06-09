@@ -229,13 +229,22 @@
         </tbody>
     </table>
 
+    <form id="hiddenForm_Pagenation" th:object="${searchForm_page}" th:action="@{emp/removed}" enctype="multipart/form-data"
+          method="post">
+        <input type="hidden"  th:type="hidden" th:name="order" th:field="*{order}"/>
+        <input type="hidden"  th:type="hidden" th:name="name" th:field="*{name}"/>
+        <input type="hidden"  th:type="hidden" th:name="post_id" th:field="*{post_id}"/>
+        <input type="hidden"  th:type="hidden" th:name="dept_id" th:field="*{dept_id}"/>
+        <input type="hidden"  th:type="hidden" th:name="hire_date" th:field="*{hire_date}"/>
+    </form>
+
     <nav class="pagination">
         <th:block>
-            <button form="form1" th:if="${page > 1}" th:formaction="@{'/emp/removed?page=' + ${page-1}}" type="submit">◀前へ
+            <button form="hiddenForm_Pagenation" th:if="${page > 1}" th:formaction="@{'/emp/removed?page=' + ${page-1}}" type="submit">◀前へ
             </button>
         </th:block>
         <th:block>
-            <button form="form1" th:if="${page} < ${totalPage}" th:formaction="@{'/emp/removed?page=' + ${page+1}}"
+            <button form="hiddenForm_Pagenation" th:if="${page} < ${totalPage}" th:formaction="@{'/emp/removed?page=' + ${page+1}}"
                     type="submit">
                 次へ▶
             </button>
