@@ -72,6 +72,7 @@ public class JobMemberController {
         model.addAttribute("total", total);
         model.addAttribute("page", page);
         model.addAttribute("totalPage", totalPage);
+        model.addAttribute("searchForm_page", form);
         model.addAttribute("searchForm", form);
         model.addAttribute("searchList", searchList);
         return "jobMemberForm";
