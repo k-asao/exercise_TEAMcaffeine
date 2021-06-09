@@ -208,7 +208,7 @@
 
         <div>
             <label>所属部署</label>
-            <select th:field="*{dept_id}">
+            <select name="selectDept" th:field="*{dept_id}">
                 <option th:value="${noSelect}" selected>すべて</option>
                 <option th:each="dept:${deptList}" th:value="${dept.dept_id}" th:text="${dept.dept_name}"/>
             </select>
@@ -216,8 +216,8 @@
 
         <div>
             <label>役職</label>
-            <select th:field="*{post_id}">
-                <option th:value="${noSelect}" selected>すべて</option>
+            <select name="selectPost" th:field="*{post_id}">
+                <option  th:value="${noSelect}" selected>すべて</option>
                 <option th:each="post:${postList}" th:value="${post.post_id}" th:text="${post.post_name}">text
                 </option>
             </select>
@@ -225,7 +225,7 @@
 
         <div>
             <label>入社年</label>
-            <select th:field="*{hire_date}">
+            <select name="selectYear" th:field="*{hire_date}">
                 <option th:value="${noSelect}" selected>すべて</option>
                 <option th:each="date:${dateList}" th:value="${date.year}" th:text="${date.year}">text
                 </option>

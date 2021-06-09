@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -47,17 +49,18 @@ public class RemovedEmployeeController {
     }
 
     @RequestMapping(value = "/emp/removed", method = RequestMethod.POST)
-    public String search(@RequestParam HashMap<String, String> params, SearchForm form, Model model) {
+    public String search(@RequestParam HashMap<String, String> params, SearchForm form, Model model, RedirectAttributes ra) {
         String order = form.getOrder();
         String name = form.getName();
         Integer post_id = form.getPost_id();
         Integer dept_id = form.getDept_id();
         String hire_date = form.getHire_date();
         String currentPage = params.get("page");
+        ra.addAttribute("name", name);
 
 
         String redirectUrl = (currentPage == null) ? "?order=" + order : "?page=" + currentPage + "&order=" + order;
-        if(!name.equals("")) redirectUrl = redirectUrl + "&name=" + name;
+        if(!name.equals("")) redirectUrl = redirectUrl + "&name={name}" ;
         if(post_id != null) redirectUrl = redirectUrl + "&post_id=" + post_id;
         if(dept_id != null) redirectUrl = redirectUrl + "&dept_id=" + dept_id;
         if(!hire_date.equals("")) redirectUrl = redirectUrl + "&hire_date=" + hire_date;
