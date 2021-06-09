@@ -42,7 +42,7 @@ public class EmployeeForm implements Serializable {
     String tel;
 
     @Length(min=0, max=255)
-    @Email
+    @Pattern(regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", message = "メールアドレスを入力してください。")
     @NotBlank
     String email;
 
