@@ -93,10 +93,10 @@ public class InsertEmpController {
             emp.setPassword(hashed_pass);
             insertDao.insert(emp);
             PostEmployee inserted_emp = employeeDao.selectByEmail(emp.getEmail());
-            model.addAttribute("emp_id", inserted_emp.getEmp_id());
-            model.addAttribute("emp", emp);
-            model.addAttribute("pass", pass);
-            return "confirmAsAdmin";
+            ra.addFlashAttribute("emp_id", inserted_emp.getEmp_id());
+            ra.addFlashAttribute("emp", emp);
+            ra.addFlashAttribute("pass", pass);
+            return "redirect:/emp/create/asAdministrator";
         } else {
             emp.setPassword("0");
             insertDao.insert(emp);
@@ -104,5 +104,10 @@ public class InsertEmpController {
             Integer id = inserted_emp.getEmp_id();
             return "redirect:/emp/edit/" + id;
         }
+    }
+
+    @GetMapping("/emp/create/asAdministrator")
+    public String showasAdmin(Model model){
+        return "confirmAsAdmin";
     }
 }
