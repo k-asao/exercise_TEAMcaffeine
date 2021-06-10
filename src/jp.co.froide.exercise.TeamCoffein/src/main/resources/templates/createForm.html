@@ -140,9 +140,16 @@
     <!--    submit-button-->
     <div class="submit-button">
         <button class="submit-button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
-        <button class="submit-button__create" type="submit" name="action" value="insert">登録</button>
+        <button class="submit-button__create" type="submit" name="action" value="insert" onclick="return double()">登録</button>
     </div>
 </form>
+<script>
+var set=0;
+function double() {
+if(set==0){ set=1; } else {
+alert("只今処理中です。\nそのままお待ちください。");
+return false; }}
+</script>
 
 </body>
 </html>
