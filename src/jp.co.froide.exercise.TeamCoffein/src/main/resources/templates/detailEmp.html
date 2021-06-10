@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>編集画面</title>
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <!--page-title-->
@@ -17,7 +18,7 @@
 
 <!--content-->
 <form class="content" th:object="${form}" action="#" th:action="@{/emp/edit/{id}(id = ${id})}"
-      enctype="multipart/form-data" method=post>
+      enctype="multipart/form-data" method=post >
     <div class="content__input-wrapper--error__no-change" th:if="${#fields.hasErrors('emp_id')}" th:errors="*{emp_id}">
         error code
     </div>
@@ -176,9 +177,17 @@
     <!--    submit-button-->
     <div class="submit-button">
         <button class="submit-button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
-        <button class="submit-button__create" type="submit" name="action" value="update">更新</button>
+        <button class="submit-button__create" type="submit" name="action" value="update" onclick="return double()">更新</button>
     </div>
 </form>
+<script>
+var set=0;
+function double() {
+if(set==0){ set=1; } else {
+alert("只今処理中です。\nそのままお待ちください。");
+return false; }}
+</script>
+
 
 <!--delete element-->
 <a id="delete" class="delete-button">この社員情報を削除する</a>
@@ -190,7 +199,6 @@
             window.location.href='[[${id}]]/delete'
         }
     });
-
 </script>
 </body>
 </html>
