@@ -12,7 +12,9 @@
 <h1 class="page-title">編集画面</h1>
 
 <div class="button-wrapper">
-    <button type="button"><a class="button__text" th:href="@{/emp/edit/{id}/history(id = *{id})}">変更履歴を確認</a></button>
+    <div class="button__text">
+        <a th:href="@{/emp/edit/{id}/history(id = *{id})}">変更履歴を確認</a>
+    </div>
 </div>
 
 
