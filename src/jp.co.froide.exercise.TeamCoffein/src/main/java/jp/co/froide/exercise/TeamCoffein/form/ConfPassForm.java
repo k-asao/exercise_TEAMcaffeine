@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Data
@@ -14,7 +15,7 @@ public class ConfPassForm implements Serializable {
     String email;
 
     @NotBlank
-    @Length(min=6, max=72, message = "6文字以上72文字以内で入力して下さい。")
+    @Pattern(regexp = "^([a-zA-Z0-9]{6,72})$", message = "6~72文字の半角英数字で入力して下さい。")
     String pass;
 
 
