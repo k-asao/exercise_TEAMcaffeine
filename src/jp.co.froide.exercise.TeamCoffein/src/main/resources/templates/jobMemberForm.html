@@ -33,7 +33,7 @@
             width:200px;
             padding:8px;
         }
-        .auth-button{
+        .auth-button a{
             margin:10px;
             margin:0 12px;
             border-radius:8px;
@@ -47,13 +47,22 @@
             padding:8px;
             display:flex;
             justify-content:center;
-        }
-        .auth-button a{
             text-decoration:none;
-            color:white;
         }
-        .button__text{
+        .button__text a{
+            margin:10px;
+            margin:0 12px;
+            border-radius:8px;
+            font-size:16px;
+            background-color:#11beae;
             color:white;
+            cursor:pointer;
+            font-weight:700;
+            border:none;
+            width:200px;
+            padding:8px;
+            display:flex;
+            justify-content:center;
             text-decoration:none;
         }
         .content{
@@ -184,8 +193,12 @@
         <a th:href="@{/login}">ログイン</a>
     </div>
     <!--moveToCreateButton-->
-    <button type="button"><a class="button__text" th:href="@{/emp/create}">＋社員情報を登録</a></button>
-    <button type="button"><a class="button__text" th:href="@{/emp/removed}">離籍者を確認</a></button>
+    <div class="button__text">
+        <a th:href="@{/emp/create}">＋社員情報を登録</a>
+    </div>
+    <div class="button__text">
+        <a th:href="@{/emp/removed}">離籍者を確認</a>
+    </div>
 </div>
 
 

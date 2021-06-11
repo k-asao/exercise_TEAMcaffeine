@@ -99,9 +99,24 @@ body{
              color:white;
         }
         .button__text{
-             color:white;
-             text-decoration:none;
+            margin-bottom:15px;
         }
+        .button__text a{
+             margin:10px;
+             margin:0 12px;
+             border-radius:8px;
+             font-size:16px;
+             background-color:#11beae;
+             color:white;
+             cursor:pointer;
+             font-weight:700;
+             border:none;
+             width:200px;
+             padding:8px;
+             display:flex;
+             justify-content:center;
+             text-decoration:none;
+         }
         .delete-button{
             display:flex;
             justify-content:center;

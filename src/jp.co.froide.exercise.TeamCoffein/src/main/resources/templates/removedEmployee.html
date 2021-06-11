@@ -33,8 +33,20 @@
             width:200px;
             padding:8px;
         }
-        .button__text{
+        .button__text a{
+            margin:10px;
+            margin:0 12px;
+            border-radius:8px;
+            font-size:16px;
+            background-color:#11beae;
             color:white;
+            cursor:pointer;
+            font-weight:700;
+            border:none;
+            width:200px;
+            padding:8px;
+            display:flex;
+            justify-content:center;
             text-decoration:none;
         }
         .content{
@@ -159,7 +171,9 @@
 <h1 class="page-title">離籍者一覧</h1>
 
 <div class="button-wrapper">
-    <button type="button"><a class="button__text" th:href="@{/emp}">一覧画面に戻る</a></button>
+    <div class="button__text">
+        <a th:href="@{/emp}">一覧画面に戻る</a>
+    </div>
 </div>
 
 <div class="content">
