@@ -1,20 +1,67 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
     <style>
         body{
             background-color:#f0f1f4;
-            margin:30px auto;
-            width:90%;
+            margin:0px auto;
             color:#384359;
-            font-size:12px;
+        }
+        header{
+            background:white;
+            border-bottom:1px solid #d9dee6;
+            display:flex;
+            justify-content:center;
+        }
+        .globalNav__wrap{
+            width:90%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+        .globalNav__title a{
+            text-decoration:none;
+        }
+        .globalNav__inner-wrap{
+            display:flex;
+            align-items:center;
+        }
+        .globalNav__menuList{
+            display:flex;
+            list-style:none;
+            margin:0px auto;
+            padding:0px;
+        }
+        .globalNav__menuItem{
+            text-align:center;
+            width:150px;
+        }
+        .globalNav__menuLink{
+            color:#384359;
+            cursor:pointer;
+            display:block;
+            padding:15px 0;
+            text-decoration:none;
+        }
+        .globalNav__menuLink:hover{
+            color:#11beae;
+        }
+        .globalNav__menuLink i{
+            font-size:22px;
+            margin:0 0 8px;
         }
         .page-title{
             color:#384359;
             font-weight:700;
-            font-size:30px;
+            font-size: 30px;
+            margin: 0px;
+        }
+        .globalNav__link a{
+            text-decoration:none;
+            color:#11beae;
         }
         .button-wrapper{
             display:flex;
@@ -70,60 +117,14 @@
          }
         .content{
             background-color:white;
-            margin-top:24px;
-            padding:30px;
-        }
-        .content__search-form{
-            display:flex;
-            width:100%;
-           justify-content: space-between;
-           align-items:center;
-        }
-        .content__search-form--search-field{
-            display:flex;
-            position:relative;
-        }
-        .content__search-select{
-            display:flex;
-        }
-        .content__search-form--search-field input{
-            background-color:#fcfcfd;
-            border:1px solid #c2c8d2;
-            border-radius:100px;
-            height:40px;
-            padding:0 40px 0 20px;
-            width:100%;
-        }
-        .content__search-form--search-field input:focus{
-            border:1px solid #11beae;
-            outline:0;
-        }
-        .content__search-form--search-field button{
-            position:absolute;
-            right:12px;
-            top:30%;
-            border:none;
-            background-color:transparent;
-            width:20px;
-            cursor:pointer;
-            padding-right:17px;
-            color:#384359;
-        }
-        .content__search-form--search-field button:hover{
-            color:#11beae;
-        }
-        select{
-            width:100px;
-            cursor:pointer;
-            background-color:transparent;
-            border:none;
-            border-bottom:1px solid rgba(0,0,0, 0.3);
+            width:80%;
+            margin:0 auto;
         }
         table{
             border-collapse:collapse;
         }
         .content__table{
-            margin:40px 0 24px;
+            margin:0px 0 24px;
             width:100%;
         }
         .content__thead{
@@ -143,70 +144,106 @@
             vertical-align:middle;
             text-align:center;
         }
-        .pagination{
+        .title-wrapper{
+            width:80%;
             display:flex;
-            justify-content:space-around;
+            margin:0 auto;
+            flex-direction:column;
         }
-        .pagination button{
-            border:none;
-            background:none;
-            color:#11beae;
+        .content-inner{
+            padding:50px;
         }
-        .csvButton{
-            margin:10px 0px 100px 0px;
-            border-radius:8px;
-            font-size:16px;
-            background-color:#11beae;
-            color:white;
-            cursor:pointer;
-            font-weight:700;
-            border:none;
-            width:220px;
-            padding:8px;
+        .c-pageTitle{
+            font-size:28px;
+            margin-top:5px;
         }
-
-
-
-
-
-
+        .sign{
+            margin:0px;
+            margin-top:70px;
+        }
 
     </style>
 </head>
 <body>
 
+<header class="globalNav">
+    <div class="globalNav__wrap">
+        <div class="globalNav__inner-wrap">
+            <div class="globalNav__title">
+                <a th:href="@{/}">
+                    <h1 class="page-title">社員情報管理サイト</h1>
+                </a>
+            </div>
+            <nav class="globalNav__menu">
+                <ul class="globalNav__menuList">
+                    <li class="globalNav__menuItem">
+                        <a class="globalNav__menuLink" th:href="@{/}">
+                            <i class="fas fa-list-alt"></i>
+                            <div>一覧画面</div>
+                        </a>
+                    </li>
+                    <li class="globalNav__menuItem">
+                        <a class="globalNav__menuLink" th:href="@{/emp/removed}">
+                            <i class="fas fa-user-slash"></i>
+                            <div>離籍者画面</div>
+                        </a>
+                    </li>
+                    <li class="globalNav__menuItem">
+                        <a class="globalNav__menuLink" th:href="@{/emp/create}">
+                            <i class="fas fa-plus-circle"></i>
+                            <div>登録画面</div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="globalNav__link" sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">ログアウト</a>
+        </div>
+        <div class="globalNav__link" sec:authorize="isAnonymous()">
+            <a th:href="@{/emp/login}">ログイン</a>
+        </div>
+    </div>
+</header>
 <!--page-title-->
-<h1 class="page-title">社員番号[[${id}]]の変更履歴</h1>
+<div class="title-wrapper">
+    <div>
+        <p class="sign">一覧画面＞編集画面>変更履歴画面</p>
+    </div>
+    <h1 class="c-pageTitle">社員番号[[${id}]]の変更履歴</h1>
+</div>
 <div class="content">
-    <table class="content__table">
-        <thead class="content__thead">
-        <tr>
-            <td>名前</td>
-            <td>フリガナ</td>
-            <td>役職</td>
-            <td>所属部署</td>
-            <td>入社年月日</td>
-            <td>メールアドレス</td>
-            <td>電話番号</td>
-            <td>更新日時</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="content__row" th:each="his : ${history}">
-            <td>[[${his.name}]]</td>
-            <td>[[${his.kana}]]</td>
-            <td>[[${his.post_name}]]</td>
-            <td>[[${his.dept_name}]]</td>
-            <td>[[${his.hire_date}]]</td>
-            <td>[[${his.email}]]</td>
-            <td>[[${his.tel}]]</td>
-            <td>[[${his.insert_history_at}]]</td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="button-wrapper">
-        <div class="button__text">
-            <a th:href="@{/emp/edit/{id}(id = *{id})}">戻る</a>
+    <div class="content-inner">
+        <table class="content__table">
+            <thead class="content__thead">
+            <tr>
+                <td>名前</td>
+                <td>フリガナ</td>
+                <td>役職</td>
+                <td>所属部署</td>
+                <td>入社年月日</td>
+                <td>メールアドレス</td>
+                <td>電話番号</td>
+                <td>更新日時</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="content__row" th:each="his : ${history}">
+                <td>[[${his.name}]]</td>
+                <td>[[${his.kana}]]</td>
+                <td>[[${his.post_name}]]</td>
+                <td>[[${his.dept_name}]]</td>
+                <td>[[${his.hire_date}]]</td>
+                <td>[[${his.email}]]</td>
+                <td>[[${his.tel}]]</td>
+                <td>[[${his.insert_history_at}]]</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="button-wrapper">
+            <div class="button__text">
+                <a th:href="@{/emp/edit/{id}(id = *{id})}">戻る</a>
+            </div>
         </div>
     </div>
 </div>

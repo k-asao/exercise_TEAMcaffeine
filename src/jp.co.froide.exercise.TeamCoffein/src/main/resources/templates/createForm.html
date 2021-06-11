@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <meta charset="UTF-8">
     <title>社員登録画面</title>
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
 </head>
 <body>
 
@@ -14,10 +15,53 @@
     });
 </script>
 
-<!--page-title-->
-<h1 class="page-title">登録画面</h1>
+<header class="globalNav">
+    <div class="globalNav__wrap">
+        <div class="globalNav__inner-wrap">
+            <div class="globalNav__title">
+                <a th:href="@{/}">
+                    <h1 class="page-title">社員情報管理サイト</h1>
+                </a>
+            </div>
+            <nav class="globalNav__menu">
+                <ul class="globalNav__menuList">
+                    <li class="globalNav__menuItem">
+                        <a class="globalNav__menuLink" th:href="@{/}">
+                            <i class="fas fa-list-alt"></i>
+                            <div>一覧画面</div>
+                        </a>
+                    </li>
+                    <li class="globalNav__menuItem">
+                        <a class="globalNav__menuLink" th:href="@{/emp/removed}">
+                            <i class="fas fa-user-slash"></i>
+                            <div>離籍者画面</div>
+                        </a>
+                    </li>
+                    <li class="globalNav__menuItem">
+                        <a class="globalNav__menuLink" th:href="@{/emp/create}">
+                            <i class="fas fa-plus-circle"></i>
+                            <div>登録画面</div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="globalNav__link" sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">ログアウト</a>
+        </div>
+        <div class="globalNav__link" sec:authorize="isAnonymous()">
+            <a th:href="@{/emp/login}">ログイン</a>
+        </div>
+    </div>
+</header>
 
-<!--content-->
+<!--page-title-->
+<div class="title-wrapper">
+    <div style="margin-top:70px;">
+        <h1 class="c-pageTitle">登録画面</h1>
+    </div>
+</div>
+
 <form class="content" th:object="${form}" th:action="@{/emp/create}" id=empForm enctype="multipart/form-data"
       method=post>
 

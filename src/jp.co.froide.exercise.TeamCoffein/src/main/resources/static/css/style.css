@@ -2,19 +2,68 @@
 
 body{
             background-color:#f0f1f4;
-            margin: 80px 80px;
+            margin: 0px auto;
         }
+        header{
+                    background:white;
+                    border-bottom:1px solid #d9dee6;
+                    display:flex;
+                    justify-content:center;
+                }
+                .globalNav__wrap{
+                    width:90%;
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                }
+                .globalNav__title a{
+                    text-decoration:none;
+                }
+                .globalNav__inner-wrap{
+                    display:flex;
+                    align-items:center;
+                }
+                .globalNav__menuList{
+                    display:flex;
+                    list-style:none;
+                    margin:0px auto;
+                    padding:0px;
+                }
+                .globalNav__menuItem{
+                    text-align:center;
+                    width:150px;
+                }
+                .globalNav__menuLink{
+                    color:#384359;
+                    cursor:pointer;
+                    display:block;
+                    padding:15px 0;
+                    text-decoration:none;
+                }
+                .globalNav__menuLink:hover{
+                    color:#11beae;
+                }
+                .globalNav__menuLink i{
+                    font-size:22px;
+                    margin:0 0 8px;
+                }
+                .page-title{
+                    color:#384359;
+                    font-weight:700;
+                    font-size: 30px;
+                    margin: 0px;
+                }
+                .globalNav__link a{
+                    text-decoration:none;
+                    color:#11beae;
+                }
         .content{
             background-color:white;
             display:flex;
             flex-direction:column;
             align-items:center;
-        }
-        .page-title{
-            color:#384359;
-            font-weight:700;
-            font-size:30px;
-            margin:0px;
+            width:80%;
+            margin:0 auto;
         }
         .content__input-wrapper{
             width:60%;
@@ -111,7 +160,10 @@ body{
         }
         .button-wrapper{
             display:flex;
-            justify-content:flex-end;
+            justify-content:space-between;
+            width:60%;
+            margin: 0 auto;
+            align-items:flex-end;
         }
         .button-wrapper button{
               border-radius:8px;
@@ -130,7 +182,7 @@ body{
              color:white;
         }
         .button__text{
-            margin-bottom:15px;
+            margin-bottom:10px;
         }
         .button__text a{
              margin:10px;
@@ -148,12 +200,37 @@ body{
              justify-content:center;
              text-decoration:none;
          }
+         .sign{
+            color:#384359;
+            font-size:12px;
+         }
+         .c-pageTitle{
+            color:#384359;
+            font-size:20px;
+         }
         .delete-button{
             display:flex;
             justify-content:center;
             margin:20px;
             color:#f29091;
             cursor:pointer;
+        }
+
+        .c-pageTitle{
+                    font-size:28px;
+                    margin:0px;
+                }
+                .sign{
+                    margin:0px;
+                    margin-top:70px;
+                }
+
+        .title-wrapper{
+            width:80%;
+            display:flex;
+            margin:0 auto;
+            align-items:flex-end;
+            justify-content:space-between;
         }
 
         @media screen and (max-width: 479px) { /*ウィンドウ幅が479px以下の場合に適用*/

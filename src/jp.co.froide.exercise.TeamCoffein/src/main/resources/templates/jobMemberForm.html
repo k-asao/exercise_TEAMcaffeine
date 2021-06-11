@@ -7,68 +7,66 @@
     <style>
         body{
             background-color:#f0f1f4;
-            margin:30px auto;
-            width:70%;
+            margin:0px auto;
             color:#384359;
+        }
+        header{
+            background:white;
+            border-bottom:1px solid #d9dee6;
+            display:flex;
+            justify-content:center;
+        }
+        .globalNav__wrap{
+            width:90%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+        .globalNav__title a{
+            text-decoration:none;
+        }
+        .globalNav__inner-wrap{
+            display:flex;
+            align-items:center;
+        }
+        .globalNav__menuList{
+            display:flex;
+            list-style:none;
+            margin:0px auto;
+            padding:0px;
+        }
+        .globalNav__menuItem{
+            text-align:center;
+            width:150px;
+        }
+        .globalNav__menuLink{
+            color:#384359;
+            cursor:pointer;
+            display:block;
+            padding:15px 0;
+            text-decoration:none;
+        }
+        .globalNav__menuLink:hover{
+            color:#11beae;
+        }
+        .globalNav__menuLink i{
+            font-size:22px;
+            margin:0 0 8px;
         }
         .page-title{
             color:#384359;
             font-weight:700;
             font-size: 30px;
+            margin: 0px;
         }
-        .button-wrapper{
-            display:flex;
-            justify-content:flex-end;
-        }
-        .button-wrapper button{
-            margin:10px;
-            margin:0 12px;
-            border-radius:8px;
-            font-size:16px;
-            background-color:#11beae;
-            color:white;
-            cursor:pointer;
-            font-weight:700;
-            border:none;
-            width:200px;
-            padding:8px;
-        }
-        .auth-button a{
-            margin:10px;
-            margin:0 12px;
-            border-radius:8px;
-            font-size:16px;
-            background-color:#11beae;
-            color:white;
-            cursor:pointer;
-            font-weight:700;
-            border:none;
-            width:200px;
-            padding:8px;
-            display:flex;
-            justify-content:center;
+        .globalNav__link a{
             text-decoration:none;
-        }
-        .button__text a{
-            margin:10px;
-            margin:0 12px;
-            border-radius:8px;
-            font-size:16px;
-            background-color:#11beae;
-            color:white;
-            cursor:pointer;
-            font-weight:700;
-            border:none;
-            width:200px;
-            padding:8px;
-            display:flex;
-            justify-content:center;
-            text-decoration:none;
+            color:#11beae;
         }
         .content{
             background-color:white;
-            margin-top:24px;
-            padding:30px;
+            width:80%;
+            margin:0 auto;
         }
         .content__search-form{
             display:flex;
@@ -160,8 +158,14 @@
             background:none;
             color:#11beae;
         }
+        .csvButton-wrapper{
+            width:80%;
+            display:flex;
+            justify-content:space-between;
+            margin:0 auto;
+            align-items:flex-end;
+        }
         .csvButton{
-            margin:10px 0px 100px 0px;
             border-radius:8px;
             font-size:16px;
             background-color:#11beae;
@@ -171,7 +175,18 @@
             border:none;
             width:220px;
             padding:8px;
+            margin-bottom:10px;
+            margin-top:70px;
         }
+        .content-inner{
+            padding:80px;
+        }
+        .c-pageTitle{
+            font-size:28px;
+            margin:0px;
+        }
+
+
 
     </style>
 </head>
@@ -180,122 +195,152 @@
     window.addEventListener('pageshow',()=>{
         if(window.performance.navigation.type==2) location.reload();
     });
+
+
+
 </script>
-<!--page-title-->
-<h1 class="page-title">社員一覧</h1>
 
-<div class="button-wrapper">
-    <!--logout-button-->
-    <div class="auth-button" sec:authorize="isAuthenticated()">
-        <a th:href="@{/logout}">ログアウト</a>
+<!--header-->
+<header class="globalNav">
+    <div class="globalNav__wrap">
+        <div class="globalNav__inner-wrap">
+            <div class="globalNav__title">
+                <a th:href="@{/}">
+                    <h1 class="page-title">社員情報管理サイト</h1>
+                </a>
+            </div>
+            <nav class="globalNav__menu">
+                <ul class="globalNav__menuList">
+                    <li class="globalNav__menuItem">
+                        <a class="globalNav__menuLink" th:href="@{/}">
+                            <i class="fas fa-list-alt"></i>
+                            <div>一覧画面</div>
+                        </a>
+                    </li>
+                    <li class="globalNav__menuItem">
+                        <a class="globalNav__menuLink" th:href="@{/emp/removed}">
+                            <i class="fas fa-user-slash"></i>
+                            <div>離籍者画面</div>
+                        </a>
+                    </li>
+                    <li class="globalNav__menuItem">
+                        <a class="globalNav__menuLink" th:href="@{/emp/create}">
+                            <i class="fas fa-plus-circle"></i>
+                            <div>登録画面</div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="globalNav__link" sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">ログアウト</a>
+        </div>
+        <div class="globalNav__link" sec:authorize="isAnonymous()">
+            <a th:href="@{/emp/login}">ログイン</a>
+        </div>
     </div>
-    <div class="auth-button" sec:authorize="isAnonymous()">
-        <a th:href="@{/login}">ログイン</a>
-    </div>
-    <!--moveToCreateButton-->
-    <div class="button__text">
-        <a th:href="@{/emp/create}">＋社員情報を登録</a>
-    </div>
-    <div class="button__text">
-        <a th:href="@{/emp/removed}">離籍者を確認</a>
-    </div>
-</div>
+</header>
 
-
-<div class="content">
-    <!--    searchFunctions-->
-    <form class="content__search-form" th:object="${searchForm}" th:action="@{emp}" id="form1"
-          enctype="multipart/form-data"
-          method="post">
-        <div class="content__search-form--search-field">
-            <input type="text"  name="name" th:field="*{name}" th:type="text" placeholder="社員名/フリガナで検索"/>
-            <button type="submit">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
-
-        <div>
-            <label>社員番号</label>
-            <select name="order" th:field="*{order}">
-                <option th:value=asc selected>昇順</option>
-                <option th:value=desc>降順</option>
-            </select>
-        </div>
-
-        <div>
-            <label>所属部署</label>
-            <select name="selectDept" th:field="*{dept_id}">
-                <option th:value="${noSelect}" selected>すべて</option>
-                <option th:each="dept:${deptList}" th:value="${dept.dept_id}" th:text="${dept.dept_name}"/>
-            </select>
-        </div>
-
-        <div>
-            <label>役職</label>
-            <select name="selectPost" th:field="*{post_id}">
-                <option  th:value="${noSelect}" selected>すべて</option>
-                <option th:each="post:${postList}" th:value="${post.post_id}" th:text="${post.post_name}">text
-                </option>
-            </select>
-        </div>
-
-        <div>
-            <label>入社年</label>
-            <select name="selectYear" th:field="*{hire_date}">
-                <option th:value="${noSelect}" selected>すべて</option>
-                <option th:each="date:${dateList}" th:value="${date.year}" th:text="${date.year}">text
-                </option>
-            </select>
-        </div>
-
-    </form>
-
-    <!--    content__table-->
-    <table class="content__table">
-        <thead class="content__thead">
-        <tr>
-            <td>社員番号</td>
-            <td>名前</td>
-            <td>役職</td>
-            <td>所属部署</td>
-            <td>入社年月日</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="content__row" th:each="user : ${searchList}">
-            <td class="content__row--id">[[${user .emp_id}]]</td>
-            <td class="content__row--name"><a th:href="@{'/emp/edit/' + ${user.emp_id}}">[[${user.name}]]</a></td>
-            <td class="content__row--post">[[${user.post_name}]]</td>
-            <td class="content__row--dept">[[${user.dept_name}]]</td>
-            <td class="content__row--date">[[${user.hire_date}]]</td>
-        </tr>
-        </tbody>
-    </table>
-
-    <form id="hiddenForm_Pagenation" th:object="${searchForm_page}" th:action="@{emp}" enctype="multipart/form-data"
-          method="post">
-        <input type="hidden"  th:type="hidden" th:name="order" th:field="*{order}"/>
-        <input type="hidden"  th:type="hidden" th:name="name" th:field="*{name}"/>
-        <input type="hidden"  th:type="hidden" th:name="post_id" th:field="*{post_id}"/>
-        <input type="hidden"  th:type="hidden" th:name="dept_id" th:field="*{dept_id}"/>
-        <input type="hidden"  th:type="hidden" th:name="hire_date" th:field="*{hire_date}"/>
-    </form>
-
-    <nav class="pagination">
-        <th:block>
-            <button form="hiddenForm_Pagenation" th:if="${page > 1}" th:formaction="@{'/emp?page=' + ${page-1}}" type="submit">◀前へ
-            </button>
-        </th:block>
-        <th:block>
-            <button form="hiddenForm_Pagenation" th:if="${page} < ${totalPage}" th:formaction="@{'/emp?page=' + ${page+1}}"
-                    type="submit">
-                次へ▶
-            </button>
-        </th:block>
-    </nav>
-</div>
-<form method="get" th:action="|/employee.csv|">
+<!--csvファイルのダウンロード-->
+<form class="csvButton-wrapper" method="get" th:action="|/employee.csv|">
+    <h1 class="c-pageTitle">一覧画面</h1>
     <button class="csvButton" type="submit" name="download_file">csvファイルをダウンロード</button>
 </form>
+<div class="content">
+    <div class="content-inner">
+        <!--    searchFunctions-->
+        <form class="content__search-form" th:object="${searchForm}" th:action="@{emp}" id="form1"
+              enctype="multipart/form-data"
+              method="post">
+            <div class="content__search-form--search-field">
+                <input type="text" name="name" th:field="*{name}" th:type="text" placeholder="社員名/フリガナで検索"/>
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div>
+                <label>社員番号</label>
+                <select name="order" th:field="*{order}">
+                    <option th:value=asc selected>昇順</option>
+                    <option th:value=desc>降順</option>
+                </select>
+            </div>
+
+            <div>
+                <label>所属部署</label>
+                <select name="selectDept" th:field="*{dept_id}">
+                    <option th:value="${noSelect}" selected>すべて</option>
+                    <option th:each="dept:${deptList}" th:value="${dept.dept_id}" th:text="${dept.dept_name}"/>
+                </select>
+            </div>
+
+            <div>
+                <label>役職</label>
+                <select name="selectPost" th:field="*{post_id}">
+                    <option th:value="${noSelect}" selected>すべて</option>
+                    <option th:each="post:${postList}" th:value="${post.post_id}" th:text="${post.post_name}">text
+                    </option>
+                </select>
+            </div>
+
+            <div>
+                <label>入社年</label>
+                <select name="selectYear" th:field="*{hire_date}">
+                    <option th:value="${noSelect}" selected>すべて</option>
+                    <option th:each="date:${dateList}" th:value="${date.year}" th:text="${date.year}">text
+                    </option>
+                </select>
+            </div>
+
+        </form>
+
+        <!--    content__table-->
+        <table class="content__table">
+            <thead class="content__thead">
+            <tr>
+                <td>社員番号</td>
+                <td>名前</td>
+                <td>役職</td>
+                <td>所属部署</td>
+                <td>入社年月日</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="content__row" th:each="user : ${searchList}">
+                <td class="content__row--id">[[${user .emp_id}]]</td>
+                <td class="content__row--name"><a th:href="@{'/emp/edit/' + ${user.emp_id}}">[[${user.name}]]</a></td>
+                <td class="content__row--post">[[${user.post_name}]]</td>
+                <td class="content__row--dept">[[${user.dept_name}]]</td>
+                <td class="content__row--date">[[${user.hire_date}]]</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <form id="hiddenForm_Pagenation" th:object="${searchForm_page}" th:action="@{emp}" enctype="multipart/form-data"
+              method="post">
+            <input type="hidden" th:type="hidden" th:name="order" th:field="*{order}"/>
+            <input type="hidden" th:type="hidden" th:name="name" th:field="*{name}"/>
+            <input type="hidden" th:type="hidden" th:name="post_id" th:field="*{post_id}"/>
+            <input type="hidden" th:type="hidden" th:name="dept_id" th:field="*{dept_id}"/>
+            <input type="hidden" th:type="hidden" th:name="hire_date" th:field="*{hire_date}"/>
+        </form>
+
+        <nav class="pagination">
+            <th:block>
+                <button form="hiddenForm_Pagenation" th:if="${page > 1}" th:formaction="@{'/emp?page=' + ${page-1}}"
+                        type="submit">◀前へ
+                </button>
+            </th:block>
+            <th:block>
+                <button form="hiddenForm_Pagenation" th:if="${page} < ${totalPage}"
+                        th:formaction="@{'/emp?page=' + ${page+1}}"
+                        type="submit">
+                    次へ▶
+                </button>
+            </th:block>
+        </nav>
+    </div>
+</div>
+
 </body>
 </html>
