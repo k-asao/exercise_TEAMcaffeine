@@ -240,9 +240,13 @@
 
     <!--    submit-button-->
     <div class="submit-button">
-        <button class="submit-button__create" type="submit" name="action" value="update" onclick="return double()">更新
-        </button>
-        <button class="submit-button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
+        <div>
+            <button class="submit-button__create" type="submit" name="action" value="update" onclick="return double()">更新</button>
+        </div>                
+        <div class="tooltip1">
+            <button class="submit-button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
+            <div class="description1">一覧画面に戻る</div>
+        </div>
     </div>
 </form>
 <script>

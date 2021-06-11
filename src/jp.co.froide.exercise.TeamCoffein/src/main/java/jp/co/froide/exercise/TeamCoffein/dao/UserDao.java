@@ -36,7 +36,7 @@ public interface UserDao {
 
     @Sql("select /*%expand*/* from employee inner join department on employee.dept_id = department.dept_id " +
             "inner join post on employee.post_id = post.post_id and employee.delete_flag = /* delete_flag */0 " +
-            "where /*%if name != \"\" */ name like /* @infix(name) */'smith'/*%end*/" +
+            "where /*%if name != \"\" */ (name like /* @infix(name) */'smith' or kana like /* @infix(name) */'smi')/*%end*/" +
             "/*%if hire_date != \"\" */ and employee.hire_date between /* hire_date + \"-01-01 00:00:00\" */0  AND /* hire_date + \"-12-31 00:00:00\" */0 /*%end*/" +
             "/*%if post_id != null */ and employee.post_id = /* post_id */99 /*%end*/" +
             "/*%if dept_id != null */ and employee.dept_id = /* dept_id */99 /*%end*/" +
@@ -64,7 +64,7 @@ public interface UserDao {
 
     @Sql("select count(*) from employee inner join department on employee.dept_id = department.dept_id " +
             "inner join post on employee.post_id = post.post_id and employee.delete_flag = /* delete_flag */0 " +
-            "where /*%if name != \"\" */ name like /* @infix(name) */'smith'/*%end*/" +
+            "where /*%if name != \"\" */ (name like /* @infix(name) */'smith' or kana like /* @infix(name) */'smi')/*%end*/" +
             "/*%if hire_date != \"\" */ and employee.hire_date between /* hire_date + \"-01-01 00:00:00\" */0  AND /* hire_date + \"-12-31 00:00:00\" */0 /*%end*/" +
             "/*%if post_id != null */ and employee.post_id = /* post_id */99 /*%end*/" +
             "/*%if dept_id != null */ and employee.dept_id = /* dept_id */99 /*%end*/" +

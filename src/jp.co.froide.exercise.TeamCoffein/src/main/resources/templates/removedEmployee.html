@@ -249,12 +249,11 @@
               enctype="multipart/form-data"
               method="post">
             <div class="content__search-form--search-field">
-                <input type="text" th:field="*{name}" th:type="text" placeholder="社員名から検索"/>
+                <input type="text" th:field="*{name}" th:type="text" placeholder="社員名/フリガナで検索"/>
                 <button type="submit">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
-
             <div>
                 <label>社員番号</label>
                 <select th:field="*{order}">
