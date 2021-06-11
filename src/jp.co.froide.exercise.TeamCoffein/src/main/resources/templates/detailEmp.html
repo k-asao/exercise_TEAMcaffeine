@@ -1,13 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>編集画面</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-
 </head>
 <body>
+<header class="globalNav">
+    <div class="globalNav__wrap">
+        <div class="globalNav__inner-wrap">
+            <div class="globalNav__title">
+                <a th:href="@{/}">
+                    <h1 class="page-title">社員情報管理サイト</h1>
+                </a>
+            </div>
+            <nav class="globalNav__menu">
+                <ul class="globalNav__menuList">
+                    <li class="globalNav__menuItem">
+                        <a class="globalNav__menuLink" th:href="@{/}">
+                            <i class="fas fa-list-alt"></i>
+                            <div>一覧画面</div>
+                        </a>
+                    </li>
+                    <li class="globalNav__menuItem">
+                        <a class="globalNav__menuLink" th:href="@{/emp/removed}">
+                            <i class="fas fa-user-slash"></i>
+                            <div>離籍者画面</div>
+                        </a>
+                    </li>
+                    <li class="globalNav__menuItem">
+                        <a class="globalNav__menuLink" th:href="@{/emp/create}">
+                            <i class="fas fa-plus-circle"></i>
+                            <div>登録画面</div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="globalNav__link" sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">ログアウト</a>
+        </div>
+        <div class="globalNav__link" sec:authorize="isAnonymous()">
+            <a th:href="@{/emp/login}">ログイン</a>
+        </div>
+    </div>
+</header>
 
 <!--page-title-->
 <script>
@@ -18,20 +57,29 @@
             window.alert("登録に成功しました。")
         }
     });
-</script>
-<h1 class="page-title">編集画面</h1>
 
-<div class="button-wrapper">
+
+
+</script>
+
+<!--page-title-->
+<div class="title-wrapper">
+    <div>
+        <div>
+            <p class="sign">一覧画面＞編集画面</p>
+        </div>
+        <h1 class="c-pageTitle">編集画面</h1>
+    </div>
     <div class="button__text">
         <a th:href="@{/emp/edit/{id}/history(id = *{id})}">変更履歴を確認</a>
     </div>
 </div>
 
-
 <!--content-->
 <form class="content" th:object="${form}" action="#" th:action="@{/emp/edit/{id}(id = ${id})}"
-      enctype="multipart/form-data" method=post >
-    <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('emp_id')}" th:errors="*{emp_id}" style="margin-top:30px">
+      enctype="multipart/form-data" method=post>
+    <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('emp_id')}" th:errors="*{emp_id}"
+         style="margin-top:30px">
         error code
     </div>
     <!--    content__number-->
@@ -105,6 +153,9 @@
         document.getElementById("setDate").addEventListener("blur", (e) => dateUntilblurred(e));
 
 
+
+
+
     </script>
 
     <!--    content__post-->
@@ -163,7 +214,7 @@
         <div class="content__input-wrapper--field">
             <label class="content__input--label">メールアドレス</label>
             <div class="content__input-wrapper--input">
-                <input type=text th:type=text name=email th:field="*{email}"　placeholder="メールアドレスを入力してください"/>
+                <input type=text th:type=text name=email th:field="*{email}" 　placeholder="メールアドレスを入力してください"/>
                 <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
                     error
                     code
@@ -175,19 +226,22 @@
         <div class="content__input-wrapper--field">
             <label class="content__input--label">権限</label>
             <div class="content__input-wrapper--input">
-            <select id="selectAuth" name="auth" th:field="*{auth}">
-                <option th:value="${noSelect}" selected>権限を選択してください</option>
-                <option th:value=0>管理者</option>
-                <option th:value=1>一般</option>
-            </select>
-            <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('auth')}" th:errors="*{auth}">error code</div>
-        </div>
+                <select id="selectAuth" name="auth" th:field="*{auth}">
+                    <option th:value="${noSelect}" selected>権限を選択してください</option>
+                    <option th:value=0>管理者</option>
+                    <option th:value=1>一般</option>
+                </select>
+                <div class="content__input-wrapper--error" th:if="${#fields.hasErrors('auth')}" th:errors="*{auth}">
+                    error code
+                </div>
+            </div>
         </div>
     </div>
 
     <!--    submit-button-->
     <div class="submit-button">
-        <button class="submit-button__create" type="submit" name="action" value="update" onclick="return double()">更新</button>
+        <button class="submit-button__create" type="submit" name="action" value="update" onclick="return double()">更新
+        </button>
         <button class="submit-button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
     </div>
 </form>
@@ -197,6 +251,9 @@ function double() {
 if(set==0){ set=1; } else {
 alert("只今処理中です。\nそのままお待ちください。");
 return false; }}
+
+
+
 </script>
 
 
@@ -210,6 +267,9 @@ return false; }}
             window.location.href='[[${id}]]/delete'
         }
     });
+
+
+
 </script>
 </body>
 </html>
