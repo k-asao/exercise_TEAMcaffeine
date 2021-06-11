@@ -49,6 +49,7 @@ body{
         }
         .submit-button{
             display:flex;
+            flex-direction: row-reverse;
             justify-content:center;
             margin-top:16px;
             padding:32px;
