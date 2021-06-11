@@ -139,8 +139,13 @@
 
     <!--    submit-button-->
     <div class="submit-button">
-        <button class="submit-button__create" type="submit" name="action" value="insert" onclick="return double()">登録</button>
-        <button class="submit-button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
+        <div>
+            <button class="submit-button__create" type="submit" name="action" value="insert" onclick="return double()">登録</button>
+        </div>
+        <div class="tooltip1">
+            <button class="submit-button__cancel" type="submit" name="action" value="cancel">キャンセル</button>
+            <div class="description1">一覧画面に戻る</div>
+        </div>
     </div>
 </form>
 <script>
