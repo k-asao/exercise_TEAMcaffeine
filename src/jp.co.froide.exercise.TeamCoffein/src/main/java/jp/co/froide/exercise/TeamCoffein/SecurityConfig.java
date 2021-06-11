@@ -62,6 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .rememberMeCookieName("login")
             .tokenValiditySeconds(86400)
             .useSecureCookie(true);
+        http.sessionManagement()
+            .maximumSessions(1)
+            .maxSessionsPreventsLogin(true);
     }
 
 }
