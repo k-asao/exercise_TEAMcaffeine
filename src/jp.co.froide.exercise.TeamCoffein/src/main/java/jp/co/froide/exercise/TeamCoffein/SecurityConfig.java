@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .useSecureCookie(true);
         http.sessionManagement()
             .maximumSessions(1)
-            .maxSessionsPreventsLogin(true);
+            .maxSessionsPreventsLogin(false);
     }
 
 }
