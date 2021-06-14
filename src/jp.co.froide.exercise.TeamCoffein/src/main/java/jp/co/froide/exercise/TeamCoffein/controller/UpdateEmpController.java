@@ -20,6 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -46,7 +48,12 @@ public class UpdateEmpController {
     @GetMapping("/emp/edit/{id}")
     public String showEditForm(Model model, @PathVariable("id") Integer id) throws ParseException {
         if (!model.containsAttribute("error")) {
-            PostEmployee emp = updateDao.selectEmpByID(id);
+            PostEmployee emp;
+            try {
+                emp = updateDao.selectEmpByID(id);
+            }catch (Exception e){
+                return "dberror";
+            }
             EmployeeForm form = new EmployeeForm();
             form.cloneEmp(emp);
 
@@ -63,9 +70,15 @@ public class UpdateEmpController {
         if(!model.containsAttribute("successMessage")){
             model.addAttribute("successMessage", null);
         }
+        Collection<Post> postList;
+        Collection<Department> deptList;
+        try {
+            postList = postDao.selectAll();
+            deptList = deptDao.selectAll();
+        }catch (Exception e){
+            return "dberror";
 
-        List<Post> postList = postDao.selectAll();
-        List<Department> deptList = deptDao.selectAll();
+        }
         model.addAttribute("noSelect", null);
         model.addAttribute("postList", postList);
         model.addAttribute("deptList", deptList);
@@ -94,13 +107,19 @@ public class UpdateEmpController {
         String str_nowDate = format.format(nowDate);
 
 
-        PostEmployee emp = updateDao.selectEmpByID(id);
+        PostEmployee emp ;
         EmpHistory empHis = new EmpHistory();
-        empHis.cloneEmp(emp);
-        empHis.setInsert_history_at(str_nowDate);
-        insertDao.insert(empHis);
-        if(updateDao.count(id) > 20){
-            updateDao.deleteOver20(id);
+        try {
+            emp = updateDao.selectEmpByID(id);
+            empHis.cloneEmp(emp);
+            empHis.setInsert_history_at(str_nowDate);
+
+            insertDao.insert(empHis);
+            if (updateDao.count(id) > 20) {
+                updateDao.deleteOver20(id);
+            }
+        }catch (Exception e){
+            return "dberror";
         }
 
         emp.cloneForm(form);
@@ -109,20 +128,34 @@ public class UpdateEmpController {
 
         if (form.getAuth() == 0 && empHis.getPassword().equals("0")) {
             String pass = RandomStringUtils.randomAlphanumeric(6);
-            String hashed_pass = passwordEncoder.encode(pass);
-            emp.setPassword(hashed_pass);
-            updateDao.update(emp);
+            try {
+                String hashed_pass = passwordEncoder.encode(pass);
+                emp.setPassword(hashed_pass);
+                updateDao.update(emp);
+            }catch (Exception e){
+                return "dberror";
+
+            }
             model.addAttribute("emp_id", emp.getEmp_id());
             model.addAttribute("emp", emp);
             model.addAttribute("pass", pass);
             return "confirmAsAdmin";
         } else if(form.getAuth() == 0 && !empHis.getPassword().equals("0")){
-            updateDao.update(emp);
+            try {
+                updateDao.update(emp);
+            }catch (Exception e){
+                return "dberror";
+
+            }
             ra.addFlashAttribute("successMessage", "success");
             return "redirect:/emp/edit/{id}";
         }else {
             emp.setPassword("0");
-            updateDao.update(emp);
+            try {
+                updateDao.update(emp);
+            }catch (Exception e){
+                return "dberror";
+            }
             ra.addFlashAttribute("successMessage", "success");
             return "redirect:/emp/edit/{id}";
         }
@@ -130,15 +163,24 @@ public class UpdateEmpController {
 
     @RequestMapping("/emp/edit/{id}/delete")
     public String delEmp(EmployeeForm form, @PathVariable("id") Integer id) {
-        PostEmployee emp = updateDao.selectEmpByID(id);
-        emp.setDelete_flag(1);
-        updateDao.update(emp);
+        try {
+            PostEmployee emp = updateDao.selectEmpByID(id);
+            emp.setDelete_flag(1);
+            updateDao.update(emp);
+        }catch (Exception e){
+            return "dberror";
+        }
         return "redirect:/emp";
     }
 
     @GetMapping("/emp/edit/{id}/history")
     public String showHistory(Model model, @PathVariable("id") Integer id){
-        List<EmpHisReceive> empHis = updateDao.selectEmpHisById(id);
+        List<EmpHisReceive> empHis;
+        try {
+            empHis = updateDao.selectEmpHisById(id);
+        }catch (Exception e){
+            return "dberror";
+        }
         model.addAttribute("id", id);
         model.addAttribute("history", empHis);
         return "empHistory";

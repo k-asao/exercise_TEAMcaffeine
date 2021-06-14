@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class CsvViewController {
     public Object csvCreator(Collection<Employee> list) throws JsonProcessingException {
+        System.out.println(list);
         List<CsvView> csvs = list.stream().map(
                 e -> new CsvView(e.getEmp_id(), e.getName(), e.getKana(), e.getHire_date(), e.getPost_name(), e.getDept_name(), e.getTel(), e.getEmail())
         ).collect(Collectors.toList());

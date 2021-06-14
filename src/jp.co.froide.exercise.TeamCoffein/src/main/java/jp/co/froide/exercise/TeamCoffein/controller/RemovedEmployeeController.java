@@ -32,13 +32,25 @@ public class RemovedEmployeeController {
     private final String limit = "20";
     Collection<Employee> removedData;
 
+    @GetMapping("/emp/error")
+    public String error(){return "dberror";}
+
     @GetMapping("/emp/removed/{id}")
     public String recoveryRemovedData(Model model, @PathVariable("id") Integer id) {
-        PostEmployee emp = updateDao.selectEmpByID(id);
+        PostEmployee emp;
+        try {
+            emp = updateDao.selectEmpByID(id);
+        }catch (Exception e){
+            return "dberror";
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         emp.setUpdate_at(LocalDateTime.now().format(formatter));
         emp.setDelete_flag(0);
-        updateDao.update(emp);
+        try {
+            updateDao.update(emp);
+        }catch (Exception e){
+            return "dberror";
+        }
         return "redirect:/emp/removed";
     }
 
@@ -71,7 +83,6 @@ public class RemovedEmployeeController {
     }
 
     @RequestMapping(value = "/emp/removed", method = RequestMethod.GET)
-    @Transactional(readOnly = true)
     public String showRemovedData(Model model, @RequestParam HashMap<String, String> params) throws Exception {
         String currentPage = (params.get("page") == null) ? "1": params.get("page");
         String order = params.get("order");
@@ -81,7 +92,12 @@ public class RemovedEmployeeController {
         String hire_date = (params.get("hire_date") == null) ? "" : params.get("hire_date");
 
 
-        int total = userDao.getSearch(order, name, post_id, dept_id, hire_date, 1);
+        int total;
+        try {
+            total = userDao.getSearch(order, name, post_id, dept_id, hire_date, 1);
+        }catch (Exception e){
+            return "dberror";
+        }
 
 
         Integer totalPage = (total + Integer.parseInt(limit) - 1) / Integer.parseInt(limit);
@@ -92,10 +108,17 @@ public class RemovedEmployeeController {
 
         SearchForm form = new SearchForm(order, name, post_id, dept_id, hire_date);
         System.out.println(form);
-        Collection<Year> dateList = userDao.selectHireDateAll();
-        Collection<Department> deptList = userDao.selectDeptAll();
-        Collection<Post> postList = userDao.selectPostAll();
-        removedData = userDao.selectSearchAll(order, name, post_id, dept_id, hire_date, lim, off, 1);
+        Collection<Year> dateList;
+        Collection<Department> deptList;
+        Collection<Post> postList;
+        try {
+            dateList = userDao.selectHireDateAll();
+            deptList = userDao.selectDeptAll();
+            postList = userDao.selectPostAll();
+            removedData = userDao.selectSearchAll(order, name, post_id, dept_id, hire_date, lim, off, 1);
+        }catch (Exception e){
+            return "dberror";
+        }
         model.addAttribute("deptList", deptList);
         model.addAttribute("postList", postList);
         model.addAttribute("dateList", dateList);

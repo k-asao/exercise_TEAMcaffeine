@@ -55,8 +55,14 @@ public class InsertEmpController {
             EmployeeForm form = new EmployeeForm();
             model.addAttribute("form", new EmployeeForm());
         }
-        List<Post> postList = postDao.selectAll();
-        List<Department> deptList = deptDao.selectAll();
+        List<Post> postList;
+        List<Department> deptList;
+        try {
+            postList = postDao.selectAll();
+            deptList = deptDao.selectAll();
+        }catch (Exception e){
+            return "dberror";
+        }
         model.addAttribute("postList", postList);
         model.addAttribute("deptList", deptList);
         model.addAttribute("noSelect", null);
@@ -89,18 +95,28 @@ public class InsertEmpController {
         emp.setCreate_at(str_nowDate);
         if (form.getAuth() == 0) {
             String pass = RandomStringUtils.randomAlphanumeric(6);
-            String hashed_pass = passwordEncoder.encode(pass);
-            emp.setPassword(hashed_pass);
-            insertDao.insert(emp);
-            PostEmployee inserted_emp = employeeDao.selectByEmail(emp.getEmail());
+            PostEmployee inserted_emp;
+            try {
+                String hashed_pass = passwordEncoder.encode(pass);
+                emp.setPassword(hashed_pass);
+                insertDao.insert(emp);
+                inserted_emp = employeeDao.selectByEmail(emp.getEmail());
+            }catch (Exception e){
+                return "dberror";
+            }
             ra.addFlashAttribute("emp_id", inserted_emp.getEmp_id());
             ra.addFlashAttribute("emp", emp);
             ra.addFlashAttribute("pass", pass);
             return "redirect:/emp/create/asAdministrator";
         } else {
             emp.setPassword("0");
-            insertDao.insert(emp);
-            PostEmployee inserted_emp = employeeDao.selectByEmail(emp.getEmail());
+            PostEmployee inserted_emp;
+            try {
+                insertDao.insert(emp);
+                inserted_emp = employeeDao.selectByEmail(emp.getEmail());
+            }catch (Exception e){
+                return "dberror";
+            }
             Integer id = inserted_emp.getEmp_id();
             return "redirect:/emp/edit/" + id;
         }

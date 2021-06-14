@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.spring5.processor.SpringOptionInSelectFieldTagProcessor;
 
+import java.net.ConnectException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -43,7 +45,7 @@ public class JobMemberController {
 
 
     @RequestMapping(value = {"/emp"}, method = RequestMethod.GET)
-    @Transactional(readOnly = true)
+    //@Transactional(readOnly = true)
     public String index(Model model, @RequestParam HashMap<String, String> params) {
 
         String currentPage = (params.get("page") == null) ? "1": params.get("page");
@@ -52,9 +54,12 @@ public class JobMemberController {
         Integer post_id = (params.get("post_id") == null) ? null : Integer.valueOf(params.get("post_id"));
         Integer dept_id = (params.get("dept_id") == null) ? null : Integer.valueOf(params.get("dept_id"));
         String hire_date = (params.get("hire_date") == null) ? "" : params.get("hire_date");
-
-
-        int total = userDao.getSearch(order, name, post_id, dept_id, hire_date, 0);
+        int total;
+        try {
+            total = userDao.getSearch(order, name, post_id, dept_id, hire_date, 0);
+        }catch (Exception e){
+            return "dberror";
+        }
 
 
         Integer totalPage = (total + Integer.parseInt(limit) - 1) / Integer.parseInt(limit);
@@ -65,10 +70,17 @@ public class JobMemberController {
 
         SearchForm form = new SearchForm(order, name, post_id, dept_id, hire_date);
         System.out.println(form);
-        Collection<Year> dateList = userDao.selectHireDateAll();
-        Collection<Department> deptList = userDao.selectDeptAll();
-        Collection<Post> postList = userDao.selectPostAll();
-        searchList = userDao.selectSearchAll(order, name, post_id, dept_id, hire_date, lim, off, 0);
+        Collection<Year> dateList ;
+        Collection<Department> deptList;
+        Collection<Post> postList;
+        try {
+            dateList = userDao.selectHireDateAll();
+            deptList = userDao.selectDeptAll();
+            postList = userDao.selectPostAll();
+            searchList = userDao.selectSearchAll(order, name, post_id, dept_id, hire_date, lim, off, 0);
+        }catch (Exception e){
+            return "dberror";
+        }
         model.addAttribute("deptList", deptList);
         model.addAttribute("postList", postList);
         model.addAttribute("dateList", dateList);

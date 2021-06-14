@@ -117,10 +117,15 @@ public class LoginController {
             ra.addFlashAttribute("passForm", form);
             return "redirect:/emp/changePass";
         }
-        PostEmployee emp = empDao.selectByEmail(form.getEmail());
-        String hashed_pass = passwordEncoder.encode(form.getPass());
-        emp.setPassword(hashed_pass);
-        updateDao.update(emp);
+
+        try {
+            PostEmployee emp = empDao.selectByEmail(form.getEmail());
+            String hashed_pass = passwordEncoder.encode(form.getPass());
+            emp.setPassword(hashed_pass);
+            updateDao.update(emp);
+        } catch (Exception e){
+            return "dberror";
+        }
         return "redirect:/emp/login";
     }
 

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.management.Query;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -32,7 +33,7 @@ public interface UserDao {
 
     @Sql("select EXTRACT(year FROM hire_date) AS year from employee GROUP BY EXTRACT(year FROM hire_date)")
     @Select
-    List<Year> selectHireDateAll();
+    List<Year> selectHireDateAll() ;
 
     @Sql("select /*%expand*/* from employee inner join department on employee.dept_id = department.dept_id " +
             "inner join post on employee.post_id = post.post_id and employee.delete_flag = /* delete_flag */0 " +
@@ -70,6 +71,6 @@ public interface UserDao {
             "/*%if dept_id != null */ and employee.dept_id = /* dept_id */99 /*%end*/" +
             "order by  emp_id /*# order */")
     @Select
-    int getSearch(String order, String name, Integer post_id, Integer dept_id, String hire_date, Integer delete_flag);
+    int getSearch(String order, String name, Integer post_id, Integer dept_id, String hire_date, Integer delete_flag) throws ConnectException;
 
 }
