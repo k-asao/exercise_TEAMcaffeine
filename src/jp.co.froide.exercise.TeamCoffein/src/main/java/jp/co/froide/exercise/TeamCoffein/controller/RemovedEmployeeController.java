@@ -80,7 +80,6 @@ public class RemovedEmployeeController {
     }
 
     @RequestMapping(value = "/emp/removed", method = RequestMethod.GET)
-    @Transactional(readOnly = true)
     public String showRemovedData(Model model, @RequestParam HashMap<String, String> params) throws Exception {
         String currentPage = (params.get("page") == null) ? "1": params.get("page");
         String order = params.get("order");
