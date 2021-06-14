@@ -32,6 +32,9 @@ public class RemovedEmployeeController {
     private final String limit = "20";
     Collection<Employee> removedData;
 
+    @GetMapping("/emp/error")
+    public String error(){return "dberror";}
+
     @GetMapping("/emp/removed/{id}")
     public String recoveryRemovedData(Model model, @PathVariable("id") Integer id) {
         PostEmployee emp;
