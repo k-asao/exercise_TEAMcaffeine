@@ -73,7 +73,6 @@ public class JobMemberController {
         Collection<Year> dateList ;
         Collection<Department> deptList;
         Collection<Post> postList;
-        Collection<Employee> searchList;
         try {
             dateList = userDao.selectHireDateAll();
             deptList = userDao.selectDeptAll();

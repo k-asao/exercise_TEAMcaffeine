@@ -111,7 +111,6 @@ public class RemovedEmployeeController {
         Collection<Year> dateList;
         Collection<Department> deptList;
         Collection<Post> postList;
-        Collection<Employee> removedData;
         try {
             dateList = userDao.selectHireDateAll();
             deptList = userDao.selectDeptAll();
